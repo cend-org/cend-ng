@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+@import "./poppins-font.scss";
+
+body{
+    margin: 0px !important;
+}
+body{
+    overflow-y: scroll;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+// body{
+//     -ms-overflow-style: none;  /* IE and Edge */
+//     scrollbar-width: none;  /* Firefox */
+// }

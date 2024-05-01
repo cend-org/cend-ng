@@ -1,0 +1,122 @@
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '0'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold ">Indiquez votre numéro de téléphone ou votre adresse e-mail.</h1>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-2">
+                <div class="flex flex-column gap-2">
+                    <label class="text-sm" for="email">E-mail</label>
+                    <input  class="p-inputtext-sm" pInputText id="email" aria-describedby="email-help" />
+                </div>
+                <button (click)="nextStep('EMAIL')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                <p-divider align="center" class="text-gray-400 font-medium">
+                    <span>Ou</span>
+                    </p-divider>
+                <button  class="cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                    <p-image class="absolute" src="assets/image/google.svg" alt="Image" width="20"></p-image>
+                    <div class="w-full text-gray-600 text-center">Continuer avec google</div>
+                </button>
+                <button  class="cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                    <p-image class="absolute" src="assets/image/apple.svg" alt="Image" width="20"></p-image>
+                    <div class="w-full text-gray-600 text-center">Continuer avec apple</div>
+                </button>
+                <button  class="cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                    <p-image class="absolute" src="assets/image/fb.svg" alt="Image" width="20"></p-image>
+                    <div class="w-full text-gray-600 text-center">Continuer avec facebook</div>
+                </button>
+                <button  class="cursor-pointer bg-blue-50 flex justify-content-between border-none border-round-md align-items-center w-full h-3rem">
+                    <i class="text-gray-600  pi pi-qrcode"></i>
+                    <div class="w-full  text-gray-600 text-center">Connectez-vous avec un qr-code</div>
+                </button>
+                <div class="text-xs text-gray-400 text-center mt-2">
+                    En continuant, vous acceptz de recevoir au numéro fourni des appels, messages WhatsApp ou SMS, y compris de façon automatisée, de la part d'Uber et de ces sociétés affiliées.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '1'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Nous vous avons envoyé un code à votre adresse email, veuillez l'entrer pour confirmer votre identité.</h1>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-4">
+                <div class="card flex justify-content-center">
+                    <p-inputOtp></p-inputOtp>
+                </div>
+                <button (click)="nextStep('OTP')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '2'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez ajouter votre nouveau mot de passe.</h1>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-4">
+                <div class="flex flex-column gap-2">
+                    <label class="text-sm" for="password">Mot de passe</label>
+                    <p-password  weakLabel="Trop simple" mediumLabel="Complexite normale" strongLabel="Mots de pass complex" class="p-inputtext-sm" id="password"  [toggleMask]="true"></p-password>
+                </div>
+
+                <div class="flex flex-column gap-2">
+                    <label class="text-sm" for="re-password">re-entrez votre mot de passe</label>
+                    <p-password [feedback]="false" class="p-inputtext-sm" id="password"  [toggleMask]="true"></p-password>
+                </div>
+
+                <button (click)="nextStep('PASSWORD')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '3'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez remplir les informations suivants.</h1>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-2">
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label for="firstname2">Nom</label>
+                        <input placeholder="Votre nom" id="firstname2" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    </div>
+                    <div class="field col">
+                        <label for="lastname2">Prenom</label>
+                        <input placeholder="votre prenom" id="lastname2" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    </div>
+                </div>
+                
+                <div class="flex-auto">
+                    <label for="icondisplay" class=""> Date de naissance</label>
+                    <p-calendar [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay"></p-calendar>
+                </div>
+
+                <div class="flex flex-column">
+                    <label class="w-full"  for="city" class=""> Ville</label>
+                    <p-dropdown class="w-full" id="city" [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Chhoisissez votre ville" [group]="true">
+                        <ng-template let-group pTemplate="group">
+                            <div class="flex align-items-center">
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                                <span>{{ group.label }}</span>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+               
+                <button (click)="nextStep('ABOUT')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '4'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900 poppins-bold">Nous vous remercions d’avoir créé un compte parent. Nous voudrions avoir un peu plus d’information sur votre enfant et vous suggérer le meilleur tuteur.</h1>
+        <div class="frm poppins-medium">
+        </div>
+        <button (click)="nextStep('')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+    </div>
+</section>

@@ -1,0 +1,106 @@
+<nav class="sm:h-4rem hidden md:block lg:block xl:block" >
+   <div class="w-full h-full flex flex-column md:flex-row lg:flex-row xl:flex-row justify-content-evenly bg-green-600">
+        <section class="section-1 w-6  h-full flex justify-content-center align-items-center flex-row gap-2 ">
+            <p>
+                CEND
+            </p>
+            <p>
+                <button class="p-2 poppins-medium border-none bg-transparent text-white border-round-lg font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg">
+                    Apprenez avec CEND
+                </button>
+            </p>
+            <p>
+                <button class="p-2 poppins-medium border-none bg-transparent text-white border-round-lg font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg">
+                    Tutorat
+                </button>
+            </p>
+                <p-tieredMenu  #aboutMenu [model]="aboutItems" [popup]="true"></p-tieredMenu>
+                <button (click)="aboutMenu.toggle($event)" class="p-2 poppins-medium border-none bg-transparent text-white border-round-lg font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg">
+                    A propos
+                </button>
+        </section>
+        <section class="section-1 w-6  h-full flex justify-content-center align-items-center flex-row gap-2">
+            <p>
+                <button class="p-2 poppins-medium border-none bg-transparent text-white border-round-lg font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg">
+                   Aide
+                </button>
+            </p>
+            <p>
+
+                <p-tieredMenu  #loginMenu [model]="loginItems" [popup]="true"></p-tieredMenu>
+                
+                <button (click)="loginMenu.toggle($event)" class="p-2 poppins-medium border-none bg-transparent text-white border-round-lg font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg">
+                    Se connecter
+                </button>
+            </p>
+            <p>
+                <p-tieredMenu  #registerMenu [model]="registerItems" [popup]="true"></p-tieredMenu>
+                <button (click)="registerMenu.toggle($event)" class="p-2 poppins-medium border-none bg-white text-green-600 border-round-lg font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg">
+                    S'inscrire
+                </button>
+            </p>
+        </section>
+   </div>
+</nav>
+
+<nav class="md:hidden lg:hidden xl:hidden h-3rem w-full sticky bg-green-600" >
+    <div class="w-full h-full flex justify-content-between align-items-center">
+        <div class="w-2 h-full flex align-items-center absolute p-1">
+           <button (click)="onClickMobileMenu()" class="w-full h-full bg-transparent border-none text-xl">
+                <i class="pi pi-bars text-white  font-bold"></i>
+           </button>
+        </div>
+       <div class="w-12 h-full justify-content-center flex align-items-center">
+        <span class="poppins-medium text-white">
+            CEND
+        </span>
+       </div>
+    </div>
+</nav>
+<section *ngIf="showMobileMenu" class="w-full flex flex-column bg-green-500">
+    <div class="w-12 h-2rem flex">
+        <button class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
+            Apprenez avec CEND
+        </button>
+    </div>
+    <div class="w-12 h-2rem flex">
+        <button class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
+            Tutorat
+        </button>
+    </div>
+    <div class="w-12 h-2rem flex">
+        <button routerLink="/pages/about/about-us" class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
+            A propos de nous
+        </button>
+    </div>
+    <div class="w-12 h-2rem flex">
+        <button class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
+            Notre missions
+        </button>
+    </div>
+    <div class="w-12 h-2rem flex">
+        <button class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
+            Les Points forts de CEND
+        </button>
+    </div>
+    <div class="w-12 h-2rem flex">
+        <button class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
+            Comment ça marche
+        </button>
+    </div>
+    <div class="w-12 h-2rem flex">
+        <button class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
+            Aide
+        </button>
+    </div>
+    <div class="w-12 h-2rem flex">
+        <button class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
+            Se connecter
+        </button>
+    </div>
+    <div class="w-12 h-2rem flex">
+        <button class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
+            S'inscrire
+        </button>
+    </div>
+</section>

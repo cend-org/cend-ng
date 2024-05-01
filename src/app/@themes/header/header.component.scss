@@ -1,0 +1,30 @@
+$menu-item-font-size: 13px;
+$menu-item-font-weight: 600;
+
+
+::ng-deep .p-tieredmenu {
+    width: 20rem !important;
+}
+
+::ng-deep .p-menuitem-link{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    font-weight: $menu-item-font-weight;
+    font-size: $menu-item-font-size;
+    font-family: 'poppins-regular';
+}
+::ng-deep .p-menuitem-icon{
+    font-weight: $menu-item-font-weight;
+    font-size: $menu-item-font-size;
+}
+
+::ng-deep .p-button{
+    background-color: rgba(255, 255, 255, 0);
+    color: white;
+}
+
+::ng-deep  .p-button:focus{
+    color: green;
+    border: none;
+}

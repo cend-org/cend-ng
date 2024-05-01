@@ -1,0 +1,258 @@
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '0'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold ">Indiquez votre numéro de téléphone ou votre adresse e-mail.</h1>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-2">
+                <div class="flex flex-column gap-2">
+                    <label class="text-sm" for="email">E-mail</label>
+                    <input  class="p-inputtext-sm" pInputText id="email" aria-describedby="email-help" />
+                </div>
+                <button (click)="nextStep('EMAIL')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                <p-divider align="center" class="text-gray-400 font-medium">
+                    <span>Ou</span>
+                    </p-divider>
+                <button  class="cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                    <p-image class="absolute" src="assets/image/google.svg" alt="Image" width="20"></p-image>
+                    <div class="w-full text-gray-600 text-center">Continuer avec google</div>
+                </button>
+                <button  class="cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                    <p-image class="absolute" src="assets/image/apple.svg" alt="Image" width="20"></p-image>
+                    <div class="w-full text-gray-600 text-center">Continuer avec apple</div>
+                </button>
+                <button  class="cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                    <p-image class="absolute" src="assets/image/fb.svg" alt="Image" width="20"></p-image>
+                    <div class="w-full text-gray-600 text-center">Continuer avec facebook</div>
+                </button>
+                <button  class="cursor-pointer bg-blue-50 flex justify-content-between border-none border-round-md align-items-center w-full h-3rem">
+                    <i class="text-gray-600  pi pi-qrcode"></i>
+                    <div class="w-full  text-gray-600 text-center">Connectez-vous avec un qr-code</div>
+                </button>
+                <div class="text-xs text-gray-400 text-center mt-2">
+                    En continuant, vous acceptz de recevoir au numéro fourni des appels, messages WhatsApp ou SMS, y compris de façon automatisée, de la part d'Uber et de ces sociétés affiliées.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '1'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Nous vous avons envoyé un code à votre adresse email, veuillez l'entrer pour confirmer votre identité.</h1>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-4">
+                <div class="card flex justify-content-center">
+                    <p-inputOtp></p-inputOtp>
+                </div>
+                <button (click)="nextStep('OTP')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '2'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez ajouter votre nouveau mot de passe.</h1>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-4">
+                <div class="flex flex-column gap-2">
+                    <label class="text-sm" for="password">Mot de passe</label>
+                    <p-password  weakLabel="Trop simple" mediumLabel="Complexite normale" strongLabel="Mots de pass complex" class="p-inputtext-sm" id="password"  [toggleMask]="true"></p-password>
+                </div>
+
+                <div class="flex flex-column gap-2">
+                    <label class="text-sm" for="re-password">re-entrez votre mot de passe</label>
+                    <p-password [feedback]="false" class="p-inputtext-sm" id="password"  [toggleMask]="true"></p-password>
+                </div>
+
+                <button (click)="nextStep('PASSWORD')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '3'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez remplir les informations suivants.</h1>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-2">
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label for="firstname2">Nom</label>
+                        <input placeholder="Votre nom" id="firstname2" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    </div>
+                    <div class="field col">
+                        <label for="lastname2">Prenom</label>
+                        <input placeholder="votre prenom" id="lastname2" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    </div>
+                </div>
+                
+                <div class="flex-auto">
+                    <label for="icondisplay" class=""> Date de naissance</label>
+                    <p-calendar [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay"></p-calendar>
+                </div>
+
+                <div class="flex flex-column">
+                    <label class="w-full"  for="city" class=""> Ville</label>
+                    <p-dropdown class="w-full" id="city" [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Chhoisissez votre ville" [group]="true">
+                        <ng-template let-group pTemplate="group">
+                            <div class="flex align-items-center">
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                                <span>{{ group.label }}</span>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+               
+                <button (click)="nextStep('ABOUT')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '4'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez télécharger une photo professionelle:</h1>
+        <div class="mb-2 p-2 flex flex-col justify-content-center gap-3">
+            <i class="pi pi-info-circle text-green-500" style="font-size: 1rem" ></i>
+            <span class="text-xs text-thin text-gray-400">
+                    Tuteur qui ont l'air amicaux et professionels recoivent plus d'etudiants
+                </span>
+          </div>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-4">
+                <div class="card flex justify-content-center">
+                    <p-toast></p-toast>
+                    <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedPhotoFiles.length">
+                                <li *ngFor="let file of uploadedPhotoFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+                <button (click)="nextStep('PHOTO')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 
+
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '5'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">A quel niveau scolaire êtes vous ?</h1>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-4">
+                <p-scrollPanel  class="card flex justify-content-center h-30rem">
+                    <div class="flex flex-column gap-3">
+                        <div *ngFor="let schoolLevel of schoolLevels" class="field-checkbox">
+                            <p-radioButton [inputId]="schoolLevel.key" name="category" [value]="schoolLevel" [(ngModel)]="selectedSchoolLevel"></p-radioButton>
+                            <label [for]="schoolLevel.key" class="ml-2">{{ schoolLevel.name }}</label>
+                        </div>
+                    </div>
+                </p-scrollPanel>
+                <button (click)="nextStep('SCHOOL_LEVEL')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '6'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Dans quelle matière avez vous besoin d'aide ?</h1>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-4">
+                <p-scrollPanel  class="card flex justify-content-center">
+                    <div class="flex flex-column gap-3">
+                        <div *ngFor="let subject of subjects" class="field-checkbox">
+                            <p-radioButton [inputId]="subject.key" name="category" [value]="subject" [(ngModel)]="selectedSubject"></p-radioButton>
+                            <label [for]="subject.key" class="ml-2">{{ subject.name }}</label>
+                        </div>
+                    </div>
+                </p-scrollPanel>
+                <button (click)="nextStep('SUBJECT')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '7'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Vous feriez des cours en ligne ou en présentiel ?</h1>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-4">
+                <div  class="card">
+                    <div class="flex flex-column gap-3">
+                        <div *ngFor="let courseType of courseTypes" class="field-checkbox">
+                            <p-radioButton [inputId]="courseType.key" name="category" [value]="courseType" [(ngModel)]="selectedSubject"></p-radioButton>
+                            <div class="relative w-full">
+                                <label [for]="courseType.key" class="ml-2">{{ courseType.name }}</label>
+                                <label class="text-xs text-gray-400 mt-1 absolute w-full left-0 pl-2 pt-3">{{ courseType.description }}</label>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+                <button (click)="nextStep('COURSE_TYPE')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '8'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Quelles sont vos disponnibilités pour la premiere rencontre avec le tuteur?</h1>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-2">
+                <div class="flex-auto">
+                    <label for="icondisplay" class="">Vous préférez demain à</label>
+                    <p-calendar [showTime]="true"  [timeOnly]="true" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay">
+                        <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+                            <i class="pi pi-clock pointer-events-none" (click)="clickCallBack($event)"></i>
+                        </ng-template>
+                    </p-calendar>
+                </div>
+
+                <div class="flex-auto">
+                    <label for="icondisplay" class="">Ou</label>
+                    <div  class="card flex  h-10rem w-100 overflow-y-scroll pt-3 pb-3 border-1 border-gray-300 p-3 border-round-md">
+                        <div class="flex flex-column gap-3">
+                            <div *ngFor="let day of days" class="field-checkbox">
+                                <p-radioButton [inputId]="day.key" name="category" [value]="day" [(ngModel)]="selectedDays"></p-radioButton>
+                                <label [for]="day.key" class="ml-2">{{ day.name }}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-auto">
+                    <label for="icondisplay" class="">à</label>
+                    <p-calendar [showTime]="true"  [timeOnly]="true" [iconDisplay]="'input'" [showIcon]="true" Icon="pi pi-user" inputId="icondisplay">
+                        <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+                            <i class="pi pi-clock pointer-events-none" (click)="clickCallBack($event)"></i>
+                        </ng-template>
+                    </p-calendar>
+                </div>
+                <button (click)="nextStep('AVAILABILITY')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '9'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900 poppins-bold">Voici le meilleur tuteur pour convenir à vos besoins:</h1>
+        <div class="frm poppins-medium">
+        </div>
+    </div>
+</section> -->

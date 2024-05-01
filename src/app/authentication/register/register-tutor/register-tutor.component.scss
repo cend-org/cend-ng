@@ -1,0 +1,14 @@
+::ng-deep .p-fileupload-buttonbar{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+::ng-deep .p-fileupload-buttonbar > .p-button{
+    background-color: green;
+    color: white;
+}
+
+::ng-deep .p-fileupload-buttonbar > .p-disabled{
+    background-color: gray;
+    color: darkgray;
+}
