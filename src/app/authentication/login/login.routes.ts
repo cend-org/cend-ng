@@ -24,7 +24,7 @@ const routes: Routes = [
                 component: LoginTutorComponent
               },
               {
-                path: 'professor',
+                path: 'teacher',
                 component: LoginProfesorComponent
               },
         ]

@@ -9,10 +9,12 @@ import { ApiValidationService } from "../services/api-validation.service";
 import { LangConfigService } from "../@core/services/lang-config.service";
 import { LocalLangConfigService } from "../services/local-lang-config.service";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HeaderService } from "../@core/services/header.service";
 
 export const COMMON_PROVIDER = [
     ApiService, 
     MessageService,
+    HeaderService, 
     {provide: AuthService, useClass: ApiAuthService},
     {provide: LocalStorageService, useClass: ApiLocalStorageService},
     {provide: ValidationService, useClass: ApiValidationService},
