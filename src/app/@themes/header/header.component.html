@@ -1,27 +1,27 @@
-<nav class="sm:h-4rem hidden md:block lg:block xl:block" >
-   <div class="w-full h-full flex flex-column md:flex-row lg:flex-row xl:flex-row justify-content-evenly bg-green-600">
+<nav class="sm:h-4rem hidden md:block lg:block xl:block fixed w-full z-5" >
+   <div class="w-full h-full flex flex-column md:flex-row lg:flex-row xl:flex-row justify-content-evenly bg-background-main">
         <section class="section-1 w-6  h-full flex justify-content-center align-items-center flex-row gap-2 ">
-            <p>
+            <a routerLink="/pages/landing" class="text-3xl poppins-bold font-semibold text-white p-1 cursor-pointer no-underline">
                 CEND
-            </p>
+            </a>
             <p>
-                <button class="p-2 poppins-medium border-none bg-transparent text-white border-round-lg font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg">
+                <button class="p-2 poppins-medium border-none bg-transparent text-white border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-3xl">
                     Apprenez avec CEND
                 </button>
             </p>
             <p>
-                <button class="p-2 poppins-medium border-none bg-transparent text-white border-round-lg font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg">
+                <button class="p-2 poppins-medium border-none bg-transparent text-white border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-3xl">
                     Tutorat
                 </button>
             </p>
                 <p-tieredMenu  #aboutMenu [model]="aboutItems" [popup]="true"></p-tieredMenu>
-                <button (click)="aboutMenu.toggle($event)" class="p-2 poppins-medium border-none bg-transparent text-white border-round-lg font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg">
+                <button (click)="aboutMenu.toggle($event)" class="p-2 poppins-medium border-none bg-transparent text-white border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg">
                     A propos
                 </button>
         </section>
         <section class="section-1 w-6  h-full flex justify-content-center align-items-center flex-row gap-2">
             <p>
-                <button class="p-2 poppins-medium border-none bg-transparent text-white border-round-lg font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg">
+                <button class="p-2 poppins-medium border-none bg-transparent text-white border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-3xl">
                    Aide
                 </button>
             </p>
@@ -29,13 +29,13 @@
 
                 <p-tieredMenu  #loginMenu [model]="loginItems" [popup]="true"></p-tieredMenu>
                 
-                <button (click)="loginMenu.toggle($event)" class="p-2 poppins-medium border-none bg-transparent text-white border-round-lg font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg">
+                <button (click)="loginMenu.toggle($event)" class="p-2 poppins-medium border-none bg-transparent text-white border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg">
                     Se connecter
                 </button>
             </p>
             <p>
                 <p-tieredMenu  #registerMenu [model]="registerItems" [popup]="true"></p-tieredMenu>
-                <button (click)="registerMenu.toggle($event)" class="p-2 poppins-medium border-none bg-white text-green-600 border-round-lg font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg">
+                <button (click)="registerMenu.toggle($event)" class="p-2 poppins-medium border-none bg-white text-green-600 border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg hover:text-white">
                     S'inscrire
                 </button>
             </p>
@@ -43,32 +43,54 @@
    </div>
 </nav>
 
-<nav class="md:hidden lg:hidden xl:hidden h-3rem w-full sticky bg-green-600" >
+<nav class="md:hidden lg:hidden xl:hidden h-3rem w-full fixed bg-green-600 z-5" >
     <div class="w-full h-full flex justify-content-between align-items-center">
-        <div class="w-2 h-full flex align-items-center absolute p-1">
-           <button (click)="onClickMobileMenu()" class="w-full h-full bg-transparent border-none text-xl">
-                <i class="pi pi-bars text-white  font-bold"></i>
+        <div class="w-2 h-full flex justify-content-start align-items-center absolute p-1">
+            <a routerLink="/pages/landing" class="poppins-bold text-white p-1 text-xl no-underline">
+                CEND
+            </a>
+           <button (click)="onClickMobileMenu()" class="flex justify-content-center align-items-center  h-full bg-transparent border-none text-2xl">
+                <i *ngIf="!showMobileMenu" class="pi pi-bars text-white  font-bold text-xl"></i>
+                <i *ngIf="showMobileMenu" class="pi pi-times text-white  font-bold text-xl"></i>
            </button>
         </div>
-       <div class="w-12 h-full justify-content-center flex align-items-center">
-        <span class="poppins-medium text-white">
-            CEND
-        </span>
+       <div class="w-12 h-full justify-content-end flex align-items-center">
+        <p-tieredMenu class="mobile-auth-buttons" #loginMobileMenu [model]="loginItems" [popup]="true"></p-tieredMenu>
+        <p-tieredMenu class="mobile-auth-buttons" #registerMobileMenu [model]="registerItems" [popup]="true"></p-tieredMenu>
+        <button (click)="loginMobileMenu.toggle($event)" class="p-2 px-4 h-6 poppins-medium border-none bg-transparent text-white border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg hover:text-bluegray-200">
+            Se connecter
+        </button>
+        <button (click)="registerMobileMenu.toggle($event)" class="mr-2 text-green-600 bg-white p-2 px-4 h-6 poppins-medium border-none border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-3xl">
+            S'inscrire
+        </button>
        </div>
     </div>
 </nav>
-<section *ngIf="showMobileMenu" class="w-full flex flex-column bg-green-500">
-    <div class="w-12 h-2rem flex">
-        <button class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
+<section *ngIf="showMobileMenu" class="w-full flex flex-column bg-white shadow-2 py-3 fixed mt-6 z-5">
+    <div class="w-12 h-2.5rem flex">
+        <button class="text-lg poppins-regular text-gray-800  text-left w-full p-2 poppins-medium border-none bg-transparent font-medium text-sm cursor-pointer hover:bg-green-500 ">
             Apprenez avec CEND
         </button>
     </div>
-    <div class="w-12 h-2rem flex">
-        <button class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
+    <div class="w-12 h-2.5rem flex">
+        <button class="text-lg poppins-regular text-gray-800 text-left w-full p-2 poppins-medium border-none bg-transparent  font-medium text-sm cursor-pointer hover:bg-green-500 ">
             Tutorat
         </button>
     </div>
-    <div class="w-12 h-2rem flex">
+    <div class="w-12 h-2.5rem flex">
+        <button (click)="onClickMobileAbourMenu()" class="text-lg poppins-regular  text-gray-800 flex inline align-items-center gap-3   text-left w-full p-2 poppins-medium border-none bg-transparent  font-medium text-sm cursor-pointer hover:bg-green-500 ">
+           <span> A propos</span>
+           <i *ngIf="!showMobileAboutMenu" class="pi pi-angle-down"></i>
+           <i *ngIf="showMobileAboutMenu" class="pi pi-angle-up"></i>
+        </button>
+    </div>
+    <div class="w-full flex flex-column pl-4" *ngIf="showMobileAboutMenu">
+        <button *ngFor="let aboutItem of aboutItems" (click)="onClickLinks(aboutItem.routerLink)" class="w-full flex inline justify-content-between align-items-center text-lg poppins-regular text-gray-800 text-left w-full p-2 poppins-medium border-none bg-transparent  font-medium text-sm cursor-pointer hover:bg-green-500 ">
+            <span>{{aboutItem.label}}</span>
+            <i class="{{aboutItem.icon}}"></i>
+        </button>
+    </div>
+    <!-- <div class="w-12 h-2rem flex">
         <button routerLink="/pages/about/about-us" class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
             A propos de nous
         </button>
@@ -102,5 +124,5 @@
         <button class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
             S'inscrire
         </button>
-    </div>
+    </div> -->
 </section>

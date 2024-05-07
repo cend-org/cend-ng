@@ -1,12 +1,17 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 import { COMMON_PROVIDER } from './@themes/common.provider';
+import { graphqlProvider } from './graphql.provider';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpLoaderFactory } from './i18n.factory';
+import { provideToastr } from 'ngx-toastr';
+import { ApolloInterceptor } from './@core/interceptors/graph.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,6 +20,23 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(), 
     CommonModule,
     provideHttpClient(withFetch()), 
-    COMMON_PROVIDER,
-  ]
+    COMMON_PROVIDER, 
+    graphqlProvider,
+    importProvidersFrom(TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })),
+    provideToastr({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-center',
+      preventDuplicates: true,
+      progressBar: true,
+      easeTime: 300,
+
+    }),
+    { provide: HTTP_INTERCEPTORS, useClass: ApolloInterceptor, multi: true },
+  ],
 };

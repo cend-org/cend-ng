@@ -1,0 +1,43 @@
+<div class="w-full flex justify-content-center mt-8">
+    <div class="w-8 md:w-6 lg:w-6 xl:6-6 flex flex-column gap-4">
+        <div class=" gap-1 w-full flex flex-column-reverse md:flex-row lg:flex-row xl:flex-row justify-content-between " style="word-wrap: break-word !important; overflow-wrap: break-word !important;">
+            <div class="w-full flex flex-column justify-content-center md:justify-content-start lg:justify-content-start xl:justify-content-start  align-content-center text-center md:text-left lg:text-left xl:text-left" >
+                <p-skeleton class="w-full" styleClass="mb-1"  height="2rem"></p-skeleton>
+                <p-skeleton class="w-full"  styleClass="mb-1"  height="2rem"></p-skeleton>
+                <p-skeleton class="w-full"  styleClass="mb-1"  height="2rem"></p-skeleton>
+                <p-skeleton class="w-full"  styleClass="mb-1"  height="2rem"></p-skeleton>
+            </div>
+            <div class="w-full flex md:justify-content-end lg:justify-content-end xl:justify-content-end justify-content-center align-items-center">
+                <p-skeleton size="10rem"></p-skeleton>
+            </div>
+        </div>
+        <div class="w-full h-15rem flex flex-column gap-1 md:gap-2 lg:gap-2 xl:gap-2">
+            <div class="w-full h-full flex flex-column md:flex-row lg:flex-row xl:flex-row  gap-1 md:gap-4 lg:gap-4 xl:gap-4">
+                <section class="w-full md:w-6 lg:w-6 xl:w-6  h-full flex align-items-center">
+                    <p-skeleton class="w-full" height="6rem" styleClass="mb-0"></p-skeleton>
+                </section>
+                <section class="w-full md:w-6 lg:w-6 xl:w-6  h-full flex align-items-center">
+                    <p-skeleton class="w-full" height="6rem" styleClass="mb-0"></p-skeleton>
+                </section>
+            </div>
+            <div class="w-full h-full flex flex-column md:flex-row lg:flex-row xl:flex-row gap-1 md:gap-4 lg:gap-4 xl:gap-4">
+                <section class="w-full md:w-6 lg:w-6 xl:w-6  h-full flex align-items-center">
+                    <p-skeleton class="w-full" height="6rem" styleClass="mb-0"></p-skeleton>
+                </section>
+                <section class="w-full md:w-6 lg:w-6 xl:w-6  h-full flex align-items-center">
+                    <p-skeleton class="w-full" height="6rem" styleClass="mb-0"></p-skeleton>
+                </section>
+            </div>
+         </div>
+    </div>
+</div>
+<p-confirmDialog>
+    <ng-template pTemplate="headless" let-message>
+        <div class="flex flex-column align-items-center p-3 surface-overlay border-round">
+            <div class="border-circle bg-primary inline-flex justify-content-center align-items-center h-4rem w-4rem -mt-6">
+                <i class="pi pi-spin  pi-spinner-dotted text-5xl"></i>
+            </div>
+            <span class="font-semibold text-xl block mb-2 mt-2"><span class="text-green-600 ">CEND</span>{{"is_loading" | translate}}</span>
+        </div>
+    </ng-template>
+</p-confirmDialog>

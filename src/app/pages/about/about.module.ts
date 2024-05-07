@@ -6,7 +6,7 @@ import { OurMissionComponent } from './our-mission/our-mission.component';
 import { StrongPointComponent } from './strong-point/strong-point.component';
 import { HowItWorksComponent } from './how-it-works/how-it-works.component';
 import { AboutRoutingModule } from './about.routes';
-
+import { DividerModule } from 'primeng/divider';
 
 
 @NgModule({
@@ -19,7 +19,8 @@ import { AboutRoutingModule } from './about.routes';
   ],
   imports: [
     CommonModule,
-    AboutRoutingModule
+    AboutRoutingModule,
+    DividerModule
   ]
 })
 export class AboutModule { }

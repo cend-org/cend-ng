@@ -3,6 +3,10 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 @import "./poppins-font.scss";
+@import 'ngx-toastr/toastr';
+
+$main-bg-color: #3A9B23;
+$main-text-color: #3A9B23;
 
 body{
     margin: 0px !important;

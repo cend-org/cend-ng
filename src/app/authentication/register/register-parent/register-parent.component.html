@@ -7,25 +7,27 @@
                     <label class="text-sm" for="email">E-mail</label>
                     <input  class="p-inputtext-sm" pInputText id="email" aria-describedby="email-help" />
                 </div>
-                <button (click)="nextStep('EMAIL')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                <button  (click)="nextStep('EMAIL')" size="small" pButton pRipple label="Continuer" class="cursor-pointer bg-color-main w-full  text-white hover:bg-green-600 border-none"></button>
                 <p-divider align="center" class="text-gray-400 font-medium">
                     <span>Ou</span>
                     </p-divider>
-                <button  class="cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                <button  class="hover:border-2 hover:border-blue-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
                     <p-image class="absolute" src="assets/image/google.svg" alt="Image" width="20"></p-image>
                     <div class="w-full text-gray-600 text-center">Continuer avec google</div>
                 </button>
-                <button  class="cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                <button  class="hover:border-2 hover:border-blue-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
                     <p-image class="absolute" src="assets/image/apple.svg" alt="Image" width="20"></p-image>
                     <div class="w-full text-gray-600 text-center">Continuer avec apple</div>
                 </button>
-                <button  class="cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                <button  class="hover:border-2 hover:border-blue-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
                     <p-image class="absolute" src="assets/image/fb.svg" alt="Image" width="20"></p-image>
                     <div class="w-full text-gray-600 text-center">Continuer avec facebook</div>
                 </button>
-                <button  class="cursor-pointer bg-blue-50 flex justify-content-between border-none border-round-md align-items-center w-full h-3rem">
-                    <i class="text-gray-600  pi pi-qrcode"></i>
-                    <div class="w-full  text-gray-600 text-center">Connectez-vous avec un qr-code</div>
+                <button  class="text-gray-600 hover:text-blue-500  cursor-pointer bg-blue-50 flex justify-content-between border-none border-round-md align-items-center w-full h-3rem">
+                    <i class="pi pi-qrcode"></i>
+                    <div class="w-full text-center">
+                        Connectez-vous avec une qr-code
+                    </div>
                 </button>
                 <div class="text-xs text-gray-400 text-center mt-2">
                     En continuant, vous acceptz de recevoir au numéro fourni des appels, messages WhatsApp ou SMS, y compris de façon automatisée, de la part d'Uber et de ces sociétés affiliées.

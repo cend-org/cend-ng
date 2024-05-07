@@ -17,7 +17,7 @@ interface UploadEvent {
 export class RegisterTutorComponent {
   constructor(private messageService: MessageService) {}
 
-  registrationStateStep: TutorRegisterStepEnum = TutorRegisterStepEnum.PHOTO
+  registrationStateStep: TutorRegisterStepEnum = TutorRegisterStepEnum.EMAIL
   groupedCities: SelectItemGroup[] | undefined;
   selectedCity: string | undefined;
   selectedlanguage: any = null;

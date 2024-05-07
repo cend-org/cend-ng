@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { StudentRegisterStepEnum } from '../../../@core/enumerations/student-register-step.enum';
 import { SelectItemGroup } from 'primeng/api';
+import { ValidationService } from '../../../@core/services/validation.service';
+import { RegistrationWithEmailreq, RegistrationWithInforeq } from '../../../@core/entities/requests/registration-req';
+import { Apollo } from 'apollo-angular';
+import { PASSWORD, REGISTRATION } from '../../../services/graphs/auth.graph';
+import { LocalStorageService } from '../../../@core/services/local-storage.service';
+import { environment } from '../../../environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register-student',
@@ -8,7 +15,24 @@ import { SelectItemGroup } from 'primeng/api';
   styleUrl: './register-student.component.scss'
 })
 export class RegisterStudentComponent {
+  constructor(
+    private validationService: ValidationService, 
+    private apolloService: Apollo, 
+    private locaStorageService: LocalStorageService,
+    private toastrService: ToastrService
+  ){}
+  inputNotValid: boolean = false;
+  
+  error_message: string = '';
+
+  email: string = "";
+  password: string = "";
+  passwordConfirm: string = "";
+
+  registrationProfileInfoReq: RegistrationWithInforeq = new RegistrationWithInforeq();
+
   registrationStateStep: StudentRegisterStepEnum = StudentRegisterStepEnum.EMAIL
+  loading: boolean = false;
   groupedCities: SelectItemGroup[] | undefined;
   selectedCity: string | undefined;
   selectedlanguage: any = null;
@@ -16,6 +40,9 @@ export class RegisterStudentComponent {
   selectedSubject: any = null;
   selectedcourseType:any = null;
   selectedDays:any = null;
+
+  
+
 
   languages: any[] = [
     { name: 'Français', key: 'F', default:'Par défaut'},
@@ -60,9 +87,7 @@ days: any[] = [
   { name: 'Dimanche', key: 'D' },
 ];
   nextStep(current: string){
-    if (current == "EMAIL"){
-      this.registrationStateStep = StudentRegisterStepEnum.OTP
-    }
+
 
     if (current == "OTP"){
       this.registrationStateStep = StudentRegisterStepEnum.PASSWORD
@@ -131,5 +156,54 @@ days: any[] = [
           ]
       }
   ];
+  }
+
+  registerWithEmail(){
+    this.loading  = true;
+    this.apolloService.mutate({
+      mutation: REGISTRATION.WITH_EMAIL,
+      variables: {
+        input: this.email,
+      }
+    }).subscribe({
+      next: (response)=>{
+        let resp: any = response.data;
+        if(resp){
+          this.locaStorageService.save(`${environment.cend_default_lang_id}_tkn`, resp["registerWithEmail"]);
+          this.registrationStateStep = StudentRegisterStepEnum.PASSWORD;
+          this.inputNotValid = false;
+        };
+        this.loading = false;
+      },
+      error: (e)=>{
+        this.inputNotValid = true;
+        this.error_message = e.message;
+        this.loading = false
+      }
+    });
+  }
+
+
+  setNewPassword(){
+    if(this.password != this.passwordConfirm){
+      this.toastrService.error("les mots de passes ne sont pas conforme!");
+      return;
+    }
+    this.loading = true;
+    this.apolloService.mutate({
+      mutation: PASSWORD.NEW_PASSWORD,
+      variables: {
+        password: this.password,
+      }
+    }).subscribe({
+      next: (response)=>{
+        this.registrationStateStep = StudentRegisterStepEnum.ABOUT;
+        this.loading = false
+      },
+      error: (e)=>{
+        this.toastrService.error('', e.message);
+        this.loading = false;
+      }
+    });
   }
 }

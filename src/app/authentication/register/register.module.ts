@@ -19,6 +19,10 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ThemesModule } from '../../@themes/themes.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ApolloInterceptor } from '../../@core/interceptors/graph.interceptor';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,12 @@ import { ToastModule } from 'primeng/toast';
    RadioButtonModule,
    ScrollPanelModule,
    FileUploadModule,
-   ToastModule
+   ToastModule,
+   InputTextareaModule,
+   ThemesModule,
+  ],
+  providers:[
+    { provide: HTTP_INTERCEPTORS, useClass: ApolloInterceptor, multi: true },
   ]
 })
 export class RegisterModule { }

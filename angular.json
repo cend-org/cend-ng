@@ -10,6 +10,13 @@
           "style": "scss"
         }
       },
+      "i18n" : {
+        "locales": {
+          "fr": "src/assets/i18n/fr.json",
+          "en": "src/assets/i18n/en.json"
+        }
+
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -31,9 +38,10 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/themes/lara-light-green/theme.css",
               "node_modules/primeng/resources/primeng.min.css", 
-              "node_modules/primeflex/primeflex.css"
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",

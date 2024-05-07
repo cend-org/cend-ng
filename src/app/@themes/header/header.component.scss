@@ -1,9 +1,21 @@
 $menu-item-font-size: 13px;
 $menu-item-font-weight: 600;
+$main-bg-color: #3A9B23;
+$main-text-color: #3A9B23;
 
 
-::ng-deep .p-tieredmenu {
-    width: 20rem !important;
+.bg-background-main{
+    background-color: $main-bg-color;
+}
+
+::ng-deep {
+    .p-tieredmenu {
+        width: 20rem !important;
+
+        .mobile-auth-buttons & {
+            width: 100% !important;
+        }
+    }
 }
 
 ::ng-deep .p-menuitem-link{

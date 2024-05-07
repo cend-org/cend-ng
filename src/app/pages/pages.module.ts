@@ -5,6 +5,13 @@ import { PagesRoutingModule } from './pages.routes';
 import { AboutModule } from './about/about.module';
 import { LandingComponent } from './landing/landing.component';
 import { ImageModule } from 'primeng/image';
+import { DividerModule } from 'primeng/divider';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ThemesModule } from '../@themes/themes.module';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
+import { SkeletonModule } from 'primeng/skeleton';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 @NgModule({
@@ -14,9 +21,15 @@ import { ImageModule } from 'primeng/image';
   ],
   imports: [
     CommonModule,
+    TranslateModule,
     PagesRoutingModule,
     AboutModule,
-    ImageModule
-  ]
+    ImageModule,
+    DividerModule, 
+    ThemesModule,
+    SkeletonModule,
+    DialogModule,
+    ConfirmDialogModule
+  ],
 })
 export class PagesModule { }

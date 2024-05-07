@@ -11,6 +11,10 @@ import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { ImageModule } from 'primeng/image';
 import { MainLoginComponent } from './main-login/main-login.component';
+import { ThemesModule } from '../../@themes/themes.module';
+import { ToastModule } from 'primeng/toast';
+import { MessagesModule } from 'primeng/messages';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,11 @@ import { MainLoginComponent } from './main-login/main-login.component';
    InputTextModule,
    ButtonModule,
    DividerModule,
-   ImageModule
-  ]
+   ImageModule,
+   ThemesModule,
+   ToastModule,
+   MessagesModule,
+   FormsModule,
+  ], 
 })
 export class LoginModule { }

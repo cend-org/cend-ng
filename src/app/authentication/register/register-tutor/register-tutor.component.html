@@ -7,25 +7,28 @@
                     <label class="text-sm" for="email">E-mail</label>
                     <input  class="p-inputtext-sm" pInputText id="email" aria-describedby="email-help" />
                 </div>
-                <button (click)="nextStep('EMAIL')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                <button  (click)="nextStep('EMAIL')" size="small" pButton pRipple label="Continuer" class="cursor-pointer bg-color-main w-full  text-white hover:bg-green-600 border-none"></button>
+
                 <p-divider align="center" class="text-gray-400 font-medium">
                     <span>Ou</span>
                     </p-divider>
-                <button  class="cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                <button  class="hover:border-2 hover:border-blue-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
                     <p-image class="absolute" src="assets/image/google.svg" alt="Image" width="20"></p-image>
                     <div class="w-full text-gray-600 text-center">Continuer avec google</div>
                 </button>
-                <button  class="cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                <button  class="hover:border-2 hover:border-blue-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
                     <p-image class="absolute" src="assets/image/apple.svg" alt="Image" width="20"></p-image>
                     <div class="w-full text-gray-600 text-center">Continuer avec apple</div>
                 </button>
-                <button  class="cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                <button  class="hover:border-2 hover:border-blue-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
                     <p-image class="absolute" src="assets/image/fb.svg" alt="Image" width="20"></p-image>
                     <div class="w-full text-gray-600 text-center">Continuer avec facebook</div>
                 </button>
-                <button  class="cursor-pointer bg-blue-50 flex justify-content-between border-none border-round-md align-items-center w-full h-3rem">
-                    <i class="text-gray-600  pi pi-qrcode"></i>
-                    <div class="w-full  text-gray-600 text-center">Connectez-vous avec un qr-code</div>
+                <button  class="text-gray-600 hover:text-blue-500  cursor-pointer bg-blue-50 flex justify-content-between border-none border-round-md align-items-center w-full h-3rem">
+                    <i class="pi pi-qrcode"></i>
+                    <div class="w-full text-center">
+                        Connectez-vous avec une qr-code
+                    </div>
                 </button>
                 <div class="text-xs text-gray-400 text-center mt-2">
                     En continuant, vous acceptz de recevoir au numéro fourni des appels, messages WhatsApp ou SMS, y compris de façon automatisée, de la part d'Uber et de ces sociétés affiliées.
@@ -123,9 +126,9 @@
           </div>
         <div class="frm poppins-medium">
             <div class="w-full flex flex-column gap-4">
-                <div class="card flex justify-content-center">
+                <div class="w-full">
                     <p-toast></p-toast>
-                    <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000">
+                    <p-fileUpload  name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [uploadLabel]="'Télécharger'" [cancelLabel]="'Annuler'" [chooseLabel]="'choisir'"  [multiple]="false"  accept="image/*" maxFileSize="1000000">
                         <ng-template pTemplate="content">
                             <ul *ngIf="uploadedPhotoFiles.length">
                                 <li *ngFor="let file of uploadedPhotoFiles">{{ file.name }} - {{ file.size }} bytes</li>
@@ -139,7 +142,139 @@
         </div>
     </div>
 </section>
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '5'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez mettre une vidéos de présentation:</h1>
+        <div class="mb-2 p-2 flex flex-col justify-content-center gap-3">
+            <i class="pi pi-info-circle text-green-500" style="font-size: 1rem" ></i>
+            <span class="text-xs text-thin text-gray-400">
+                Bonne énergie! Saluer ! Donner le goût de faire affaire avec toi, les invisé à prendre un essai et parler de pourquoi vous puvez les aider.
+                </span>
+          </div>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-4">
+                <div class="w-full">
+                    <p-toast></p-toast>
+                    <p-fileUpload  name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [uploadLabel]="'Télécharger'" [cancelLabel]="'Annuler'" [chooseLabel]="'choisir'"  [multiple]="false"  accept="image/*" maxFileSize="1000000">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedPhotoFiles.length">
+                                <li *ngFor="let file of uploadedPhotoFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+                <button (click)="nextStep('VIDEO')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+            </div>
+        </div>
+    </div>
+</section>
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '6'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez télécharger une curriculum de chaque diplome que tu as reçu et reçoit un badge de certificat :</h1>
+        <div class="mb-2 p-2 flex flex-col justify-content-center gap-3">
+            <i class="pi pi-info-circle text-green-500" style="font-size: 1rem" ></i>
+            <span class="text-xs text-thin text-gray-400">
+                En nous envoyons vos diplômes nous pourions les confirmers pour accroître votre crédibilité.
+                </span>
+          </div>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-4">
+                <div class="w-full">
+                    <p-toast></p-toast>
+                    <p-fileUpload  name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [uploadLabel]="'Télécharger'" [cancelLabel]="'Annuler'" [chooseLabel]="'choisir'"  [multiple]="false"  accept="image/*" maxFileSize="1000000">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedPhotoFiles.length">
+                                <li *ngFor="let file of uploadedPhotoFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+                <button (click)="nextStep('CV')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+            </div>
+        </div>
+    </div>
+</section>
 
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '7'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Description du profil.</h1>
+        <div class="mb-2 p-2 flex flex-col justify-content-center gap-3">
+            <i class="pi pi-info-circle text-green-500" style="font-size: 1rem" ></i>
+            <span class="text-xs text-thin text-gray-400">
+                En nous envoyons vos diplômes nous pourions les confirmers pour accroître votre crédibilité.
+                </span>
+          </div>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-4">
+                <div class="flex flex-column gap-2 w-full">
+                    <div class="flex flex-column gap-2 w-full">
+                        <label class="text-xs text-gray-400"  for="description-1">1. Veuillez-vous présenter</label>
+                        <textarea class="bg-gray-50" id="description-1" rows="5" cols="30" pInputTextarea ></textarea>
+                    </div> 
+                </div>
+                <div class="flex flex-column gap-2 w-full">
+                    <div class="flex flex-column gap-2 w-full">
+                        <label class="text-xs text-gray-400"  for="description-1">2. Expérience d'enseignement</label>
+                        <textarea class="bg-gray-50" id="description-1" rows="5" cols="30" pInputTextarea ></textarea>
+                    </div> 
+                </div>
+                <div class="flex flex-column gap-2 w-full">
+                    <div class="flex flex-column gap-2 w-full">
+                        <label class="text-xs text-gray-400"  for="description-1">3.Motive les futures étudiants</label>
+                        <textarea class="bg-gray-50" id="description-1" rows="5" cols="30" pInputTextarea ></textarea>
+                    </div> 
+                </div>
+                <button (click)="nextStep('DESCRIPTION')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '8'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Vous feriez des cours en ligne ou en présentiel ?</h1>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-4">
+                <div  class="card">
+                    <div class="flex flex-column gap-3">
+                        <div *ngFor="let courseType of courseTypes" class="field-checkbox">
+                            <p-radioButton [inputId]="courseType.key" name="category" [value]="courseType" [(ngModel)]="selectedSubject"></p-radioButton>
+                            <div class="relative w-full">
+                                <label [for]="courseType.key" class="ml-2">{{ courseType.name }}</label>
+                                <label class="text-xs text-gray-400 mt-1 absolute w-full left-0 pl-2 pt-3">{{ courseType.description }}</label>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+                <button (click)="nextStep('COURSE_TYPE')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '9'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez définir votre disponnibilité</h1>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-2 w-full">
+                <div class="w-full h-full p-4">
+                    <p-calendar  [inline]="true" [showWeek]="true" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay">
+                    </p-calendar>
+                </div>
+                <button (click)="nextStep('AVAILABILITY')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                
+            </div>
+        </div>
+    </div>
+</section>
+<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '10'">
+    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900 poppins-bold">Votre demande est en attente de confirmation!</h1>
+        <div class="frm poppins-medium">
+        </div>
+    </div>
+</section>
 <!-- 
 
 <section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '5'">
@@ -184,69 +319,10 @@
     </div>
 </section>
 
-<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '7'">
-    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
-        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Vous feriez des cours en ligne ou en présentiel ?</h1>
-        <div class="frm poppins-medium">
-            <div class="w-full flex flex-column gap-4">
-                <div  class="card">
-                    <div class="flex flex-column gap-3">
-                        <div *ngFor="let courseType of courseTypes" class="field-checkbox">
-                            <p-radioButton [inputId]="courseType.key" name="category" [value]="courseType" [(ngModel)]="selectedSubject"></p-radioButton>
-                            <div class="relative w-full">
-                                <label [for]="courseType.key" class="ml-2">{{ courseType.name }}</label>
-                                <label class="text-xs text-gray-400 mt-1 absolute w-full left-0 pl-2 pt-3">{{ courseType.description }}</label>
-                           </div>
-                        </div>
-                    </div>
-                </div>
-                <button (click)="nextStep('COURSE_TYPE')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
-                
-            </div>
-        </div>
-    </div>
-</section>
 
 
-<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '8'">
-    <div class="w-10 md:w-3 lg-w-3 xl:w-3">
-        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Quelles sont vos disponnibilités pour la premiere rencontre avec le tuteur?</h1>
-        <div class="frm poppins-medium">
-            <div class="w-full flex flex-column gap-2">
-                <div class="flex-auto">
-                    <label for="icondisplay" class="">Vous préférez demain à</label>
-                    <p-calendar [showTime]="true"  [timeOnly]="true" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay">
-                        <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
-                            <i class="pi pi-clock pointer-events-none" (click)="clickCallBack($event)"></i>
-                        </ng-template>
-                    </p-calendar>
-                </div>
 
-                <div class="flex-auto">
-                    <label for="icondisplay" class="">Ou</label>
-                    <div  class="card flex  h-10rem w-100 overflow-y-scroll pt-3 pb-3 border-1 border-gray-300 p-3 border-round-md">
-                        <div class="flex flex-column gap-3">
-                            <div *ngFor="let day of days" class="field-checkbox">
-                                <p-radioButton [inputId]="day.key" name="category" [value]="day" [(ngModel)]="selectedDays"></p-radioButton>
-                                <label [for]="day.key" class="ml-2">{{ day.name }}</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-auto">
-                    <label for="icondisplay" class="">à</label>
-                    <p-calendar [showTime]="true"  [timeOnly]="true" [iconDisplay]="'input'" [showIcon]="true" Icon="pi pi-user" inputId="icondisplay">
-                        <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
-                            <i class="pi pi-clock pointer-events-none" (click)="clickCallBack($event)"></i>
-                        </ng-template>
-                    </p-calendar>
-                </div>
-                <button (click)="nextStep('AVAILABILITY')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
-                
-            </div>
-        </div>
-    </div>
-</section>
+
 
 
 <section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '9'">

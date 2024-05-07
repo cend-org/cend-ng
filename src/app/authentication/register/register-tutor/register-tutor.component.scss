@@ -1,14 +1,69 @@
-::ng-deep .p-fileupload-buttonbar{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-}
-::ng-deep .p-fileupload-buttonbar > .p-button{
-    background-color: green;
-    color: white;
+$main-bg-color: #3A9B23;
+$main-text-color: #3A9B23;
+$main-border-color: #3A9B23;
+.bg-color-main{
+   background-color: $main-bg-color;
+   color: white;
 }
 
-::ng-deep .p-fileupload-buttonbar > .p-disabled{
-    background-color: gray;
-    color: darkgray;
+
+::ng-deep .p-password{
+    width:  100%;
+}
+
+::ng-deep .p-password-input{
+   width:  100%;
+}
+
+::ng-deep .p-calendar{
+   width:  100%;
+}
+
+::ng-deep .p-dropdown{
+   width: 100%;
+}
+
+::ng-deep {
+    .p-fileupload-buttonbar{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        width: 100%;
+        align-items: center;
+        gap: 4px;
+        .p-button{
+            background-color:$main-bg-color;
+            width: 100%;
+            margin-right: inherit;
+            border: none;
+            &:focus{
+                color: white;
+            }
+            
+        }
+        
+        .p-disabled{
+            width: 100%;
+            border: none;
+            .p-button{
+                width: 100%;
+                border: none;
+                background-color: rgb(202, 200, 200);
+                color: $main-text-color;
+            }
+        }
+        .p-element{
+            .p-button{
+                border: none;
+                width: 100%;
+            }
+        }
+        p-button{
+            border: none;
+            width: 100%;
+            &:focus{
+                border: none;
+            }
+        }
+    }
 }

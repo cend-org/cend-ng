@@ -8,10 +8,10 @@ import { ChipsModule } from 'primeng/chips';
 import { DialogModule } from 'primeng/dialog';
 import { UserLoginReq } from './@core/entities/requests/user-login-req';
 import { ThemesModule } from './@themes/themes.module';
-import { ToastSeverityEnum } from './@core/enumerations/ToastSetupEnum';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { PagesModule } from './pages/pages.module';
+import { environment } from './environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -26,12 +26,13 @@ import { PagesModule } from './pages/pages.module';
     ThemesModule,
     ToastModule,
     PagesModule,
+
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent{
-  title = 'angular-app';
+  title = environment.app_name;
   visible: boolean = false;
   loginReq: UserLoginReq = new UserLoginReq();
     constructor(
@@ -40,15 +41,4 @@ export class AppComponent{
   ngOnInit(): void {
     
   }
-    showDialog() {
-      this.messageService.add({ severity: ToastSeverityEnum.SUCCESS, summary: 'Success', detail: 'Message Content' })
-      // this.autService.Login(true, this.loginReq).subscribe({
-      //   next: ((response: HttpResponse<UserLoginResp>)=>{
-      //     console.log(response);
-      //   }), 
-      //   error: (e=>{
-      //     console.log(e);
-      //   }),
-      // })
-    }
 }
