@@ -9,7 +9,7 @@ export class HeaderService{
     Get(): any {
         return new HttpHeaders({
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.locaStorageService.get(`${environment.cend_default_lang_id}_tkn`) || ''}`
+            'Authorization': `Bearer ${this.locaStorageService.get(`${environment.cend_default_lang_id}_tkn`) || ''}`.replace(/"/g, '')
           })
     }
 }

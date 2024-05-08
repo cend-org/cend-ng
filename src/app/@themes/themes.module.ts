@@ -21,6 +21,11 @@ import { StudentRegisterOtpSkeletonComponent } from './skeletons/register/studen
 import { LandingSkeletonComponent } from './skeletons/landing/landing-skeleton/landing-skeleton.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { StudentPasswordSkeletonComponent } from './skeletons/register/student/student-password-skeleton/student-password-skeleton.component';
+import { StudentAboutSkeletonComponent } from './skeletons/register/student/student-about-skeleton/student-about-skeleton.component';
+import { LoadingComponent } from './loading/loading.component';
+import { StudentEducationLevelSkeletonComponent } from './skeletons/register/student/student-education-level-skeleton/student-education-level-skeleton.component';
+import { StudentSubjectSkeletonComponent } from './skeletons/register/student/student-subject-skeleton/student-subject-skeleton.component';
+import { StudentCourseTypeSkeletonComponent } from './skeletons/register/student/student-course-type-skeleton/student-course-type-skeleton.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +35,12 @@ import { StudentPasswordSkeletonComponent } from './skeletons/register/student/s
     StudentRegisterPasswordSkeletonComponent,
     StudentRegisterOtpSkeletonComponent,
     LandingSkeletonComponent,
-    StudentPasswordSkeletonComponent
+    StudentPasswordSkeletonComponent,
+    StudentAboutSkeletonComponent,
+    LoadingComponent,
+    StudentEducationLevelSkeletonComponent,
+    StudentSubjectSkeletonComponent,
+    StudentCourseTypeSkeletonComponent
   ],
   exports: [
     HeaderComponent,
@@ -38,7 +48,11 @@ import { StudentPasswordSkeletonComponent } from './skeletons/register/student/s
     StudentRegisterEmailSkeletonComponent,
     StudentRegisterPasswordSkeletonComponent,
     LandingSkeletonComponent,
-    StudentPasswordSkeletonComponent
+    StudentPasswordSkeletonComponent,
+    StudentAboutSkeletonComponent,
+    StudentEducationLevelSkeletonComponent,
+    StudentSubjectSkeletonComponent,
+    StudentCourseTypeSkeletonComponent
   ], 
   imports: [
     CommonModule, 

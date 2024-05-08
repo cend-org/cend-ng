@@ -7,7 +7,6 @@ import { ApolloQueryResult } from '@apollo/client';
 
 @Injectable()
 export abstract class AuthService{
-    abstract Login(showErrorNotif:boolean, user: UserLoginReq): Observable<ApolloQueryResult<any>>;
-    abstract JWT(): Observable<any>;
+    abstract GetUserId(): number;
 }
 

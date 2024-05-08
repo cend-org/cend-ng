@@ -15,10 +15,14 @@ body{
     overflow-y: scroll;
 }
 
-body::-webkit-scrollbar {
-    display: none;
-}
-// body{
-//     -ms-overflow-style: none;  /* IE and Edge */
-//     scrollbar-width: none;  /* Firefox */
+// body::-webkit-scrollbar {
+//     display: none;
+//     scrollbar-width: 0;
 // }
+// body{
+//    overflow-x: hidden !important;
+// }
+// // body{
+// //     -ms-overflow-style: none;  /* IE and Edge */
+// //     scrollbar-width: none;  /* Firefox */
+// // }

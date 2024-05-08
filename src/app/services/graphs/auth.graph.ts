@@ -42,39 +42,37 @@ export class REGISTRATION{
         mutation 
             registerWithEmail(
                 $input: String!,
+                $as: Int!
             ) 
             {
                 registerWithEmail (
                     input: $input , 
-                    as: 1
+                    as: $as
                 )
             }
     `;
 
     static WITH_INFO: any = gql`
         mutation 
-            register(
+            updMyProfile(
                 $Name: String!, 
                 $FamilyName: String!,
                 $NickName: String!,
-                $Email: String!,
                 $BirthDate: DateTime!,
                 $Sex:Int!,
                 $Lang:Int!,
             ) 
             {
-                register(
+                updMyProfile(
                     input: {
                         Name: $Name, 
                         FamilyName: $FamilyName,
                         NickName: $NickName,
-                        Email: $Email,
                         BirthDate: $BirthDate,
                         Sex:$Sex,
                         Lang:$Lang,
                     }
-                    as: 1
-                ) 
+                )
             }
     `;
 }

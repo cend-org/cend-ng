@@ -11,10 +11,6 @@ import { LangConfigService } from '../../../@core/services/lang-config.service';
 export class LoginSkeletonComponent implements OnInit{
   constructor(private confirmationService: ConfirmationService, private  langCondigService: LangConfigService){}
   ngOnInit(): void {
-    this.langCondigService.configure();
-    this.confirmationService.confirm({
-      header: '',
-      message: '',
-  });
+    
   }
 }

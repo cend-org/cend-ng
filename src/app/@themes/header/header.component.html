@@ -45,25 +45,26 @@
 
 <nav class="md:hidden lg:hidden xl:hidden h-3rem w-full fixed bg-green-600 z-5" >
     <div class="w-full h-full flex justify-content-between align-items-center">
-        <div class="w-2 h-full flex justify-content-start align-items-center absolute p-1">
-            <a routerLink="/pages/landing" class="poppins-bold text-white p-1 text-xl no-underline">
+        <div class="w-2 h-full flex justify-content-start align-items-center absolute p-1 left-0">
+            <a routerLink="/pages/landing" class="poppins-bold text-white p-1 text-xl no-underline mr-1">
                 CEND
-            </a>
-           <button (click)="onClickMobileMenu()" class="flex justify-content-center align-items-center  h-full bg-transparent border-none text-2xl">
-                <i *ngIf="!showMobileMenu" class="pi pi-bars text-white  font-bold text-xl"></i>
-                <i *ngIf="showMobileMenu" class="pi pi-times text-white  font-bold text-xl"></i>
-           </button>
+                 </a>
+           
         </div>
-       <div class="w-12 h-full justify-content-end flex align-items-center">
-        <p-tieredMenu class="mobile-auth-buttons" #loginMobileMenu [model]="loginItems" [popup]="true"></p-tieredMenu>
-        <p-tieredMenu class="mobile-auth-buttons" #registerMobileMenu [model]="registerItems" [popup]="true"></p-tieredMenu>
-        <button (click)="loginMobileMenu.toggle($event)" class="p-2 px-4 h-6 poppins-medium border-none bg-transparent text-white border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg hover:text-bluegray-200">
-            Se connecter
-        </button>
-        <button (click)="registerMobileMenu.toggle($event)" class="mr-2 text-green-600 bg-white p-2 px-4 h-6 poppins-medium border-none border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-3xl">
-            S'inscrire
-        </button>
+       <div class="w-12 h-full justify-content-evenly flex align-items-center">
+            <p-tieredMenu class="mobile-auth-buttons" #loginMobileMenu [model]="loginItems" [popup]="true"></p-tieredMenu>
+            <p-tieredMenu class="mobile-auth-buttons" #registerMobileMenu [model]="registerItems" [popup]="true"></p-tieredMenu>
+            <button (click)="loginMobileMenu.toggle($event)" class="p-2 px-4 h-6 poppins-medium border-none bg-transparent text-white border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg hover:text-bluegray-200">
+                Se connecter
+            </button>
+            <button (click)="registerMobileMenu.toggle($event)" class="focus:text-white mr-2 text-green-600 bg-white p-2 px-4 h-6 poppins-medium border-none border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-3xl">
+                S'inscrire
+            </button>
        </div>
+       <button (click)="onClickMobileMenu()" class="flex justify-content-center align-items-center  h-full bg-transparent border-none text-2xl mr-2">
+        <i *ngIf="!showMobileMenu" class="pi pi-bars text-white  font-bold text-xl"></i>
+        <i *ngIf="showMobileMenu" class="pi pi-times text-white  font-bold text-xl"></i>
+   </button>
     </div>
 </nav>
 <section *ngIf="showMobileMenu" class="w-full flex flex-column bg-white shadow-2 py-3 fixed mt-6 z-5">

@@ -1,0 +1,10 @@
+<p-confirmDialog>
+    <ng-template pTemplate="headless" let-message>
+        <div class="flex flex-column align-items-center p-3 surface-overlay border-round">
+            <div class="border-circle bg-primary inline-flex justify-content-center align-items-center h-4rem w-4rem -mt-6">
+                <i class="pi pi-spin  pi-spinner-dotted text-5xl"></i>
+            </div>
+            <span class="font-semibold text-xl block mb-2 mt-2"><span class="text-green-600 ">CEND</span> {{"is_loading" | translate}}</span>
+        </div>
+    </ng-template>
+</p-confirmDialog>

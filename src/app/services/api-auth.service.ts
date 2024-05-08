@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { UserLoginReq } from '../@core/entities/requests/user-login-req';
 import { Apollo, gql, QueryRef } from 'apollo-angular';
 import { ApolloQueryResult } from '@apollo/client';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { LocalStorageService } from '../@core/services/local-storage.service';
 
 const LOGIN_QUERY = gql`
     mutation{
@@ -17,16 +19,13 @@ const LOGIN_QUERY = gql`
 
 @Injectable()
 export class ApiAuthService extends AuthService {
-    override Login(showErrorNotif: boolean, user: UserLoginReq): Observable<ApolloQueryResult<any>> {
-        throw new Error('Method not implemented.');
+    override GetUserId(): number {
+        return this.locaStorageService.decode("user_id");
     }
-    override JWT(): Observable<any> {
-        throw new Error('Method not implemented.');
-    }
+
     constructor(
-        private apiService: ApiService, 
-        private router: Router,
-        private readonly apolloService: Apollo
+       private jwtService : JwtHelperService,
+       private locaStorageService: LocalStorageService
         ) {
         super();
     }

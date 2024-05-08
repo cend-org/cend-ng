@@ -1,9 +1,11 @@
 import { gql } from "apollo-angular";
 
 export class EDUCATION_SCHOOL{
-    static GET_SCHOOLS: any = gql`
+    static GET_SCHOOLS = gql`
         query {
-            
+            getSchools {
+                Id
+                Name
             }
         }
     `;

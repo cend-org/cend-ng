@@ -23,7 +23,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ThemesModule } from '../../@themes/themes.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApolloInterceptor } from '../../@core/interceptors/graph.interceptor';
-
+import { SelectButtonModule } from 'primeng/selectbutton';
 @NgModule({
   declarations: [
     RegisterStudentComponent,
@@ -49,6 +49,7 @@ import { ApolloInterceptor } from '../../@core/interceptors/graph.interceptor';
    ToastModule,
    InputTextareaModule,
    ThemesModule,
+   SelectButtonModule,
   ],
   providers:[
     { provide: HTTP_INTERCEPTORS, useClass: ApolloInterceptor, multi: true },

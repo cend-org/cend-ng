@@ -1,4 +1,4 @@
-<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="!loading">
+<section  class="scroll-hide w-full h-screen  flex justify-content-center mt-2" *ngIf="!loading">
     <form  class="w-10 md:w-3 lg-w-3 xl:w-3" #loginForm="ngForm" name="f" (ngSubmit)="loginForm.form.valid && login()">
         <h1 class="text-center text-gray-600 poppins-bold">Veuillez-vous connecter à votre compte.</h1>
         <div class="frm poppins-medium">
