@@ -9,10 +9,7 @@ import { ConfirmationService } from 'primeng/api';
 export class StudentRegisterEmailSkeletonComponent implements OnInit{
   constructor(private confirmationService: ConfirmationService) {}
   ngOnInit(): void {
-    this.confirmationService.confirm({
-      header: '',
-      message: '',
-  });
+   
   }
 }
 

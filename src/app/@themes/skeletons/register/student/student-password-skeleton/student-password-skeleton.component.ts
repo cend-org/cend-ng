@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
+import { LangConfigService } from '../../../../../@core/services/lang-config.service';
 
 @Component({
   selector: 'app-student-password-skeleton',
