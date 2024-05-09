@@ -15,7 +15,7 @@ export function apolloOptionsFactory(): ApolloClientOptions<any> {
 
   return {
     link: httpLink.create(
-      { 
+      {
         uri: uri,
         // headers: new HttpHeaders({
         //   'Content-Type': 'application/json',
