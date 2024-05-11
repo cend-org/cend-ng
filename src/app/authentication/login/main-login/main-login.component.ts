@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ValidationService } from '../../../@core/services/validation.service';
 import { environment } from '../../../environments/environment';
 import { LocalStorageService } from '../../../@core/services/local-storage.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-main-login',
   templateUrl: './main-login.component.html',
@@ -20,7 +20,8 @@ export class MainLoginComponent implements OnInit {
     private messageService: MessageService,
     private toastr: ToastrService,
     private validationService: ValidationService,
-    private locaStorageService: LocalStorageService
+    private locaStorageService: LocalStorageService, 
+    private router: Router
   ) { }
   loading: boolean = false;
   userLoginReq = new UserLoginReq();
@@ -49,8 +50,8 @@ export class MainLoginComponent implements OnInit {
        let resp: any = response.data;
        if (resp) {
          this.locaStorageService.save(`${environment.cend_default_lang_id}_tkn`, resp["registerWithEmail"]);
-      this.messageService.add({ severity: 'success', summary: 'OK!', detail: 'Connecte avec succes!' });
-  
+         this.messageService.add({ severity: 'success', summary: 'OK!', detail: 'Connecte avec succes!' });
+        this.router.navigateByUrl("/pages/dashboard")
 
        };
        this.loading = false;

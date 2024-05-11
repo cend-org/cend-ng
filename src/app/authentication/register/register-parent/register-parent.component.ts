@@ -226,7 +226,7 @@ export class RegisterParentComponent implements OnInit {
       }
     }).subscribe({
       next: (response) => {
-        this.registrationStateStep = ParentRegisterStepEnum.STUDENT_NAME;
+        this.registrationStateStep = ParentRegisterStepEnum.STUDENT_SCHOOL_LEVEL;
         this.loading = false
       },
       error: (e) => {
