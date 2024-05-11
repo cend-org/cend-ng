@@ -76,7 +76,7 @@ export const loginItems : Array<Menu> =[
     {
         label : "Professeur",
         icon : "pi pi-user-plus",
-        routerLink: "/authentication/login/professor"
+        routerLink: "/authentication/login/teacher"
     }
 ]
 export const registerItems : Array<Menu> =[
