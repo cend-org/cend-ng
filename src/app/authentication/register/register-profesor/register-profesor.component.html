@@ -279,7 +279,7 @@
                     <div class=" p-2 relative bg-cover bg-no-repeat bg-green-100" style="width:200px; height: 200px; background-image: url({{selectedVideoSrc}});">
                         
                         <input name="video" #file (change)="onVideoSelected($event)"  type="file" class="w-0 h-0 absolute border-circle opacity-0" style="display: none !important;" />
-                        <button (click)="file.click()"  type="button" class="w-full h-full bg-transparent">
+                        <button (click)="file.click()"  type="button" class="w-full h-full bg-transparent opacity-0">
                             <!-- <video class="w-full h-full" autoplay muted loop>
                                 <source src="selectedVideoSrc" type="video/mp4">
                             </video> -->

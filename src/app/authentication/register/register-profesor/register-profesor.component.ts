@@ -51,7 +51,7 @@ export class RegisterProfesorComponent {
 
 
   registrationProfileInfoReq: RegistrationWithInforeq = new RegistrationWithInforeq();
-  registrationStateStep: TeacherRegisterStepEnum = TeacherRegisterStepEnum.VIDEO;
+  registrationStateStep: TeacherRegisterStepEnum = TeacherRegisterStepEnum.EMAIL;
   loading: boolean = false;
   groupedCities: SelectItemGroup[] | undefined;
   selectedCity: string | undefined;
