@@ -12,6 +12,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { SkeletonModule } from 'primeng/skeleton';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     ThemesModule,
     SkeletonModule,
     DialogModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    DashboardModule
   ],
 })
 export class PagesModule { }
