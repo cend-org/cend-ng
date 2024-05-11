@@ -10,10 +10,17 @@ $main-text-color: #3A9B23;
 
 ::ng-deep {
     .p-tieredmenu {
-        width: 20rem !important;
+        width: 25rem !important;
 
         .mobile-auth-buttons & {
             width: 100% !important;
+        }
+        .p-menuitem{
+            .p-menuitem-content{
+                .p-element{
+                    font-size: 17px !important;
+                }
+            }
         }
     }
 }

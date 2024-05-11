@@ -1,17 +1,17 @@
 <p-toast position="bottom-center" preventOpenDuplicates="true" />
 <section class="scroll-hide w-full h-screen  flex justify-content-center mt-2" *ngIf="!loading">
     <form class="w-10 md:w-3 lg-w-3 xl:w-3" #loginForm="ngForm" name="f" (ngSubmit)="loginForm.form.valid && login()">
-        <h1 class="text-center text-gray-600 poppins-bold">Veuillez-vous connecter à vôtre compte.</h1>
+        <h1 class="text-center text-gray-600 poppins-bold">Veuillez-vous connecter à votre compte.</h1>
         <div class="frm poppins-medium">
             <div class="w-full flex flex-column gap-1">
                 <div class="flex flex-column gap-2">
                     <label class="text-sm" for="email">E-mail</label>
-                    <input placeholder="vôtre email" [(ngModel)]="userLoginReq.email" type="email" name="email"
+                    <input placeholder="votre email" [(ngModel)]="userLoginReq.email" type="email" name="email"
                         class="p-inputtext-sm" pInputText id="email" aria-describedby="email-help" />
                 </div>
                 <div class="flex flex-column gap-1 mt-2">
                     <label class="text-sm" for="password">Mots de passe</label>
-                        <p-password  placeholder="Entrer vôtre mot de passe" [(ngModel)]="userLoginReq.password" name="password"
+                        <p-password  placeholder="Entrer votre mot de passe" [(ngModel)]="userLoginReq.password" name="password"
                         type="password" class="p-inputtext-sm"   [feedback]="false" class="p-inputtext-sm" id="password"  [toggleMask]="true"></p-password>
                 </div>
                 <button type="submit" size="small" pButton pRipple label="Continuer"

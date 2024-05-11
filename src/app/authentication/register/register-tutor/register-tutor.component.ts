@@ -93,7 +93,7 @@ export class RegisterTutorComponent {
 
   registerWithEmail() {
     if (!this.validationService.checkEmail(this.email)) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez vérifier vôtre email!' });
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez vérifier votre email!' });
       return;
     }
     this.loading = true;
@@ -157,12 +157,12 @@ export class RegisterTutorComponent {
 
   registerAboutInfo() {
     if (!this.name.trim()) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Vôtre nom est requis!' });
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'votre nom est requis!' });
       return;
     }
 
     if (!this.familyName.trim()) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Vôtre prénom est requis!' });
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'votre prénom est requis!' });
       return;
     }
 
@@ -173,18 +173,18 @@ export class RegisterTutorComponent {
     }
 
     if (!this.nickName.trim()) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Vôtre nom d\'utilisateur est requis!' });
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'votre nom d\'utilisateur est requis!' });
       return;
     }
 
     if (!this.selectedSex) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir vôtre sex!' });
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir votre sex!' });
       return;
     }
 
 
     if (!this.selectedlanguage) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir vôtre langue maternelle!' });
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir votre langue maternelle!' });
       return;
     }
 
@@ -241,7 +241,7 @@ export class RegisterTutorComponent {
 
   registerEducationLevel() {
     if (!this.selectedEducationLevel) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir vôtre niveau scolaire!' });
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir votre niveau scolaire!' });
       return;
     }
 

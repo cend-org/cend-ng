@@ -34,7 +34,7 @@ export const menus : Array<Menu> = [
 
 export const aboutItems : Array<Menu> = [
     {
-        label : "A propos de nous",
+        label : "À propos de nous",
         icon : "pi pi-info-circle",
         routerLink: "/pages/about/about-us"
         
@@ -58,7 +58,7 @@ export const aboutItems : Array<Menu> = [
 export const loginItems : Array<Menu> =[
 
     {
-        label : "Etudiant",
+        label : "Étudiant",
         icon : "pi pi-graduation-cap",
         routerLink: "/authentication/login/student"
         
@@ -82,7 +82,7 @@ export const loginItems : Array<Menu> =[
 export const registerItems : Array<Menu> =[
 
     {
-        label : "Etudiant",
+        label : " Étudiant",
         icon : "pi pi-graduation-cap",
         routerLink: "/authentication/register/student"
         

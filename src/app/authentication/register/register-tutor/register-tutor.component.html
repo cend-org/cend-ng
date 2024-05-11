@@ -3,13 +3,13 @@
     *ngIf="!loading && registrationStateStep.toString() == '0'">
     <form class="w-10 md:w-3 lg-w-3 xl:w-3" #emailForm="ngForm" name="f"
         (ngSubmit)="emailForm.form.valid && registerWithEmail()" class="w-10 md:w-3 lg-w-3 xl:w-3">
-        <h1 class="text-center text-xl text-cyan-900  poppins-bold ">Indiquez vôtre numéro de téléphone ou vôtre adresse
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold ">Indiquez votre numéro de téléphone ou votre adresse
             e-mail.</h1>
         <div class="frm poppins-medium">
             <div class="w-full flex flex-column gap-2">
                 <div class="flex flex-column gap-2">
                     <label class="text-sm" for="email">E-mail</label>
-                    <input placeholder="vôtre email" [(ngModel)]="email" name="email" type="email"
+                    <input placeholder="votre email" [(ngModel)]="email" name="email" type="email"
                         class="p-inputtext-sm" pInputText id="email" aria-describedby="email-help" />
                 </div>
                 <button type="submit" size="small" pButton pRipple label="Continuer"
@@ -53,8 +53,8 @@
 
 <section class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '1'">
     <div class="w-10 md:w-3 lg-w-3 xl:w-3">
-        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Nous vous avons envoyé un code à vôtre adresse
-            email, veuillez l'entrer pour confirmer vôtre identité.</h1>
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Nous vous avons envoyé un code à votre adresse
+            email, veuillez l'entrer pour confirmer votre identité.</h1>
         <div class="frm poppins-medium">
             <div class="w-full flex flex-column gap-4">
                 <div class="card flex justify-content-center">
@@ -72,19 +72,19 @@
     *ngIf="!loading && registrationStateStep.toString() == '2'">
     <form class="w-10 md:w-3 lg-w-3 xl:w-3" #passwordForm="ngForm" name="passwordForm"
         (ngSubmit)="passwordForm.form.valid && registerNewPassword()">
-        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez ajouter vôtre nouveau mot de passe.</h1>
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez ajouter votre nouveau mot de passe.</h1>
         <div class="frm poppins-medium">
             <div class="w-full flex flex-column gap-4">
                 <div class="flex flex-column gap-2">
                     <label class="text-sm" for="password">Mot de passe</label>
-                    <p-password promptLabel="Entrez vôtre mot de passe" placeholder="Nouveau mot de passe"
+                    <p-password promptLabel="Entrez votre mot de passe" placeholder="Nouveau mot de passe"
                         [(ngModel)]="password" name="password" weakLabel="Trop simple" mediumLabel="Complexite normale"
                         strongLabel="Mots de pass complex" class="p-inputtext-sm" id="password"
                         [toggleMask]="true"></p-password>
                 </div>
                 <div class="flex flex-column gap-2">
                     <label class="text-sm" for="re-password">Confirmation</label>
-                    <p-password placeholder="Confirmer vôtre mot de passe" [(ngModel)]="passwordConfirm"
+                    <p-password placeholder="Confirmer votre mot de passe" [(ngModel)]="passwordConfirm"
                         name="passwordConfirm" [feedback]="false" class="p-inputtext-sm" id="password"
                         [toggleMask]="true"></p-password>
                 </div>
@@ -108,12 +108,12 @@
                 <div class="formgrid grid">
                     <div class="field col">
                         <label for="aname">Nom</label>
-                        <input [(ngModel)]="name" name="aname" placeholder="vôtre nom" id="aname" type="text"
+                        <input [(ngModel)]="name" name="aname" placeholder="votre nom" id="aname" type="text"
                             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                     </div>
                     <div class="field col">
                         <label for="familyName">Prénom</label>
-                        <input [(ngModel)]="familyName" name="familyName" placeholder="vôtre prénom" id="familyName"
+                        <input [(ngModel)]="familyName" name="familyName" placeholder="votre prénom" id="familyName"
                             type="text"
                             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                     </div>
@@ -121,7 +121,7 @@
 
                 <div class="flex-auto">
                     <label for="birthDate" class=""> Date de naissance</label>
-                    <p-calendar placeholder="vôtre date de naissance" dateFormat="dd.mm.yy" [(ngModel)]="birthDate"
+                    <p-calendar placeholder="votre date de naissance" dateFormat="dd.mm.yy" [(ngModel)]="birthDate"
                         name="birthDate" [iconDisplay]="'input'" [showIcon]="true" inputId="birthDate"></p-calendar>
                 </div>
                 <div class="flex-auto">
@@ -132,14 +132,14 @@
                 </div>
 
                 <div class="flex flex-column mt-2">
-                    <label for="sex" class=""> Choisissez vôtre sex:</label>
-                    <p-dropdown placeholder="vôtre sexe" inputId="sex" [options]="sex" [(ngModel)]="selectedSex"
+                    <label for="sex" class=""> Choisissez votre sex:</label>
+                    <p-dropdown placeholder="votre sexe" inputId="sex" [options]="sex" [(ngModel)]="selectedSex"
                         optionLabel="key" name="sexname" />
                 </div>
 
                 <div class="flex flex-column mt-2">
-                    <label for="lang" class=""> Choisissez vôtre langue:</label>
-                    <p-dropdown placeholder="vôtre langue maternelle" inputId="lang" [options]="languages"
+                    <label for="lang" class=""> Choisissez votre langue:</label>
+                    <p-dropdown placeholder="votre langue maternelle" inputId="lang" [options]="languages"
                         [(ngModel)]="selectedlanguage" optionLabel="name" name="langname" />
                 </div>
                 <button type="submit" size="small" pButton pRipple label="Continuer"
@@ -153,7 +153,7 @@
 <section class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '4'">
     <div class="w-10 md:w-3 lg-w-3 xl:w-3">
         <h1 class="text-center text-xl text-cyan-900  poppins-bold">Quelle est la langue à laquelle vous voulez recevoir
-            vôtre éducation ?</h1>
+            votre éducation ?</h1>
         <div class="frm poppins-medium">
             <div class="w-full flex flex-column gap-4">
                 <div

@@ -30,11 +30,11 @@ export class MainLoginComponent implements OnInit {
   }
   login() {
     if (!this.validationService.checkEmail(this.userLoginReq.email)) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez vérifier vôtre email!' });
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez vérifier votre email!' });
       return;
     }
     if (!this.userLoginReq.password) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez vérifier vôtre mots de passe!' });
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez vérifier votre mots de passe!' });
       return;
     }
     this.loading = true;

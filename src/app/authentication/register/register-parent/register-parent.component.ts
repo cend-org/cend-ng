@@ -86,7 +86,7 @@ export class RegisterParentComponent implements OnInit {
 
   registerWithEmail(){
     if(!this.validationService.checkEmail(this.email)){
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez vérifier vôtre email!' });
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez vérifier votre email!' });
       return;
     }
     this.loading = true;
@@ -145,12 +145,12 @@ export class RegisterParentComponent implements OnInit {
   }
   registerAboutInfo() {
     if (!this.name.trim()) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Vôtre nom est requis!' });
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'votre nom est requis!' });
       return;
     }
 
     if (!this.familyName.trim()) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Vôtre prénom est requis!' });
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'votre prénom est requis!' });
       return;
     }
 
@@ -161,18 +161,18 @@ export class RegisterParentComponent implements OnInit {
     }
     
     if (!this.nickName.trim()) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Vôtre nom d\'utilisateur est requis!' });
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'votre nom d\'utilisateur est requis!' });
       return;
     }
 
     if (!this.selectedSex) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir vôtre sex!' });
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir votre sex!' });
       return;
     }
 
 
     if (!this.selectedlanguage) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir vôtre langue maternelle!' });
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir votre langue maternelle!' });
       return;
     }
 
@@ -206,12 +206,12 @@ export class RegisterParentComponent implements OnInit {
   }
   registerParentChild(){
     if (!this.childName.trim()) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Le nom vôtre jeûne est requis!' });
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Le nom votre jeûne est requis!' });
       return;
     }
 
     if (!this.childFamilyName.trim()) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Le prénom vôtre jeûne est requis!' });
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Le prénom votre jeûne est requis!' });
       return;
     }
     this.loading = true;
@@ -313,7 +313,7 @@ export class RegisterParentComponent implements OnInit {
   registerCourseType(){
     //this.loading = true;
     if (!this.selectedcourseType) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir le type de cours dont vôtre jeûne en a besoins!' });
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir le type de cours dont votre jeûne en a besoins!' });
       return;
     }
     let user_id: number = this.authService.GetUserId();
