@@ -12,6 +12,7 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { PagesModule } from './pages/pages.module';
 import { environment } from './environments/environment';
+import { ApolloModule } from 'apollo-angular';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +27,7 @@ import { environment } from './environments/environment';
     ThemesModule,
     ToastModule,
     PagesModule,
+    ApolloModule
 
   ],
   templateUrl: './app.component.html',

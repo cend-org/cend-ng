@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { StudentRegisterStepEnum } from '../../../@core/enumerations/student-register-step.enum';
-import { SelectItemGroup } from 'primeng/api';
+import { MessageService, SelectItemGroup } from 'primeng/api';
 import { ValidationService } from '../../../@core/services/validation.service';
-import { RegistrationWithEmailreq, RegistrationWithInforeq } from '../../../@core/entities/requests/registration-req';
+import { RegistrationWithInforeq } from '../../../@core/entities/requests/registration-req';
 import { Apollo, gql } from 'apollo-angular';
-import { LOGIN, PASSWORD, REGISTRATION } from '../../../services/graphs/auth.graph';
+import { PASSWORD, REGISTRATION } from '../../../services/graphs/auth.graph';
 import { LocalStorageService } from '../../../@core/services/local-storage.service';
 import { environment } from '../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
@@ -13,13 +13,8 @@ import { GroupedCitiesData } from '../../../@core/datas/grouped-cities.data';
 import { DaysData } from '../../../@core/datas/days.data';
 import { CourseTypeData } from '../../../@core/datas/course-type.data';
 import { SubjectData } from '../../../@core/datas/subjects.data';
-import { SchoolLevelData } from '../../../@core/datas/school-level.data';
 import { LanguageData } from '../../../@core/datas/language-data';
-import { SexEnum } from '../../../@core/enumerations/sex.enum';
 import { Sex } from '../../../@core/datas/sex.data';
-import { EDUCATION_SCHOOL } from '../../../services/graphs/education.school.graph';
-import { EDUCATION_LEVEL } from '../../../services/graphs/education.level.graph';
-import { DocumentNode } from 'graphql';
 import { UserTypeEnum } from '../../../@core/enumerations/user-type.enum';
 import { AuthService } from '../../../@core/services/auth.service';
 
@@ -33,9 +28,9 @@ export class RegisterStudentComponent {
     private validationService: ValidationService,
     private apolloService: Apollo,
     private locaStorageService: LocalStorageService,
-    private toastrService: ToastrService,
     private headerService: HeaderService, 
     private authService: AuthService,
+    private messageService: MessageService
   ) { }
   inputNotValid: boolean = false;
 
@@ -46,7 +41,7 @@ export class RegisterStudentComponent {
   passwordConfirm: string = "";
   name: string = "";
   familyName: string = "";
-  birthDate: Date = new Date();
+  birthDate: any = "";
   nickName: string = "";
 
 
@@ -56,70 +51,33 @@ export class RegisterStudentComponent {
   groupedCities: SelectItemGroup[] | undefined;
   selectedCity: string | undefined;
   selectedlanguage: any = null;
+  selectedSex: any = null;
   selectedEducationLevel: any = null;
   selectedSubject: any = null;
   selectedcourseType: any = null;
   selectedDays: any = null;
-  selectedSex: any = null;
+
 
 
 
   sex: any[] = Sex;
   languages: any[] = LanguageData;
   educationLevels: any[] = [];
-  subjects: any[] = SubjectData;
+  subjects: any[] = [];
   courseTypes: any[] = CourseTypeData;
   days: any[] = DaysData;
 
-
-
-  nextStep(current: string) {
-
-    if (current == "OTP") {
-      this.registrationStateStep = StudentRegisterStepEnum.PASSWORD
-    }
-
-    if (current == "PASSWORD") {
-      this.registrationStateStep = StudentRegisterStepEnum.ABOUT
-    }
-
-    if (current == "ABOUT") {
-      this.registrationStateStep = StudentRegisterStepEnum.LANGUAGE
-    }
-
-    if (current == "LANGUAGE") {
-
-      this.registrationStateStep = StudentRegisterStepEnum.SCHOOL_LEVEL;
-
-    }
-    if (current == "SCHOOL_LEVEL") {
-      this.registrationStateStep = StudentRegisterStepEnum.SUBJECT
-    }
-    if (current == "SUBJECT") {
-      this.registrationStateStep = StudentRegisterStepEnum.COURSE_TYPE
-    }
-    if (current == "COURSE_TYPE") {
-      this.registrationStateStep = StudentRegisterStepEnum.AVAILABILITY
-    }
-    if (current == "AVAILABILITY") {
-      this.registrationStateStep = StudentRegisterStepEnum.SUGGESTED_TUTOR
-    }
-  }
-
   ngOnInit(): void {
     this.getEducationLevel();
-    //this.getSubjects();
-
-    this.selectedEducationLevel = this.educationLevels[0];
-    this.selectedlanguage = this.languages[0];
-    this.selectedSubject = this.subjects[0];
-    this.selectedcourseType = this.courseTypes[0];
-    this.selectedDays = this.days[0];
+    //this.selectedDays = this.days[0];
     this.groupedCities = GroupedCitiesData;
-    this.selectedSex = Sex[0];
   }
 
   registerWithEmail() {
+    if(!this.validationService.checkEmail(this.email)){
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez vérifier vôtre email!' });
+      return;
+    }
     this.loading = true;
     this.apolloService.mutate({
       mutation: REGISTRATION.WITH_EMAIL,
@@ -138,8 +96,7 @@ export class RegisterStudentComponent {
         this.loading = false;
       },
       error: (e) => {
-        this.inputNotValid = true;
-        this.error_message = e.message;
+        this.messageService.add({ severity: 'error', summary: 'Erreur lors du traitement!', detail: e.message });
         this.loading = false
       }
     });
@@ -148,9 +105,16 @@ export class RegisterStudentComponent {
 
   registerNewPassword() {
     if (this.password != this.passwordConfirm) {
-      this.toastrService.error("les mots de passes ne sont pas conforme!");
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Mots de passe non identique!' });
       return;
     }
+
+    if (this.password.length <=0 || this.passwordConfirm.length <=0 ) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Les mots de passe ne doivent pas être vide!' });
+      return;
+    }
+
+
     this.loading = true;
     this.apolloService.mutate({
       mutation: PASSWORD.NEW_PASSWORD,
@@ -166,7 +130,7 @@ export class RegisterStudentComponent {
         this.loading = false
       },
       error: (e) => {
-        this.toastrService.error('', e.message);
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitemnt!', detail: e.message });
         this.loading = false;
       }
     });
@@ -174,6 +138,40 @@ export class RegisterStudentComponent {
 
 
   registerAboutInfo() {
+    if (!this.name.trim()) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Vôtre nom est requis!' });
+      return;
+    }
+
+    if (!this.familyName.trim()) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Vôtre prénom est requis!' });
+      return;
+    }
+
+
+    if (!this.birthDate) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Date de naissance invalide!' });
+      return;
+    }
+    
+    if (!this.nickName.trim()) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Vôtre nom d\'utilisateur est requis!' });
+      return;
+    }
+
+    if (!this.selectedSex) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir vôtre sex!' });
+      return;
+    }
+
+
+    if (!this.selectedlanguage) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir vôtre langue maternelle!' });
+      return;
+    }
+
+
+
     this.loading = true;
     this.apolloService.mutate({
       mutation: REGISTRATION.WITH_INFO,
@@ -191,11 +189,11 @@ export class RegisterStudentComponent {
       }
     }).subscribe({
       next: (response) => {
-        this.registrationStateStep = StudentRegisterStepEnum.LANGUAGE;
+        this.registrationStateStep = StudentRegisterStepEnum.SCHOOL_LEVEL;
         this.loading = false
       },
       error: (e) => {
-        this.toastrService.error('', e.message);
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
         this.loading = false;
       }
     });
@@ -217,17 +215,24 @@ export class RegisterStudentComponent {
         this.loading = false
       },
       error: (e) => {
-        this.toastrService.error('', e.message);
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
         this.loading = false;
       }
     });
   }
 
   registerEducationLevel() {
+    if (!this.selectedEducationLevel) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir vôtre niveau scolaire!' });
+      return;
+    }
+
+
     this.getSubjects();
     this.registrationStateStep = StudentRegisterStepEnum.SUBJECT;
   }
   getSubjects() {
+
     this.loading = true;
     this.apolloService.query({
       query: gql`
@@ -248,12 +253,17 @@ export class RegisterStudentComponent {
         this.loading = false
       },
       error: (e) => {
-        this.toastrService.error('', e.message);
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
         this.loading = false;
       }
     });
   }
   registerSubject() {
+    if (!this.selectedSubject) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir la matière dont vous avez besoins d\'aide!' });
+      return;
+    }
+
     this.loading = true;
     this.apolloService.mutate({
       mutation: gql`
@@ -276,13 +286,17 @@ export class RegisterStudentComponent {
         this.loading = false
       },
       error: (e) => {
-        this.toastrService.error('', e.message);
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
         this.loading = false;
       }
     });
   }
   registerCourseType(){
     //this.loading = true;
+    if (!this.selectedcourseType) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir le type de cours dont vous avez besoins!' });
+      return;
+    }
     let user_id: number = this.authService.GetUserId();
 
     this.loading = true;
@@ -308,13 +322,19 @@ export class RegisterStudentComponent {
         this.loading = false
       },
       error: (e) => {
-        this.toastrService.error('', e.message);
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
         this.loading = false;
       }
     });
   }
+  availabilityFrom: Date | undefined;
+  availabilityWhere:Date | undefined;
 
   registerAvailability(){
-    
+    if (!this.availabilityFrom || !this.availabilityWhere || !this.selectedDays) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez verifier votre disponibilite ' });
+      return;
+    }
+    this.registrationStateStep = StudentRegisterStepEnum.SUGGESTED_TUTOR;
   }
 }

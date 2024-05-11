@@ -11,7 +11,6 @@ import { graphqlProvider } from './graphql.provider';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpLoaderFactory } from './i18n.factory';
 import { provideToastr } from 'ngx-toastr';
-import { ApolloInterceptor } from './@core/interceptors/graph.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -37,6 +36,6 @@ export const appConfig: ApplicationConfig = {
       easeTime: 300,
 
     }),
-    { provide: HTTP_INTERCEPTORS, useClass: ApolloInterceptor, multi: true },
+    //{ provide: HTTP_INTERCEPTORS, useClass: ApolloInterceptor, multi: true },
   ],
 };

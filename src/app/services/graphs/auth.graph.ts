@@ -75,6 +75,26 @@ export class REGISTRATION{
                 )
             }
     `;
+
+    static CHILD_NAME: any = gql`
+        mutation 
+         addStudentToLink(
+                $Name: String!, 
+                $FamilyName: String!,
+            ) 
+            {
+                addStudentToLink(
+                    input: {
+                        Name: $Name, 
+                        FamilyName: $FamilyName,
+                    }
+                ){
+                    
+                    FamilyName
+                    Email
+                }
+            }
+    `;
 }
 
 export class ACTIVATION{

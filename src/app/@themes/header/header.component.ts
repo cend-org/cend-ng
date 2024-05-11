@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { aboutItems, loginItems, menus, registerItems } from './menu';
 import { MenuItem } from 'primeng/api';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -18,12 +18,20 @@ export class HeaderComponent implements OnInit{
   aboutItems: MenuItem[] | undefined;
   loginItems: MenuItem[] | undefined;
   registerItems: MenuItem[] | undefined;
+  landingNavigationDisabled: boolean = false;
+  isDashboard:boolean = false;
 
   ngOnInit(): void {
     this.menus = menus;
     this.aboutItems = aboutItems;
     this.loginItems = loginItems;
     this.registerItems = registerItems;
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.landingNavigationDisabled = event.url.startsWith("/authentication")? true: false;
+        this.isDashboard = event.url.startsWith('/pages/dashboard')? true : false;
+      }
+    });
   }
   onClickMobileMenu(){
     this.showMobileMenu = !this.showMobileMenu;

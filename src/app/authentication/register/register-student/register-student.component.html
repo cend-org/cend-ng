@@ -1,199 +1,178 @@
-<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="!loading && registrationStateStep.toString() == '0'">
-    <form class="w-10 md:w-3 lg-w-3 xl:w-3" #emailForm="ngForm" name="f" (ngSubmit)="emailForm.form.valid && registerWithEmail()"  class="w-10 md:w-3 lg-w-3 xl:w-3">
-        <h1 class="text-center text-xl text-cyan-900  poppins-bold ">Indiquez votre numéro de téléphone ou votre adresse e-mail.</h1>
+<p-toast position="bottom-center" preventOpenDuplicates="true" />
+<section class="w-full h-screen  flex justify-content-center mt-2"
+    *ngIf="!loading && registrationStateStep.toString() == '0'">
+    <form class="w-10 md:w-3 lg-w-3 xl:w-3" #emailForm="ngForm" name="f"
+        (ngSubmit)="emailForm.form.valid && registerWithEmail()" class="w-10 md:w-3 lg-w-3 xl:w-3">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold ">Indiquez vôtre numéro de téléphone ou vôtre adresse
+            e-mail.</h1>
         <div class="frm poppins-medium">
             <div class="w-full flex flex-column gap-2">
                 <div class="flex flex-column gap-2">
                     <label class="text-sm" for="email">E-mail</label>
-                    <input [(ngModel)]="email" #emailInput="ngModel"  name="email" [email]="true" required type="email" class="p-inputtext-sm" pInputText id="email" aria-describedby="email-help" />
-                    <!-- <label class="text-xs text-red-300" *ngIf="registrationStateStep.toString() == '0' && inputNotValid">{{error_message}}</label> -->
-                    <div *ngIf="emailForm.submitted && emailInput.invalid" class="-mt-2">
-                        <label *ngIf="emailInput.errors?.['required']" class="text-xs text-red-300">Ce champs est requis!</label>
-                        <label *ngIf="emailInput.errors?.['email']" class="text-xs text-red-300">Email invalide!</label>
-                    </div>
+                    <input placeholder="vôtre email" [(ngModel)]="email" name="email" type="email"
+                        class="p-inputtext-sm" pInputText id="email" aria-describedby="email-help" />
                 </div>
-                <button type="submit" size="small" pButton pRipple label="Continuer" class="cursor-pointer bg-color-main w-full  text-white hover:bg-green-600 border-none"></button>
+                <button type="submit" size="small" pButton pRipple label="Continuer"
+                    class="cursor-pointer bg-color-main w-full  text-white hover:bg-green-600 border-none"></button>
 
                 <p-divider align="center" class="text-gray-400 font-medium">
                     <span>Ou</span>
-                    </p-divider>
-                <button type="button"  class="hover:border-2 hover:border-blue-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                </p-divider>
+                <button type="button"
+                    class="hover:border-2 hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
                     <p-image class="absolute" src="assets/image/google.svg" alt="Image" width="20"></p-image>
                     <div class="w-full text-gray-600 text-center">Continuer avec google</div>
                 </button>
-                <button type="button"  class="hover:border-2 hover:border-blue-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                <button type="button"
+                    class="hover:border-2  hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
                     <p-image class="absolute" src="assets/image/apple.svg" alt="Image" width="20"></p-image>
                     <div class="w-full text-gray-600 text-center">Continuer avec apple</div>
                 </button>
-                <button type="button"  class="hover:border-2 hover:border-blue-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                <button type="button"
+                    class="hover:border-2  hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
                     <p-image class="absolute" src="assets/image/fb.svg" alt="Image" width="20"></p-image>
                     <div class="w-full text-gray-600 text-center">Continuer avec facebook</div>
                 </button>
-                <button type="button" class="text-gray-600 hover:text-blue-500  cursor-pointer bg-blue-50 flex justify-content-between border-none border-round-md align-items-center w-full h-3rem">
+                <button type="button"
+                    class="text-gray-600 hover:text-blue-500  cursor-pointer bg-blue-50 flex justify-content-between border-none border-round-md align-items-center w-full h-3rem">
                     <i class="pi pi-qrcode"></i>
                     <div class="w-full text-center">
                         Connectez-vous avec une qr-code
                     </div>
                 </button>
                 <div class="text-xs text-gray-400 text-center mt-2">
-                    En continuant, vous acceptz de recevoir au numéro fourni des appels, messages WhatsApp ou SMS, y compris de façon automatisée, de la part d'Uber et de ces sociétés affiliées.
+                    En continuant, vous acceptz de recevoir au numéro fourni des appels, messages WhatsApp ou SMS, y
+                    compris de façon automatisée, de la part d'Uber et de ces sociétés affiliées.
                 </div>
             </div>
         </div>
     </form>
 </section>
-<app-student-register-email-skeleton *ngIf="loading && registrationStateStep.toString() == '0'"></app-student-register-email-skeleton>
+<app-student-register-email-skeleton
+    *ngIf="loading && registrationStateStep.toString() == '0'"></app-student-register-email-skeleton>
 
-<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '1'">
+<section class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '1'">
     <div class="w-10 md:w-3 lg-w-3 xl:w-3">
-        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Nous vous avons envoyé un code à votre adresse email, veuillez l'entrer pour confirmer votre identité.</h1>
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Nous vous avons envoyé un code à vôtre adresse
+            email, veuillez l'entrer pour confirmer vôtre identité.</h1>
         <div class="frm poppins-medium">
             <div class="w-full flex flex-column gap-4">
                 <div class="card flex justify-content-center">
                     <p-inputOtp></p-inputOtp>
                 </div>
-                <button (click)="nextStep('OTP')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
-                
+                <button size="small" pButton pRipple label="Continuer"
+                    class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+
             </div>
         </div>
     </div>
 </section>
 
-<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="!loading && registrationStateStep.toString() == '2'">
-    <form class="w-10 md:w-3 lg-w-3 xl:w-3" #passwordForm="ngForm" name="passwordForm" (ngSubmit)="passwordForm.form.valid && registerNewPassword()" >
-        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez ajouter votre nouveau mot de passe.</h1>
+<section class="w-full h-screen  flex justify-content-center mt-2"
+    *ngIf="!loading && registrationStateStep.toString() == '2'">
+    <form class="w-10 md:w-3 lg-w-3 xl:w-3" #passwordForm="ngForm" name="passwordForm"
+        (ngSubmit)="passwordForm.form.valid && registerNewPassword()">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez ajouter vôtre nouveau mot de passe.</h1>
         <div class="frm poppins-medium">
             <div class="w-full flex flex-column gap-4">
                 <div class="flex flex-column gap-2">
                     <label class="text-sm" for="password">Mot de passe</label>
-                    <p-password #passInput="ngModel" [(ngModel)]="password"   name="password" required  weakLabel="Trop simple" mediumLabel="Complexite normale" strongLabel="Mots de pass complex" class="p-inputtext-sm" id="password"  [toggleMask]="true"></p-password>
-                    <div *ngIf="passwordForm.submitted && passInput.invalid" class="-mt-2">
-                        <label *ngIf="passInput.errors?.['required']" class="text-xs text-red-300">Ce champs est requis!</label>
-                    </div>
-                 </div>
-
-                <div class="flex flex-column gap-2">
-                    <label class="text-sm" for="re-password">re-entrez votre mot de passe</label>
-                    <p-password #passConfirmInput="ngModel" [(ngModel)]="passwordConfirm"   name="passwordConfirm" required [feedback]="false" class="p-inputtext-sm" id="password"  [toggleMask]="true"></p-password>
-                    <div *ngIf="passwordForm.submitted && passConfirmInput.invalid" class="-mt-2">
-                        <label *ngIf="passConfirmInput.errors?.['required']" class="text-xs text-red-300">Ce champs est requis!</label>
-                    </div>
+                    <p-password promptLabel="Entrez vôtre mot de passe" placeholder="Nouveau mot de passe"
+                        [(ngModel)]="password" name="password" weakLabel="Trop simple" mediumLabel="Complexite normale"
+                        strongLabel="Mots de pass complex" class="p-inputtext-sm" id="password"
+                        [toggleMask]="true"></p-password>
                 </div>
-
-                <button type="submit" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
-                
+                <div class="flex flex-column gap-2">
+                    <label class="text-sm" for="re-password">Confirmation</label>
+                    <p-password placeholder="Confirmer vôtre mot de passe" [(ngModel)]="passwordConfirm"
+                        name="passwordConfirm" [feedback]="false" class="p-inputtext-sm" id="password"
+                        [toggleMask]="true"></p-password>
+                </div>
+                <button type="submit" size="small" pButton pRipple label="Continuer"
+                    class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
             </div>
         </div>
     </form>
 </section>
-<app-student-password-skeleton *ngIf="loading && registrationStateStep.toString() == '2'"></app-student-password-skeleton>
+<app-student-password-skeleton
+    *ngIf="loading && registrationStateStep.toString() == '2'"></app-student-password-skeleton>
 
 
-<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="!loading && registrationStateStep.toString() == '3'">
-    <form class="w-10 md:w-3 lg-w-3 xl:w-3"  #aboutForm="ngForm" name="aboutForm" (ngSubmit)="aboutForm.form.valid && registerAboutInfo()">
+<section class="w-full h-screen  flex justify-content-center mt-2"
+    *ngIf="!loading && registrationStateStep.toString() == '3'">
+    <form class="w-10 md:w-3 lg-w-3 xl:w-3" #aboutForm="ngForm" name="aboutForm"
+        (ngSubmit)="aboutForm.form.valid && registerAboutInfo()">
         <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez remplir les informations suivants.</h1>
         <div class="frm poppins-medium">
             <div class="w-full flex flex-column gap-2">
                 <div class="formgrid grid">
                     <div class="field col">
                         <label for="aname">Nom</label>
-                        <input #nameInput="ngModel" [(ngModel)]="name"   name="aname" required  placeholder="Votre nom" id="aname" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                        <div *ngIf="aboutForm.submitted && nameInput.invalid" class="-mt-2">
-                            <label *ngIf="nameInput.errors?.['required']" class="text-xs text-red-300">Ce champs est requis!</label>
-                        </div>
+                        <input [(ngModel)]="name" name="aname" placeholder="vôtre nom" id="aname" type="text"
+                            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                     </div>
                     <div class="field col">
-                        <label for="familyName">Prenom</label>
-                        <input  #familyNameInput="ngModel" [(ngModel)]="familyName"   name="familyName" required placeholder="votre prenom" id="familyName" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                        <div *ngIf="aboutForm.submitted && familyNameInput.invalid" class="-mt-2">
-                            <label *ngIf="familyNameInput.errors?.['required']" class="text-xs text-red-300">Ce champs est requis!</label>
-                        </div>
+                        <label for="familyName">Prénom</label>
+                        <input [(ngModel)]="familyName" name="familyName" placeholder="vôtre prénom" id="familyName"
+                            type="text"
+                            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                     </div>
                 </div>
-                
+
                 <div class="flex-auto">
                     <label for="birthDate" class=""> Date de naissance</label>
-                    <p-calendar  dateFormat="dd.mm.yy" #birthDateInput="ngModel" [(ngModel)]="birthDate"    name="birthDate" required [iconDisplay]="'input'" [showIcon]="true" inputId="birthDate"></p-calendar>
-                    <div *ngIf="aboutForm.submitted && birthDateInput.invalid" class="-mt-2">
-                        <label *ngIf="birthDateInput.errors?.['required']" class="text-xs text-red-300">Ce champs est requis!</label>
-                    </div>
+                    <p-calendar placeholder="vôtre date de naissance" dateFormat="dd.mm.yy" [(ngModel)]="birthDate"
+                        name="birthDate" [iconDisplay]="'input'" [showIcon]="true" inputId="birthDate"></p-calendar>
                 </div>
                 <div class="flex-auto">
                     <label for="nickName" class=""> Nom d'utilisateur</label>
-                    <input #nickNameInput="ngModel" [(ngModel)]="nickName"   name="nickName"  required  placeholder="Nom utilisateur" id="nickName"  type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                        <div *ngIf="aboutForm.submitted && nickNameInput.invalid" class="-mt-2">
-                            <label *ngIf="nickNameInput.errors?.['required']" class="text-xs text-red-300">Ce champs est requis!</label>
-                        </div>
+                    <input [(ngModel)]="nickName" name="nickName" placeholder="Nom utilisateur" id="nickName"
+                        type="text"
+                        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
 
-                <div class="flex flex-column mt-2" >
-                    <label for="sex" class=""> Choisissez votre sex:</label>
-                    <p-dropdown 
-                         #sexInput="ngModel"
-                        required
-                        inputId="sex"
-                        [options]="sex" 
-                        [(ngModel)]="selectedSex" 
-                        optionLabel="key"
-                        name="sexname"
-                        />
-                        <div *ngIf="aboutForm.submitted && sexInput.invalid" class="-mt-2">
-                            <label *ngIf="sexInput.errors?.['required']" class="text-xs text-red-300">Ce champs est requis!</label>
-                        </div>
+                <div class="flex flex-column mt-2">
+                    <label for="sex" class=""> Choisissez vôtre sex:</label>
+                    <p-dropdown placeholder="vôtre sexe" inputId="sex" [options]="sex" [(ngModel)]="selectedSex"
+                        optionLabel="key" name="sexname" />
                 </div>
 
-                <div class="flex flex-column mt-2" >
-                    <label for="lang" class=""> Choisissez votre langue:</label>
-                    <p-dropdown 
-                        #langInput="ngModel"
-                        inputId="lang"
-                        [options]="languages" 
-                        [(ngModel)]="selectedlanguage" 
-                        optionLabel="name"
-                        name="langname" />
-                        <div *ngIf="aboutForm.submitted && langInput.invalid" class="-mt-2">
-                            <label *ngIf="langInput.errors?.['required']" class="text-xs text-red-300">Ce champs est requis!</label>
-                        </div>
+                <div class="flex flex-column mt-2">
+                    <label for="lang" class=""> Choisissez vôtre langue:</label>
+                    <p-dropdown placeholder="vôtre langue maternelle" inputId="lang" [options]="languages"
+                        [(ngModel)]="selectedlanguage" optionLabel="name" name="langname" />
                 </div>
-
-                <!-- <div class="flex flex-column">
-                    <label class="w-full"  for="city" class=""> Ville</label>
-                    <p-dropdown name="T" class="w-full" id="city" [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Chhoisissez votre ville" [group]="true">
-                        <ng-template let-group pTemplate="group">
-                            <div class="flex align-items-center">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
-                                <span>{{ group.label }}</span>
-                            </div>
-                        </ng-template>
-                    </p-dropdown>
-                </div> -->
-               
-                <button type="submit" size="small" pButton pRipple label="Continuer" class="mt-2 p-button-success w-full bg-green-500 text-white"></button>
-                
+                <button type="submit" size="small" pButton pRipple label="Continuer"
+                    class="mt-2 p-button-success w-full bg-green-500 text-white"></button>
             </div>
         </div>
     </form>
 </section>
-<app-student-about-skeleton  *ngIf="loading && registrationStateStep.toString() == '3'"></app-student-about-skeleton>
+<app-student-about-skeleton *ngIf="loading && registrationStateStep.toString() == '3'"></app-student-about-skeleton>
 
-<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '4'">
+<section class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '4'">
     <div class="w-10 md:w-3 lg-w-3 xl:w-3">
-        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Quelle est la langue à laquelle vous voulez recevoir votre éducation ?</h1>
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Quelle est la langue à laquelle vous voulez recevoir
+            vôtre éducation ?</h1>
         <div class="frm poppins-medium">
             <div class="w-full flex flex-column gap-4">
-                <div class="card flex justify-content-center border-1 pt-6 pb-6 border-gray-300 border-round-lg bg-gray-50">
+                <div
+                    class="card flex justify-content-center border-1 pt-6 pb-6 border-gray-300 border-round-lg bg-gray-50">
                     <div class="flex flex-column gap-3">
                         <div *ngFor="let language of languages" class="field-checkbox">
-                            <p-radioButton [inputId]="language.key" name="category" [value]="language" [(ngModel)]="selectedlanguage"></p-radioButton>
+                            <p-radioButton [inputId]="language.key" name="category" [value]="language"
+                                [(ngModel)]="selectedlanguage"></p-radioButton>
                             <div class="relative">
-                                 <label [for]="language.key" class="ml-2">{{ language.name }}</label>
-                                 <label class="text-xs text-gray-400 mt-1 absolute w-full left-0 pl-2 pt-3">{{ language.default }}</label>
+                                <label [for]="language.key" class="ml-2">{{ language.name }}</label>
+                                <label class="text-xs text-gray-400 mt-1 absolute w-full left-0 pl-2 pt-3">{{
+                                    language.default }}</label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button (click)="nextStep('LANGUAGE')" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
-                
+                <button size="small" pButton pRipple label="Continuer"
+                    class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+
             </div>
         </div>
     </div>
@@ -201,94 +180,116 @@
 
 
 
-<section  class="w-full h-screen  flex justify-content-center mt-2"  *ngIf="!loading && registrationStateStep.toString() == '5'">
-    <form class="w-10 md:w-3 lg-w-3 xl:w-3"  #schoolLevelForm="ngForm" name="schoolLevelForm" (ngSubmit)="schoolLevelForm.form.valid && registerEducationLevel()">
+<section class="w-full h-screen  flex justify-content-center mt-2"
+    *ngIf="!loading && registrationStateStep.toString() == '5'">
+    <form class="w-10 md:w-3 lg-w-3 xl:w-3" #schoolLevelForm="ngForm" name="schoolLevelForm"
+        (ngSubmit)="schoolLevelForm.form.valid && registerEducationLevel()">
         <h1 class="text-center text-xl text-cyan-900  poppins-bold">A quel niveau scolaire êtes vous ?</h1>
         <div class="frm poppins-medium">
             <div class="w-full flex flex-column gap-4">
-                <p-scrollPanel  class="card flex justify-content-center h-30rem border-1 pt-6 pb-6 border-gray-300 border-round-lg bg-gray-50">
+                <p-scrollPanel
+                    class="card flex justify-content-center h-30rem border-1 pt-6 pb-6 border-gray-300 border-round-lg bg-gray-50">
                     <div class="flex flex-column gap-3">
                         <div *ngFor="let educationLevel of educationLevels" class="field-checkbox">
-                            <p-radioButton [inputId]="educationLevel.Id" name="schoolLevel" [value]="educationLevel" [(ngModel)]="selectedEducationLevel"></p-radioButton>
+                            <p-radioButton [inputId]="educationLevel.Id" name="schoolLevel" [value]="educationLevel"
+                                [(ngModel)]="selectedEducationLevel"></p-radioButton>
                             <label [for]="educationLevel.Id" class="ml-2">{{ educationLevel.Name }}</label>
                         </div>
                     </div>
                 </p-scrollPanel>
-                <button  type="submit" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
-                
+                <button type="submit" size="small" pButton pRipple label="Continuer"
+                    class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+
             </div>
         </div>
     </form>
 </section>
-<app-student-education-level-skeleton *ngIf="loading && registrationStateStep.toString() == '5'"></app-student-education-level-skeleton>
+<app-student-education-level-skeleton
+    *ngIf="loading && registrationStateStep.toString() == '5'"></app-student-education-level-skeleton>
 
 
 
-<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="!loading && registrationStateStep.toString() == '6'">
-    <form class="w-10 md:w-3 lg-w-3 xl:w-3"  #subjectForm="ngForm" name="subjectForm" (ngSubmit)="subjectForm.form.valid && registerSubject()">
+<section class="w-full h-screen  flex justify-content-center mt-2"
+    *ngIf="!loading && registrationStateStep.toString() == '6'">
+    <form class="w-10 md:w-3 lg-w-3 xl:w-3" #subjectForm="ngForm" name="subjectForm"
+        (ngSubmit)="subjectForm.form.valid && registerSubject()">
         <h1 class="text-center text-xl text-cyan-900  poppins-bold">Dans quelle matière avez vous besoin d'aide ?</h1>
         <div class="frm poppins-medium">
             <div class="w-full flex flex-column gap-4">
-                <p-scrollPanel  class="card flex justify-content-center h-30rem border-1 pt-6 pb-6 border-gray-300 border-round-lg bg-gray-50">
+                <p-scrollPanel
+                    class="card flex justify-content-center h-30rem border-1 pt-6 pb-6 border-gray-300 border-round-lg bg-gray-50">
                     <div class="flex flex-column gap-3">
                         <div *ngFor="let subject of subjects" class="pl-4 field-checkbox">
-                            <p-radioButton [inputId]="subject.Id" name="category" [value]="subject" [(ngModel)]="selectedSubject"></p-radioButton>
+                            <p-radioButton [inputId]="subject.Id" name="category" [value]="subject"
+                                [(ngModel)]="selectedSubject"></p-radioButton>
                             <label [for]="subject.Id" class="ml-2">{{ subject.Name }}</label>
                         </div>
                     </div>
                 </p-scrollPanel>
-                <button type="submit" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                <button type="submit" size="small" pButton pRipple label="Continuer"
+                    class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
             </div>
         </div>
     </form>
 </section>
-<app-student-subject-skeleton  *ngIf="loading && registrationStateStep.toString() == '6'"></app-student-subject-skeleton>
+<app-student-subject-skeleton *ngIf="loading && registrationStateStep.toString() == '6'"></app-student-subject-skeleton>
 
-<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="!loading && registrationStateStep.toString() == '7'">
-    <form class="w-10 md:w-3 lg-w-3 xl:w-3"  #courseTypeForm="ngForm" name="courseTypeForm" (ngSubmit)="courseTypeForm.form.valid && registerCourseType()">
-        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Vous feriez des cours en ligne ou en présentiel ?</h1>
+<section class="w-full h-screen  flex justify-content-center mt-2"
+    *ngIf="!loading && registrationStateStep.toString() == '7'">
+    <form class="w-10 md:w-3 lg-w-3 xl:w-3" #courseTypeForm="ngForm" name="courseTypeForm"
+        (ngSubmit)="courseTypeForm.form.valid && registerCourseType()">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Vous feriez des cours en ligne ou en présentiel ?
+        </h1>
         <div class="frm poppins-medium">
             <div class="w-full flex flex-column gap-4">
-                <div  class="card w-fu">
+                <div class="card w-full h-full pt-4 pb-4 border-2 border-gray-300 border-round-lg bg-gray-50 pl-4 pr-4">
                     <div class="flex flex-column gap-3 ">
-                        <div *ngFor="let courseType of courseTypes" class="field-checkbox pt-6 pb-6 border-2 border-gray-300 border-round-lg bg-gray-50 pl-4 pr-4">
-                            <p-radioButton [inputId]="courseType.key" name="category" [value]="courseType" [(ngModel)]="selectedcourseType"></p-radioButton>
+                        <div *ngFor="let courseType of courseTypes" class="field-checkbox">
+                            <p-radioButton [inputId]="courseType.key" name="category" [value]="courseType"
+                                [(ngModel)]="selectedcourseType"></p-radioButton>
                             <div class="relative w-full">
                                 <label [for]="courseType.key" class="ml-2">{{ courseType.name }}</label>
-                                <label class="text-xs text-gray-400 mt-1 absolute w-full left-0 pl-2 pt-3">{{ courseType.description }}</label>
-                           </div>
+                                <label class="text-xs text-gray-400 mt-1 absolute w-full left-0 pl-2 pt-3">{{
+                                    courseType.description }}</label>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <button type="submit" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
-                
+                <button type="submit" size="small" pButton pRipple label="Continuer"
+                    class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
             </div>
         </div>
     </form>
 </section>
-<app-student-course-type-skeleton *ngIf="loading && registrationStateStep.toString() == '7'"></app-student-course-type-skeleton>
+<app-student-course-type-skeleton
+    *ngIf="loading && registrationStateStep.toString() == '7'"></app-student-course-type-skeleton>
 
 
-<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="!loading && registrationStateStep.toString() == '8'">
-    <form class="w-10 md:w-3 lg-w-3 xl:w-3"  #availabilityForm="ngForm" name="availabilityForm" (ngSubmit)="availabilityForm.form.valid && registerAvailability()">
-        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Quelles sont vos disponnibilités pour la premiere rencontre avec le tuteur?</h1>
+<section class="w-full h-screen  flex justify-content-center mt-2"
+    *ngIf="!loading && registrationStateStep.toString() == '8'">
+    <form class="w-10 md:w-3 lg-w-3 xl:w-3" #availabilityForm="ngForm" name="availabilityForm"
+        (ngSubmit)="availabilityForm.form.valid && registerAvailability()">
+        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Quelles sont vos disponnibilités pour la premiere
+            rencontre avec le tuteur?</h1>
         <div class="frm poppins-medium">
             <div class="w-full flex flex-column gap-2">
                 <div class="flex-auto">
                     <label for="icondisplay" class="">Vous préférez demain à</label>
-                    <p-calendar [showTime]="true"  [timeOnly]="true" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay">
+                    <p-calendar  [(ngModel)]="availabilityFrom" name="from"  [showTime]="true" [timeOnly]="true" [iconDisplay]="'input'" [showIcon]="true"
+                        inputId="icondisplay">
                         <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
                             <i class="pi pi-clock pointer-events-none" (click)="clickCallBack($event)"></i>
                         </ng-template>
                     </p-calendar>
                 </div>
-
                 <div class="flex-auto">
                     <label for="icondisplay" class="">Ou</label>
-                    <div  class="card flex  h-10rem w-100 overflow-y-scroll pt-3 pb-3 border-1 border-gray-300 p-3 border-round-md">
+                    <div
+                        class="card flex  h-10rem w-100 overflow-y-scroll pt-3 pb-3 border-1 border-gray-300 p-3 border-round-md">
                         <div class="flex flex-column gap-3">
                             <div *ngFor="let day of days" class="field-checkbox">
-                                <p-radioButton [inputId]="day.key" name="category" [value]="day" [(ngModel)]="selectedDays"></p-radioButton>
+                                <p-radioButton [inputId]="day.key" name="category" [value]="day"
+                                    [(ngModel)]="selectedDays"></p-radioButton>
                                 <label [for]="day.key" class="ml-2">{{ day.name }}</label>
                             </div>
                         </div>
@@ -296,24 +297,24 @@
                 </div>
                 <div class="flex-auto">
                     <label for="icondisplay" class="">à</label>
-                    <p-calendar [showTime]="true"  [timeOnly]="true" [iconDisplay]="'input'" [showIcon]="true" Icon="pi pi-user" inputId="icondisplay">
+                    <p-calendar [showTime]="true" [timeOnly]="true" [iconDisplay]="'input'" [showIcon]="true" [(ngModel)]="availabilityWhere" name="where"
+                        Icon="pi pi-user" inputId="icondisplay">
                         <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
                             <i class="pi pi-clock pointer-events-none" (click)="clickCallBack($event)"></i>
                         </ng-template>
                     </p-calendar>
                 </div>
-                <button type="submit" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
-                
+                <button type="submit" size="small" pButton pRipple label="Continuer"
+                    class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
             </div>
         </div>
     </form>
 </section>
 
-
-<section  class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '9'">
+<section class="w-full h-screen  flex justify-content-center mt-2" *ngIf="registrationStateStep.toString() == '9'">
     <div class="w-10 md:w-3 lg-w-3 xl:w-3">
-        <h1 class="text-center text-xl text-cyan-900 poppins-bold">Voici le meilleur tuteur pour convenir à vos besoins:</h1>
-        <div class="frm poppins-medium">
-        </div>
+        <h1 class="text-center text-xl text-cyan-900 poppins-bold">Voici le meilleur tuteur pour convenir à vos besoins:
+        </h1>
+        <button routerLink="/pages/dashboard" size="small" pButton pRipple label="Naviguer vers le tableau de bord" class="mt-5 p-button-success w-full bg-green-500 text-white"></button>
     </div>
 </section>

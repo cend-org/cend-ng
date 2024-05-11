@@ -5,3 +5,10 @@ $main-text-color: #3A9B23;
     background-color: $main-bg-color;
     color: white;
 }
+::ng-deep .p-password{
+    width:  100%;
+}
+
+::ng-deep .p-password-input{
+   width:  100%;
+}

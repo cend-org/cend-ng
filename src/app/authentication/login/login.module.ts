@@ -15,7 +15,7 @@ import { ThemesModule } from '../../@themes/themes.module';
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { FormsModule } from '@angular/forms';
-
+import { PasswordModule } from 'primeng/password';
 @NgModule({
   declarations: [
     LoginStudentComponent,
@@ -35,6 +35,7 @@ import { FormsModule } from '@angular/forms';
    ToastModule,
    MessagesModule,
    FormsModule,
+   PasswordModule
   ], 
 })
 export class LoginModule { }

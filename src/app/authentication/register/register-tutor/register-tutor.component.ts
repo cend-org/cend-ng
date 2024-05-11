@@ -3,10 +3,30 @@ import { TutorRegisterStepEnum } from '../../../@core/enumerations/tutor-registe
 import { SelectItemGroup } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { FileUploadEvent } from 'primeng/fileupload';
+import { Apollo, gql } from 'apollo-angular';
+import { AuthService } from '../../../@core/services/auth.service';
+import { HeaderService } from '../../../@core/services/header.service';
+import { LocalStorageService } from '../../../@core/services/local-storage.service';
+import { ValidationService } from '../../../@core/services/validation.service';
+import { LanguageData } from '../../../@core/datas/language-data';
+import { Sex } from '../../../@core/datas/sex.data';
+import { CourseTypeData } from '../../../@core/datas/course-type.data';
+import { PASSWORD, REGISTRATION } from '../../../services/graphs/auth.graph';
+import { UserTypeEnum } from '../../../@core/enumerations/user-type.enum';
+import { environment } from '../../../environments/environment';
+import { RegistrationWithInforeq } from '../../../@core/entities/requests/registration-req';
+import { DaysData } from '../../../@core/datas/days.data';
+import { GroupedCitiesData } from '../../../@core/datas/grouped-cities.data';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { DocumentNode } from 'graphql';
+import { UploadService } from '../../../@core/services/upload.service';
+import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
+import { UploadTypeEnum } from '../../../@core/enumerations/upload-type.enum';
+import { isDate } from 'util/types';
 
 interface UploadEvent {
-    originalEvent: Event;
-    files: File[];
+  originalEvent: Event;
+  files: File[];
 }
 
 @Component({
@@ -15,142 +35,438 @@ interface UploadEvent {
   styleUrl: './register-tutor.component.scss'
 })
 export class RegisterTutorComponent {
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private validationService: ValidationService,
+    private apolloService: Apollo,
+    private locaStorageService: LocalStorageService,
+    private headerService: HeaderService,
+    private authService: AuthService,
+    private messageService: MessageService,
+    private formBuilder: FormBuilder,
+    private uploadService: UploadService,
+    private http: HttpClient
+  ) { }
+  inputNotValid: boolean = false;
 
-  registrationStateStep: TutorRegisterStepEnum = TutorRegisterStepEnum.EMAIL
+  error_message: string = '';
+
+  email: string = "";
+  password: string = "";
+  passwordConfirm: string = "";
+  name: string = "";
+  familyName: string = "";
+  birthDate: any = "";
+  nickName: string = "";
+
+
+  registrationProfileInfoReq: RegistrationWithInforeq = new RegistrationWithInforeq();
+  registrationStateStep: TutorRegisterStepEnum = TutorRegisterStepEnum.EMAIL;
+  loading: boolean = false;
   groupedCities: SelectItemGroup[] | undefined;
   selectedCity: string | undefined;
   selectedlanguage: any = null;
-  selectedSchoolLevel: any = null;
+  selectedSex: any = null;
+  selectedEducationLevel: any = null;
   selectedSubject: any = null;
-  selectedcourseType:any = null;
-  selectedDays:any = null;
+  selectedcourseType: any = null;
+  selectedDays: any = null;
 
-  uploadedPhotoFiles: any[] = [];
 
-  languages: any[] = [
-    { name: 'Français', key: 'F', default:'Par défaut'},
-    { name: 'English', key: 'E', default:'' }, 
-];
 
-schoolLevels: any[] = [
-  { name: 'Primaire 1', key: 'P'},
-  { name: 'Primaire 2', key: 'P'},
-  { name: 'Primaire 3', key: 'P'},
-  { name: 'Primaire 4', key: 'P'},
-  { name: 'Primaire 5', key: 'P'},
-  { name: 'Primaire 6', key: 'P'},
 
-  { name: 'Secondaire 1', key: 'S'},
-  { name: 'Secondaire 2', key: 'S'},
-  { name: 'Secondaire 3', key: 'S'},
-  { name: 'Secondaire 4', key: 'S'},
-  { name: 'Secondaire 5', key: 'S'},
-
-  { name: 'Cégep', key: 'C'},
-  { name: 'Universités', key: 'U'},
-
-];
-
-subjects: any[] = [
-  { name: 'Mathématiques', key: 'M'},
-  { name: 'Français', key: 'M'},
-];
-
-courseTypes: any[] = [
-  { name: 'En Ligne', key: 'L', description: 'Economique, rapide, certains d\'avoir le meilleur tuteur.'},
-  { name: 'En Presentiel', key: 'P', description: 'Option prémium, sélection plus limitée de tuteur.'},
-];
-days: any[] = [
-  { name: 'Lundi', key: 'L', },
-  { name: 'Mardi', key: 'M' },
-  { name: 'Mercredi', key: 'M' },
-  { name: 'Jeudi', key: 'J' },
-  { name: 'Vendredi', key: 'V' },
-  { name: 'Samedi', key: 'S' },
-  { name: 'Dimanche', key: 'D' },
-];
-  nextStep(current: string){
-    if (current == "EMAIL"){
-      this.registrationStateStep = TutorRegisterStepEnum.OTP
-    }
-
-    if (current == "OTP"){
-      this.registrationStateStep = TutorRegisterStepEnum.PASSWORD
-    }
-
-    if (current == "PASSWORD"){
-      this.registrationStateStep = TutorRegisterStepEnum.ABOUT
-    }
-
-    if (current == "ABOUT"){
-      this.registrationStateStep = TutorRegisterStepEnum.PHOTO
-    }
-
-    if (current == "PHOTO"){
-      this.registrationStateStep = TutorRegisterStepEnum.VIDEO
-    }
-    if (current == "VIDEO"){
-      this.registrationStateStep = TutorRegisterStepEnum.CV
-    }
-    if (current == "CV"){
-      this.registrationStateStep = TutorRegisterStepEnum.DESCRIPTION
-    }
-    if (current == "DESCRIPTION"){
-      this.registrationStateStep = TutorRegisterStepEnum.COURSE_TYPE
-    }
-    if (current == "COURSE_TYPE"){
-      this.registrationStateStep = TutorRegisterStepEnum.AVAILABILITY
-    }
-    if (current == "AVAILABILITY"){
-      this.registrationStateStep = TutorRegisterStepEnum.CONFIRMATION
-    }
-  }
-
+  sex: any[] = Sex;
+  languages: any[] = LanguageData;
+  educationLevels: any[] = [];
+  subjects: any[] = [];
+  courseTypes: any[] = CourseTypeData;
+  days: any[] = DaysData;
+  uploadForm: FormGroup | undefined;
   ngOnInit(): void {
-    this.selectedSchoolLevel = this.schoolLevels[0];
-    this.selectedlanguage = this.languages[0];
-    this.selectedSubject = this.subjects[0];
-    this.selectedcourseType = this.courseTypes[0];
+    this.getEducationLevel();
     this.selectedDays = this.days[0];
-    this.groupedCities = [
-      {
-          label: 'Germany',
-          value: 'de',
-          items: [
-              { label: 'Berlin', value: 'Berlin' },
-              { label: 'Frankfurt', value: 'Frankfurt' },
-              { label: 'Hamburg', value: 'Hamburg' },
-              { label: 'Munich', value: 'Munich' }
-          ]
-      },
-      {
-          label: 'USA',
-          value: 'us',
-          items: [
-              { label: 'Chicago', value: 'Chicago' },
-              { label: 'Los Angeles', value: 'Los Angeles' },
-              { label: 'New York', value: 'New York' },
-              { label: 'San Francisco', value: 'San Francisco' }
-          ]
-      },
-      {
-          label: 'Japan',
-          value: 'jp',
-          items: [
-              { label: 'Kyoto', value: 'Kyoto' },
-              { label: 'Osaka', value: 'Osaka' },
-              { label: 'Tokyo', value: 'Tokyo' },
-              { label: 'Yokohama', value: 'Yokohama' }
-          ]
-      }
-  ];
+    this.groupedCities = GroupedCitiesData;
+    this.uploadForm = this.formBuilder.group({
+      photo: [''],
+      video: [''],
+    });
   }
-  onUpload(event:FileUploadEvent) {
-    for(let file of event.files) {
-        this.uploadedPhotoFiles.push(file);
+
+  registerWithEmail() {
+    if (!this.validationService.checkEmail(this.email)) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez vérifier vôtre email!' });
+      return;
+    }
+    this.loading = true;
+    this.apolloService.mutate({
+      mutation: REGISTRATION.WITH_EMAIL,
+      variables: {
+        input: this.email,
+        as: UserTypeEnum.TUTOR
+      },
+    }).subscribe({
+      next: (response) => {
+        let resp: any = response.data;
+        if (resp) {
+          this.locaStorageService.save(`${environment.cend_default_lang_id}_tkn`, resp["registerWithEmail"]);
+          this.registrationStateStep = TutorRegisterStepEnum.PASSWORD;
+          this.inputNotValid = false;
+        };
+        this.loading = false;
+      },
+      error: (e) => {
+        this.messageService.add({ severity: 'error', summary: 'Erreur lors du traitement!', detail: e.message });
+        this.loading = false
+      }
+    });
+  }
+
+
+  registerNewPassword() {
+    if (this.password != this.passwordConfirm) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Mots de passe non identique!' });
+      return;
     }
 
-    this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
-}
+    if (this.password.length <= 0 || this.passwordConfirm.length <= 0) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Les mots de passe ne doivent pas être vide!' });
+      return;
+    }
+
+
+    this.loading = true;
+    this.apolloService.mutate({
+      mutation: PASSWORD.NEW_PASSWORD,
+      variables: {
+        password: this.password,
+      },
+      context: {
+        headers: this.headerService.Get()
+      }
+    }).subscribe({
+      next: (response) => {
+        this.registrationStateStep = TutorRegisterStepEnum.ABOUT;
+        this.loading = false
+      },
+      error: (e) => {
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitemnt!', detail: e.message });
+        this.loading = false;
+      }
+    });
+  }
+
+
+  registerAboutInfo() {
+    if (!this.name.trim()) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Vôtre nom est requis!' });
+      return;
+    }
+
+    if (!this.familyName.trim()) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Vôtre prénom est requis!' });
+      return;
+    }
+
+
+    if (!this.birthDate) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Date de naissance invalide!' });
+      return;
+    }
+
+    if (!this.nickName.trim()) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Vôtre nom d\'utilisateur est requis!' });
+      return;
+    }
+
+    if (!this.selectedSex) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir vôtre sex!' });
+      return;
+    }
+
+
+    if (!this.selectedlanguage) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir vôtre langue maternelle!' });
+      return;
+    }
+
+
+
+    this.loading = true;
+    this.apolloService.mutate({
+      mutation: REGISTRATION.WITH_INFO,
+      variables: {
+        Name: this.name,
+        FamilyName: this.familyName,
+        NickName: this.nickName,
+        BirthDate: this.birthDate,
+        Sex: this.selectedSex.value,
+        Lang: this.selectedlanguage.value,
+        Email: this.email,
+      },
+      context: {
+        headers: this.headerService.Get()
+      }
+    }).subscribe({
+      next: (response) => {
+        this.registrationStateStep = TutorRegisterStepEnum.SCHOOL_LEVEL;
+        this.loading = false
+      },
+      error: (e) => {
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
+        this.loading = false;
+      }
+    });
+  }
+
+  getEducationLevel() {
+    this.loading = true;
+    this.apolloService.query({
+      query: gql`query {
+        getEducation {
+              Id
+              Name
+          }
+      }`,
+    }).subscribe({
+      next: (response: any) => {
+        let educations: Array<any> = response?.data['getEducation'];
+        this.educationLevels = educations ? educations : [];
+        this.loading = false
+      },
+      error: (e) => {
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
+        this.loading = false;
+      }
+    });
+  }
+
+  registerEducationLevel() {
+    if (!this.selectedEducationLevel) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir vôtre niveau scolaire!' });
+      return;
+    }
+
+
+    this.getSubjects();
+    this.registrationStateStep = TutorRegisterStepEnum.SUBJECT;
+  }
+  getSubjects() {
+
+    this.loading = true;
+    this.apolloService.query({
+      query: gql`
+      query getSubjects($id: ID!) {
+        getSubjects(id: $id) {
+          Id
+          Name
+        }
+      }`,
+      variables: {
+        id: this.selectedEducationLevel.Id
+      }
+
+    }).subscribe({
+      next: (response: any) => {
+        let subjectList: Array<any> = response?.data['getSubjects'];
+        this.subjects = subjectList ? subjectList : [];
+        this.loading = false
+      },
+      error: (e) => {
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
+        this.loading = false;
+      }
+    });
+  }
+  registerSubject() {
+    if (!this.selectedSubject) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir la matière dont vous avez besoins d\'aide!' });
+      return;
+    }
+
+    this.loading = true;
+    this.apolloService.mutate({
+      mutation: gql`
+        mutation setUserEducationLevel($subjectId: Int!) {
+            setUserEducationLevel(subjectId: $subjectId) {
+              Id,
+              Name
+            }
+        }
+      `,
+      variables: {
+        subjectId: this.selectedSubject.Id
+      },
+      context: {
+        headers: this.headerService.Get()
+      }
+    }).subscribe({
+      next: (response: any) => {
+        this.registrationStateStep = TutorRegisterStepEnum.PHOTO;
+        this.loading = false
+      },
+      error: (e) => {
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
+        this.loading = false;
+      }
+    });
+  }
+ 
+
+
+
+  acceptedExtentions: Array<String> = ['png', 'jpg', 'jpeg', 'webp']
+  selectedImageSrc: string = "assets/image/avatar.svg";
+  selectedVideoSrc: string  = "assets/image/video.svg";
+  onPhotoSelected(event: any) {
+    const file = event.target?.files[0];
+    if (event.target.files.length <= 0) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validationt!', detail: 'Veuillez ajouter une photo valide!' });
+      return;
+    }
+    let extension: string = file?.name.substring(file?.name.lastIndexOf('.') + 1);
+
+    if (!this.acceptedExtentions.includes(extension.toLowerCase())) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validationt!', detail: 'Veuillez ajouter une photo valide!' });
+      return;
+    }
+
+    this.uploadForm?.get('photo')?.setValue(file);
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.selectedImageSrc = reader.result as string;
+    }
+    reader.readAsDataURL(file);
+
+  }
+  onVideoSelected(event: any) {
+    const file = event.target?.files[0];
+    if (event.target.files.length <= 0) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validationt!', detail: 'Veuillez ajouter une photo valide!' });
+      return;
+    }
+    let extension: string = file?.name.substring(file?.name.lastIndexOf('.') + 1);
+
+    if (!['mp4', "avi", "webm"].includes(extension.toLowerCase())) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validationt!', detail: 'Veuillez ajouter une photo valide!' });
+      return;
+    }
+
+    this.uploadForm?.get('video')?.setValue(file);
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.selectedVideoSrc = reader.result as string;
+    }
+    reader.readAsDataURL(file);
+
+  }
+
+
+  registerPhoto() {
+    let formData = new FormData();
+    let fileValue = this.uploadForm?.get("photo")?.value;
+    formData.append('documentType', JSON.stringify(UploadTypeEnum.USER_PROFILE_IMAGE));
+    formData.append('file', fileValue);
+
+    if (fileValue) {
+      // this.uploadService.Upload(true, formData).subscribe({
+      //   next: (resp: HttpResponse<any>)=>{
+      //     console.log(resp);
+      //   }
+      //  });
+      this.registrationStateStep = TutorRegisterStepEnum.VIDEO;
+    } else {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validationt!', detail: 'Veuillez ajouter une photo!' });
+    }
+  }
+
+
+  registerVideo() {
+    let formData = new FormData();
+    let fileValue = this.uploadForm?.get("video")?.value;
+    formData.append('documentType', JSON.stringify(UploadTypeEnum.VIDEO_PRESENTATION));
+    formData.append('file', fileValue);
+    if (fileValue) {
+     
+      // this.uploadService.Upload(true, formData).subscribe({
+      //   next: (resp: HttpResponse<any>)=>{
+      //     console.log(resp);
+      //   }
+      //  });
+      this.registrationStateStep = TutorRegisterStepEnum.DESCRIPTION;
+
+
+    } else {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validationt!', detail: 'Veuillez ajouter une photo!' });
+    }
+  }
+
+
+
+  descriptionPresentation:string = "";
+  descriptionExperience:string = "";
+  descriptionMotivation: string = "";
+  registerDescription(){
+    if (!this.descriptionPresentation.trim()) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez ajouter une description!' });
+      return;
+    }
+    if (!this.descriptionExperience.trim()) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez ajouter votre experience!' });
+      return;
+    }
+    if (!this.descriptionMotivation.trim()) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez ajouter votre motivation!' });
+      return;
+    }
+
+    this.registrationStateStep = TutorRegisterStepEnum.COURSE_TYPE;
+
+  }
+
+  registerCourseType() {
+    //this.loading = true;
+    if (!this.selectedcourseType) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir le type de cours dont vous avez besoins!' });
+      return;
+    }
+    let user_id: number = this.authService.GetUserId();
+
+    this.loading = true;
+    this.apolloService.mutate({
+      mutation: gql`
+        mutation setUserCoursePreference($isOnline: Boolean!) {
+          setUserCoursePreference(isOnline: $isOnline) {
+              Id,
+              UserId
+              IsOnline
+            }
+        }
+      `,
+      variables: {
+        isOnline: this.selectedcourseType.value
+      },
+      context: {
+        headers: this.headerService.Get()
+      }
+    }).subscribe({
+      next: (response: any) => {
+        this.registrationStateStep = TutorRegisterStepEnum.AVAILABILITY;
+        this.loading = false
+      },
+      error: (e) => {
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
+        this.loading = false;
+      }
+    });
+  }
+
+  availability: Date[] | undefined;
+  registerAvailability() {
+    if (!this.availability) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez Ajoutez votre disponibilite!' });
+      return;
+    }
+
+    this.registrationStateStep = TutorRegisterStepEnum.CONTACT;
+  }
+
 }

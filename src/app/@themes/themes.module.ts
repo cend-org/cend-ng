@@ -26,6 +26,13 @@ import { LoadingComponent } from './loading/loading.component';
 import { StudentEducationLevelSkeletonComponent } from './skeletons/register/student/student-education-level-skeleton/student-education-level-skeleton.component';
 import { StudentSubjectSkeletonComponent } from './skeletons/register/student/student-subject-skeleton/student-subject-skeleton.component';
 import { StudentCourseTypeSkeletonComponent } from './skeletons/register/student/student-course-type-skeleton/student-course-type-skeleton.component';
+import { ParentRegisterEmailSkeletonComponent } from './skeletons/register/parent/parent-register-email-skeleton/parent-register-email-skeleton.component';
+import { ParentPasswordSkeletonComponent } from './skeletons/register/parent/parent-password-skeleton/parent-password-skeleton.component';
+import { ParentAboutSkeletonComponent } from './skeletons/register/parent/parent-about-skeleton/parent-about-skeleton.component';
+import { ParentChildSkeletonComponent } from './skeletons/register/parent/parent-child-skeleton/parent-child-skeleton.component';
+import { ParentEducationLevelSkeletonComponent } from './skeletons/register/parent/parent-education-level-skeleton/parent-education-level-skeleton.component';
+import { ParentSubjectSkeletonComponent } from './skeletons/register/parent/parent-subject-skeleton/parent-subject-skeleton.component';
+import { ParentCourseTypeSkeletonComponent } from './skeletons/register/parent/parent-course-type-skeleton/parent-course-type-skeleton.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +47,14 @@ import { StudentCourseTypeSkeletonComponent } from './skeletons/register/student
     LoadingComponent,
     StudentEducationLevelSkeletonComponent,
     StudentSubjectSkeletonComponent,
-    StudentCourseTypeSkeletonComponent
+    StudentCourseTypeSkeletonComponent,
+    ParentRegisterEmailSkeletonComponent,
+    ParentPasswordSkeletonComponent,
+    ParentAboutSkeletonComponent,
+    ParentChildSkeletonComponent,
+    ParentEducationLevelSkeletonComponent,
+    ParentSubjectSkeletonComponent,
+    ParentCourseTypeSkeletonComponent
   ],
   exports: [
     HeaderComponent,
@@ -52,7 +66,15 @@ import { StudentCourseTypeSkeletonComponent } from './skeletons/register/student
     StudentAboutSkeletonComponent,
     StudentEducationLevelSkeletonComponent,
     StudentSubjectSkeletonComponent,
-    StudentCourseTypeSkeletonComponent
+    StudentCourseTypeSkeletonComponent,
+    ParentRegisterEmailSkeletonComponent,
+    ParentPasswordSkeletonComponent,
+    ParentAboutSkeletonComponent,
+    ParentChildSkeletonComponent,
+    ParentEducationLevelSkeletonComponent,
+    ParentSubjectSkeletonComponent,
+    ParentCourseTypeSkeletonComponent
+
   ], 
   imports: [
     CommonModule, 

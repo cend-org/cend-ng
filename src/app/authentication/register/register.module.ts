@@ -24,6 +24,7 @@ import { ThemesModule } from '../../@themes/themes.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApolloInterceptor } from '../../@core/interceptors/graph.interceptor';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { AvatarModule } from 'primeng/avatar';
 @NgModule({
   declarations: [
     RegisterStudentComponent,
@@ -50,6 +51,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
    InputTextareaModule,
    ThemesModule,
    SelectButtonModule,
+   AvatarModule
   ],
   providers:[
     { provide: HTTP_INTERCEPTORS, useClass: ApolloInterceptor, multi: true },
