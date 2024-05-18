@@ -136,7 +136,9 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
     this.apolloService.mutate({
       mutation: PASSWORD.NEW_PASSWORD,
       variables: {
-        password: this.password,
+        "password": {
+          "Hash" :  this.password
+      }
       },
       context: {
         headers: this.headerService.Get()
@@ -191,13 +193,14 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
     this.apolloService.mutate({
       mutation: REGISTRATION.WITH_INFO,
       variables: {
-        Name: this.name,
-        FamilyName: this.familyName,
-        NickName: this.nickName,
-        BirthDate: this.birthDate,
-        Sex: this.selectedSex.value,
-        Lang: this.selectedlanguage.value,
-        Email: this.email,
+        "profile": {
+          "Name" : this.name,
+          "FamilyName": this.familyName,
+          "NickName":  this.nickName,
+          "Sex": this.selectedSex.value,
+          "Lang": this.selectedlanguage.value,
+          "Email": this.email,
+      }
       },
       context: {
         headers: this.headerService.Get()

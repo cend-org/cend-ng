@@ -420,7 +420,9 @@ export class RegisterParentComponent implements OnInit {
     this.apolloService.mutate({
       mutation: PASSWORD.NEW_PASSWORD,
       variables: {
-        password: this.password,
+        "password": {
+          "Hash" :  this.password
+      }
       },
       context: {
         headers: this.headerService.Get()
@@ -475,13 +477,14 @@ export class RegisterParentComponent implements OnInit {
     this.apolloService.mutate({
       mutation: REGISTRATION.WITH_INFO,
       variables: {
-        Name: this.name,
-        FamilyName: this.familyName,
-        NickName: this.nickName,
-        BirthDate: this.birthDate,
-        Sex: this.selectedSex.value,
-        Lang: this.selectedlanguage.value,
-        Email: this.email,
+        "profile": {
+          "Name" : this.name,
+          "FamilyName": this.familyName,
+          "NickName":  this.nickName,
+          "Sex": this.selectedSex.value,
+          "Lang": this.selectedlanguage.value,
+          "Email": this.email,
+      }
       },
       context: {
         headers: this.headerService.Get()
@@ -684,27 +687,37 @@ export class RegisterParentComponent implements OnInit {
       return;
     }
 
-    nextCallback.emit(); //eto
+    this.loadingService.emitChange(true);
+    setTimeout(() => {
+      this.loadingService.emitChange(false);
+      nextCallback.emit(0);
+    }, 500);
     
-    this.apolloService.mutate({
-      mutation: REGISTRATION.CHILD_NAME,
-      variables: {
-        Name: this.childName,
-        FamilyName: this.childFamilyName,
-      },
-      context: {
-        headers: this.headerService.Get()
-      }
-    }).subscribe({
-      next: (response) => {
-        this.registrationStateStep = ParentRegisterStepEnum.STUDENT_SCHOOL_LEVEL;
-        this.loadingService.emitChange(false);
-        nextCallback.emit();
-      },
-      error: (e) => {
-        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
-        this.loadingService.emitChange(false);
-      }
-    });
+    // this.apolloService.mutate({
+    //   mutation:gql`
+    //   mutation ($profile: UserInput! , $studentId: Int!)  {
+    //     UpdateStudentProfileByParent(
+    //         profile: $profile, 
+    //         studentId: $studentId)
+    // }
+    // `,
+    //   variables: {
+    //     Name: this.childName,
+    //     FamilyName: this.childFamilyName,
+    //   },
+    //   context: {
+    //     headers: this.headerService.Get()
+    //   }
+    // }).subscribe({
+    //   next: (response) => {
+    //     this.registrationStateStep = ParentRegisterStepEnum.STUDENT_SCHOOL_LEVEL;
+    //     this.loadingService.emitChange(false);
+    //     nextCallback.emit();
+    //   },
+    //   error: (e) => {
+    //     this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
+    //     this.loadingService.emitChange(false);
+    //   }
+    // });
   }
 }

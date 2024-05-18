@@ -18,11 +18,11 @@ export class LOGIN{
 export class PASSWORD {
     static NEW_PASSWORD: any = gql`
         mutation 
-            newPassword(
-                $password: String!
+            NewPassword(
+                $password: PasswordInput!
             ) 
             {
-                newPassword(
+                NewPassword(
                     password: $password
                 )
             }
@@ -54,27 +54,36 @@ export class REGISTRATION{
 
     static WITH_INFO: any = gql`
         mutation 
-            updMyProfile(
-                $Name: String!, 
-                $FamilyName: String!,
-                $NickName: String!,
-                $BirthDate: DateTime!,
-                $Sex:Int!,
-                $Lang:Int!,
-            ) 
-            {
-                updMyProfile(
-                    input: {
-                        Name: $Name, 
-                        FamilyName: $FamilyName,
-                        NickName: $NickName,
-                        BirthDate: $BirthDate,
-                        Sex:$Sex,
-                        Lang:$Lang,
-                    }
-                )
+            mutation ($profile: UserInput!) {
+                UpdateMyProfile(profile: $profile) {
+                    Id
+                    CreatedAt
+                    UpdatedAt
+                    DeletedAt
+                    Name
+                    FamilyName
+                    NickName
+                    Email
+                    Matricule
+                    Age
+                    BirthDate
+                    Sex
+                    Lang
+                    Status
+                    ProfileImageXid
+                    Description
+                    CoverText
+                    Profile
+                    ExperienceDetail
+                    AdditionalDescription
+                    AddOnTitle
+                }
             }
-    `;
+            
+            
+            
+            
+            `;
 
     static CHILD_NAME: any = gql`
         mutation 
