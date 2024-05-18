@@ -276,7 +276,7 @@
         <p-stepperPanel header="Header I">
             <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
-                    <form class="w-10 md:w-3 lg-w-3 xl:w-3" #emailForm="ngForm" name="f"
+                    <form class="w-11 md:w-3 lg-w-3 xl:w-3" #emailForm="ngForm" name="f"
                         (ngSubmit)="emailForm.form.valid && registerWithEmail(nextCallback)" class="w-10 md:w-3 lg-w-3 xl:w-3">
                         <h1 class="text-center text-xl text-cyan-900  poppins-bold ">Indiquez votre numéro de téléphone ou votre adresse
                             e-mail.</h1>
@@ -295,22 +295,22 @@
                                 </p-divider>
                                 <button type="button"
                                     class="hover:border-2 hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
-                                    <p-image class="absolute" src="assets/image/google.svg" alt="Image" width="20"></p-image>
+                                    <p-image class="absolute" src="assets/image/google.svg" alt="Image" width="20" class="ml-4"></p-image>
                                     <div class="w-full text-gray-600 text-center">Continuer avec google</div>
                                 </button>
                                 <button type="button"
                                     class="hover:border-2  hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
-                                    <p-image class="absolute" src="assets/image/apple.svg" alt="Image" width="20"></p-image>
+                                    <p-image class="absolute" src="assets/image/apple.svg" alt="Image" width="20" class="ml-4" ></p-image>
                                     <div class="w-full text-gray-600 text-center">Continuer avec apple</div>
                                 </button>
                                 <button type="button"
                                     class="hover:border-2  hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
-                                    <p-image class="absolute" src="assets/image/fb.svg" alt="Image" width="20"></p-image>
+                                    <p-image class="absolute" src="assets/image/fb.svg" alt="Image" width="20" class="ml-4"></p-image>
                                     <div class="w-full text-gray-600 text-center">Continuer avec facebook</div>
                                 </button>
                                 <button type="button"
                                     class="text-gray-600 hover:text-blue-500  cursor-pointer bg-blue-50 flex justify-content-between border-none border-round-md align-items-center w-full h-3rem">
-                                    <i class="pi pi-qrcode"></i>
+                                    <i class="pi pi-qrcode ml-4" ></i>
                                     <div class="w-full text-center">
                                         Connectez-vous avec une qr-code
                                     </div>
