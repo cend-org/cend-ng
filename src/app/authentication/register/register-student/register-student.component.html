@@ -6,7 +6,7 @@
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-11 md:w-3 lg-w-3 xl:w-3" #emailForm="ngForm" name="f"
                         (ngSubmit)="emailForm.form.valid && registerWithEmail(nextCallback)" class="w-10 md:w-3 lg-w-3 xl:w-3">
-                        <h1 class="text-center text-xl text-cyan-900  poppins-bold ">Indiquez votre numéro de téléphone ou votre adresse
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold ">Indiquez votre numéro de téléphone ou votre adresse
                             e-mail.</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-2">
@@ -58,7 +58,7 @@
                 <section class="w-full h-full  flex justify-content-center mt-2">
                 <form class="w-10 md:w-3 lg-w-3 xl:w-3" #passwordForm="ngForm" name="passwordForm"
                     (ngSubmit)="passwordForm.form.valid && registerNewPassword(nextCallback)">
-                    <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez ajouter votre nouveau mot de passe.</h1>
+                    <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez ajouter votre nouveau mot de passe.</h1>
                     <div class="frm poppins-medium">
                         <div class="w-full flex flex-column gap-4">
                             <div class="flex flex-column gap-2">
@@ -87,7 +87,7 @@
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-10 md:w-3 lg-w-3 xl:w-3" #aboutForm="ngForm" name="aboutForm"
                         (ngSubmit)="aboutForm.form.valid && registerAboutInfo(nextCallback)">
-                        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez remplir les informations suivants.</h1>
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez remplir les informations suivants.</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-2">
                                 <div class="formgrid grid">
@@ -139,7 +139,7 @@
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-10 md:w-3 lg-w-3 xl:w-3"   #aboutForm="ngForm" name="aboutForm" (ngSubmit)="aboutForm.form.valid && registerLanguage(nextCallback)">
-                        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Quelle est la langue à laquelle vous voulez recevoir
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Quelle est la langue à laquelle vous voulez recevoir
                             votre éducation ?</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
@@ -169,7 +169,7 @@
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-10 md:w-3 lg-w-3 xl:w-3" #schoolLevelForm="ngForm" name="schoolLevelForm" (ngSubmit)="schoolLevelForm.form.valid && registerEducationLevel(nextCallback)">
-                        <h1 class="text-center text-xl text-cyan-900  poppins-bold">A quel niveau scolaire êtes vous ?</h1>
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">A quel niveau scolaire êtes vous ?</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
                                 <p-scrollPanel
@@ -196,7 +196,7 @@
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-10 md:w-3 lg-w-3 xl:w-3" #subjectForm="ngForm" name="subjectForm"
                         (ngSubmit)="subjectForm.form.valid && registerSubject(nextCallback)">
-                        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Dans quelle matière avez vous besoin d'aide ?</h1>
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Dans quelle matière avez vous besoin d'aide ?</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
                                 <p-scrollPanel
@@ -221,7 +221,7 @@
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-10 md:w-3 lg-w-3 xl:w-3" #courseTypeForm="ngForm" name="courseTypeForm" (ngSubmit)="courseTypeForm.form.valid && registerCourseType(nextCallback)">
-                        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Vous préférez des cours en ligne ou en présentiel ?
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Vous préférez des cours en ligne ou en présentiel ?
                         </h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
@@ -251,7 +251,7 @@
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-10 md:w-3 lg-w-3 xl:w-3" #availabilityForm="ngForm" name="availabilityForm"
                         (ngSubmit)="availabilityForm.form.valid && registerAvailability(nextCallback)">
-                        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Quelles sont vos disponnibilités pour la premiere
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Quelles sont vos disponnibilités pour la premiere
                             rencontre avec le tuteur?</h1>
                         <div class="frm poppins-medium">
                             <div class="flex flex-column gap-4">

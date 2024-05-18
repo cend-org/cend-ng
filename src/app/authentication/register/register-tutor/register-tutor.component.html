@@ -6,7 +6,7 @@
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-11 md:w-3 lg-w-3 xl:w-3" #emailForm="ngForm" name="f"
                         (ngSubmit)="emailForm.form.valid && registerWithEmail(nextCallback)" class="w-10 md:w-3 lg-w-3 xl:w-3">
-                        <h1 class="text-center text-xl text-cyan-900  poppins-bold ">Indiquez votre numéro de téléphone ou votre adresse
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold ">Indiquez votre numéro de téléphone ou votre adresse
                             e-mail.</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-2">
@@ -58,7 +58,7 @@
                 <section class="w-full h-full  flex justify-content-center mt-2">
                 <form class="w-10 md:w-3 lg-w-3 xl:w-3" #passwordForm="ngForm" name="passwordForm"
                     (ngSubmit)="passwordForm.form.valid && registerNewPassword(nextCallback)">
-                    <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez ajouter votre nouveau mot de passe.</h1>
+                    <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez ajouter votre nouveau mot de passe.</h1>
                     <div class="frm poppins-medium">
                         <div class="w-full flex flex-column gap-4">
                             <div class="flex flex-column gap-2">
@@ -87,7 +87,7 @@
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-10 md:w-3 lg-w-3 xl:w-3" #aboutForm="ngForm" name="aboutForm"
                         (ngSubmit)="aboutForm.form.valid && registerAboutInfo(nextCallback)">
-                        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez remplir les informations suivants.</h1>
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez remplir les informations suivants.</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-2">
                                 <div class="formgrid grid">
@@ -139,7 +139,7 @@
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-10 md:w-3 lg-w-3 xl:w-3"   #aboutForm="ngForm" name="aboutForm" (ngSubmit)="aboutForm.form.valid && registerLanguage(nextCallback)">
-                        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Quelle est la langue à laquelle vous voulez faire votre éducation ?</h1>
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Quelle est la langue à laquelle vous voulez faire votre éducation ?</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
                                 <div
@@ -168,7 +168,7 @@
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-10 md:w-3 lg-w-3 xl:w-3" #schoolLevelForm="ngForm" name="schoolLevelForm" (ngSubmit)="schoolLevelForm.form.valid && registerEducationLevel(nextCallback)">
-                        <h1 class="text-center text-xl text-cyan-900  poppins-bold"> Vous enseignez quel niveau scolaire ?</h1>
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold"> Vous enseignez quel niveau scolaire ?</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
                                 <p-scrollPanel
@@ -195,7 +195,7 @@
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-10 md:w-3 lg-w-3 xl:w-3" #subjectForm="ngForm" name="subjectForm"
                         (ngSubmit)="subjectForm.form.valid && registerSubject(nextCallback)">
-                        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Dans quelle matière votre jeûne a-t-il besoin d'aide ?</h1>
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Dans quelle matière votre jeûne a-t-il besoin d'aide ?</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
                                 <p-scrollPanel
@@ -220,7 +220,7 @@
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section  class="w-full h-screen  flex justify-content-center mt-2">
                     <div class="w-10 md:w-3 lg-w-3 xl:w-3" >
-                        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez télécharger une photo professionelle:</h1>
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez télécharger une photo professionelle:</h1>
                         <div class="mb-2 p-2 flex flex-col justify-content-center gap-3">
                             <i class="pi pi-info-circle text-green-500" style="font-size: 1rem" ></i>
                             <span class="text-xs text-thin text-gray-400">
@@ -247,7 +247,7 @@
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section   class="w-full h-screen  flex justify-content-center mt-2">
                     <div class="w-10 md:w-3 lg-w-3 xl:w-3" >
-                        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez mettre une vidéos de présentation:</h1>
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez mettre une vidéos de présentation:</h1>
                         <div class="mb-2 p-2 flex flex-col justify-content-center gap-3">
                             <i class="pi pi-info-circle text-green-500" style="font-size: 1rem" ></i>
                             <span class="text-xs text-thin text-gray-400">
@@ -279,7 +279,7 @@
                 <section  class="w-full h-screen  flex justify-content-center mt-2">
                     <form class="w-10 md:w-3 lg-w-3 xl:w-3"  #descriptionForm="ngForm" name="descriptionForm"
                     (ngSubmit)="descriptionForm.form.valid && registerDescription(nextCallback)">
-                        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Description du profil.</h1>
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Description du profil.</h1>
                         <div class="mb-2 p-2 flex flex-col justify-content-center gap-3">
                             <i class="pi pi-info-circle text-green-500" style="font-size: 1rem" ></i>
                             <span class="text-xs text-thin text-gray-400">
@@ -317,7 +317,7 @@
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-10 md:w-3 lg-w-3 xl:w-3" #courseTypeForm="ngForm" name="courseTypeForm" (ngSubmit)="courseTypeForm.form.valid && registerCourseType(nextCallback)">
-                        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Vous désiriez une aide en ligne ou en présentiel ?
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Vous désiriez une aide en ligne ou en présentiel ?
                         </h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
@@ -348,7 +348,7 @@
             <section  class="w-full h-screen  flex justify-content-center mt-2">
                 <form class="w-10 md:w-3 lg-w-3 xl:w-3" #availabilityForm="ngForm" name="availabilityForm"
                 (ngSubmit)="availabilityForm.form.valid && registerAvailability(nextCallback)">
-                    <h1 class="text-center text-xl text-cyan-900  poppins-bold">Veuillez définir votre disponibilité.</h1>
+                    <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez définir votre disponibilité.</h1>
                     <div class="poppins-medium">
                         <div class="flex flex-column gap-2">
                             <div class=" ">
@@ -369,7 +369,7 @@
                 <section  class="w-full h-screen  flex justify-content-center mt-2">
                 <form class="w-10 md:w-3 lg-w-3 xl:w-3" #verificationForm="ngForm" name="verificationForm"
                 (ngSubmit)="verificationForm.form.valid && registerVerification(nextCallback)">
-                    <h1 class="text-center text-xl text-cyan-900  poppins-bold">Vérification dossier criminel</h1>
+                    <h1 class="text-left text-xl text-cyan-900  poppins-bold">Vérification dossier criminel</h1>
                     <div class="poppins-medium">
                         <div class="flex flex-column gap-2">
                             
@@ -386,7 +386,7 @@
                 <section  class="w-full  flex justify-content-center mt-2">
                     <form class="w-10 md:w-3 lg-w-3 xl:w-3" #verificationForm="ngForm" name="verificationForm"
                     (ngSubmit)="verificationForm.form.valid && registerRenumeration(nextCallback)">
-                        <h1 class="text-center text-xl text-cyan-900  poppins-bold">Rénumération</h1>
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Rénumération</h1>
                         <div class="poppins-medium">
                             <div class="flex flex-column gap-2">
                                 <div class="card p-2 border-2 border-gray-200 border-round-lg bg-gray-50">
