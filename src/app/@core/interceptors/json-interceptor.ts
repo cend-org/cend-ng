@@ -12,17 +12,22 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { HeaderService } from '../services/header.service';
+import { LoadingService } from '../services/loading.service';
+
+
 @Injectable()
 export class JsonInterceptor implements HttpInterceptor {
-  constructor() { }
+  constructor(
+    private headerService: HeaderService,
+    private loadingService: LoadingService,
+  ) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
-   
-   console.log("intercepted");
-    if (!req.url.endsWith(`${environment.api_host}/upload`)) {
+    this.loadingService.emitChange(true);
+    if (req.url.endsWith(`${environment.api_host}/upload`)) {
       req = req.clone({
         setHeaders: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Authorization': this.headerService.GetAuth()
         }
       })
     }

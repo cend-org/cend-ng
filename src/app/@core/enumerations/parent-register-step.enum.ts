@@ -9,5 +9,4 @@ export enum ParentRegisterStepEnum{
     COURSE_TYPE,
     AVAILABILITY, 
     SUGGESTED_TUTOR
-
 }

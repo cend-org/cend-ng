@@ -2,6 +2,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { PagesComponent } from "./pages.component";
 import { NgModule } from "@angular/core";
 import { LandingComponent } from "./landing/landing.component";
+import { AuthGuardService } from "../@core/services/guard/auth.guard";
 
 const routes: Routes = [
     {
@@ -24,6 +25,7 @@ const routes: Routes = [
                 .then(m => m.AboutModule),
               },
               {
+                canActivate: [AuthGuardService],
                 path: 'dashboard',
                 loadChildren: () => import('../pages/dashboard/dashboard.module')
                 .then(m => m.DashboardModule),

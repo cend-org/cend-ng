@@ -103,3 +103,17 @@ export const registerItems : Array<Menu> =[
         routerLink: "/authentication/register/professor"
     }
 ]
+
+export const navMenuButtons = {
+    "connection": {
+        name: "Se connecter", 
+        link: "/authentication/login", 
+        visibleForPages: [
+            "landing",
+            "about"
+        ], 
+        visibleForAuths: [
+            "unAuthenticated"
+        ]
+    }
+}

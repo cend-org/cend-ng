@@ -1,13 +1,12 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { StudentRegisterStepEnum } from '../../../@core/enumerations/student-register-step.enum';
-import { MessageService, SelectItemGroup } from 'primeng/api';
+import { MenuItem, MessageService, SelectItemGroup } from 'primeng/api';
 import { ValidationService } from '../../../@core/services/validation.service';
 import { RegistrationWithInforeq } from '../../../@core/entities/requests/registration-req';
-import { Apollo, gql } from 'apollo-angular';
+import { Apollo, gql, Subscription } from 'apollo-angular';
 import { PASSWORD, REGISTRATION } from '../../../services/graphs/auth.graph';
 import { LocalStorageService } from '../../../@core/services/local-storage.service';
 import { environment } from '../../../environments/environment';
-import { ToastrService } from 'ngx-toastr';
 import { HeaderService } from '../../../@core/services/header.service';
 import { GroupedCitiesData } from '../../../@core/datas/grouped-cities.data';
 import { DaysData } from '../../../@core/datas/days.data';
@@ -17,26 +16,36 @@ import { LanguageData } from '../../../@core/datas/language-data';
 import { Sex } from '../../../@core/datas/sex.data';
 import { UserTypeEnum } from '../../../@core/enumerations/user-type.enum';
 import { AuthService } from '../../../@core/services/auth.service';
+import { NEW_STUDENT_REGISTRATION } from '../../../services/graphs/student/registration.graph';
+import { LoadingService } from '../../../@core/services/loading.service';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-student',
   templateUrl: './register-student.component.html',
   styleUrl: './register-student.component.scss'
 })
-export class RegisterStudentComponent {
+export class RegisterStudentComponent implements OnInit, AfterViewInit {
+
+
   constructor(
     private validationService: ValidationService,
     private apolloService: Apollo,
     private locaStorageService: LocalStorageService,
     private headerService: HeaderService, 
     private authService: AuthService,
-    private messageService: MessageService
-  ) { }
+    private messageService: MessageService,
+    private loadingService: LoadingService,
+     private router: Router,
+
+  ) {
+    
+   }
   inputNotValid: boolean = false;
 
-  error_message: string = '';
 
-  email: string = "";
+
+  email: string =``;
   password: string = "";
   passwordConfirm: string = "";
   name: string = "";
@@ -66,19 +75,20 @@ export class RegisterStudentComponent {
   subjects: any[] = [];
   courseTypes: any[] = CourseTypeData;
   days: any[] = DaysData;
-
   ngOnInit(): void {
-    this.getEducationLevel();
-    //this.selectedDays = this.days[0];
     this.groupedCities = GroupedCitiesData;
+   // this.loadingService.emitChange(false);
   }
 
-  registerWithEmail() {
+  ngAfterViewInit(){
+   // this.loadingService.emitChange(false);
+  }
+  registerWithEmail(nextCallback: any){
+
     if(!this.validationService.checkEmail(this.email)){
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez vérifier votre email!' });
       return;
     }
-    this.loading = true;
     this.apolloService.mutate({
       mutation: REGISTRATION.WITH_EMAIL,
       variables: {
@@ -90,20 +100,18 @@ export class RegisterStudentComponent {
         let resp: any = response.data;
         if (resp) {
           this.locaStorageService.save(`${environment.cend_default_lang_id}_tkn`, resp["registerWithEmail"]);
-          this.registrationStateStep = StudentRegisterStepEnum.PASSWORD;
-          this.inputNotValid = false;
+          nextCallback.emit();
         };
-        this.loading = false;
+        this.loadingService.emitChange(false);
       },
       error: (e) => {
         this.messageService.add({ severity: 'error', summary: 'Erreur lors du traitement!', detail: e.message });
-        this.loading = false
+        this.loadingService.emitChange(false);
       }
     });
   }
 
-
-  registerNewPassword() {
+  registerNewPassword(nextCallback: any){
     if (this.password != this.passwordConfirm) {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Mots de passe non identique!' });
       return;
@@ -114,8 +122,6 @@ export class RegisterStudentComponent {
       return;
     }
 
-
-    this.loading = true;
     this.apolloService.mutate({
       mutation: PASSWORD.NEW_PASSWORD,
       variables: {
@@ -126,19 +132,18 @@ export class RegisterStudentComponent {
       }
     }).subscribe({
       next: (response) => {
-        this.registrationStateStep = StudentRegisterStepEnum.ABOUT;
-        this.loading = false
+        this.loadingService.emitChange(false);
+        nextCallback.emit();
       },
       error: (e) => {
         this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitemnt!', detail: e.message });
-        this.loading = false;
+        this.loadingService.emitChange(false);
       }
     });
   }
 
-
-  registerAboutInfo() {
-    if (!this.name.trim()) {
+  registerAboutInfo(nextCallback: any){
+  if (!this.name.trim()) {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'votre nom est requis!' });
       return;
     }
@@ -172,7 +177,6 @@ export class RegisterStudentComponent {
 
 
 
-    this.loading = true;
     this.apolloService.mutate({
       mutation: REGISTRATION.WITH_INFO,
       variables: {
@@ -189,18 +193,26 @@ export class RegisterStudentComponent {
       }
     }).subscribe({
       next: (response) => {
-        this.registrationStateStep = StudentRegisterStepEnum.SCHOOL_LEVEL;
-        this.loading = false
+       this.loadingService.emitChange(false);
+       nextCallback.emit()
       },
       error: (e) => {
         this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
-        this.loading = false;
+        this.loadingService.emitChange(false);
       }
     });
   }
-
-  getEducationLevel() {
-    this.loading = true;
+  registerLanguage(nextCallback: any){
+    this.getEducationLevel(nextCallback);
+    // this.loadingService.emitChange(true);
+    // setTimeout(() => {
+    //   this.loadingService.emitChange(false);
+      
+    //  // nextCallback.emit();
+    // }, 1000);
+  }
+  getEducationLevel(nextCallback: any) {
+    this.loadingService.emitChange(true);
     this.apolloService.query({
       query: gql`query {
         getEducation {
@@ -212,28 +224,26 @@ export class RegisterStudentComponent {
       next: (response: any) => {
         let educations: Array<any> = response?.data['getEducation'];
         this.educationLevels = educations ? educations : [];
-        this.loading = false
+        this.loadingService.emitChange(false);
+        nextCallback.emit();
       },
       error: (e) => {
         this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
-        this.loading = false;
+        this.loadingService.emitChange(false);
       }
     });
   }
-
-  registerEducationLevel() {
+  registerEducationLevel(nextCallback: any){
     if (!this.selectedEducationLevel) {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir votre niveau scolaire!' });
       return;
     }
-
-
-    this.getSubjects();
-    this.registrationStateStep = StudentRegisterStepEnum.SUBJECT;
+    this.getSubjects(nextCallback);
+    //this.registrationStateStep = StudentRegisterStepEnum.SUBJECT;
   }
-  getSubjects() {
+  getSubjects(nextCallback: any) {
 
-    this.loading = true;
+    
     this.apolloService.query({
       query: gql`
       query getSubjects($id: ID!) {
@@ -250,21 +260,21 @@ export class RegisterStudentComponent {
       next: (response: any) => {
         let subjectList: Array<any> = response?.data['getSubjects'];
         this.subjects = subjectList ? subjectList : [];
-        this.loading = false
+        this.loadingService.emitChange(false);
+        nextCallback.emit();
       },
       error: (e) => {
         this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
-        this.loading = false;
+        this.loadingService.emitChange(false);
       }
     });
   }
-  registerSubject() {
-    if (!this.selectedSubject) {
+  registerSubject(nextCallback: any){
+      if (!this.selectedSubject) {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir la matière dont vous avez besoins d\'aide!' });
       return;
     }
 
-    this.loading = true;
     this.apolloService.mutate({
       mutation: gql`
         mutation setUserEducationLevel($subjectId: Int!) {
@@ -282,24 +292,22 @@ export class RegisterStudentComponent {
       }
     }).subscribe({
       next: (response: any) => {
-        this.registrationStateStep = StudentRegisterStepEnum.COURSE_TYPE;
-        this.loading = false
+        this.loadingService.emitChange(false);
+        nextCallback.emit()
       },
       error: (e) => {
         this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
-        this.loading = false;
+        this.loadingService.emitChange(false);
       }
     });
   }
-  registerCourseType(){
-    //this.loading = true;
+  registerCourseType(nextCallback: any){
     if (!this.selectedcourseType) {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir le type de cours dont vous avez besoins!' });
       return;
     }
-    let user_id: number = this.authService.GetUserId();
+    //let user_id: number = this.authService.GetUserId();
 
-    this.loading = true;
     this.apolloService.mutate({
       mutation: gql`
         mutation setUserCoursePreference($isOnline: Boolean!) {
@@ -318,23 +326,96 @@ export class RegisterStudentComponent {
       }
     }).subscribe({
       next: (response: any) => {
-        this.registrationStateStep = StudentRegisterStepEnum.AVAILABILITY;
-        this.loading = false
+        this.loadingService.emitChange(false);
+        nextCallback.emit();
       },
       error: (e) => {
         this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
-        this.loading = false;
+        this.loadingService.emitChange(false);
       }
     });
   }
   availabilityFrom: Date | undefined;
   availabilityWhere:Date | undefined;
 
-  registerAvailability(){
+  registerAvailability(nextCallback: any){
     if (!this.availabilityFrom || !this.availabilityWhere || !this.selectedDays) {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez verifier votre disponibilite ' });
       return;
     }
-    this.registrationStateStep = StudentRegisterStepEnum.SUGGESTED_TUTOR;
+    this.loadingService.emitChange(true);
+    setTimeout(() => {
+      this.loadingService.emitChange(false);
+      nextCallback.emit();
+    }, 1000);
+    // this.apolloService.mutate({
+    //   mutation: gql`
+    //     query SuggestTutor($studentId: Int!) {
+    //       studentId(studentId: $studentId) {
+    //         Name
+    //         FamilyName
+    //         NickName
+    //         Email
+    //         Sex
+    //         Lang
+    //         Status
+    //         ProfileImageXid
+    //         Description
+    //         CoverText
+    //         Profile
+    //         ExperienceDetail
+    //         AdditionalDescription
+    //         AddOnTitle
+    //         }
+    //     }
+    //   `,
+    //   variables: {
+    //     studentId: this.authService.GetUserId()
+    //   },
+    //   context: {
+    //     headers: this.headerService.Get()
+    //   }
+    // }).subscribe({
+    //   next: (response: any) => {
+    //     this.loadingService.emitChange(false);
+    //     nextCallback.emit();
+    //   },
+    //   error: (e) => {
+    //     this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
+    //     this.loadingService.emitChange(false);
+    //   }
+    // });
   }
+
+  debug: boolean = false;
+  fakeVideo: string = "/assets/video/rabbit.mp4"
+
+
+  acceptSuggestion(nextCallback: any){
+    this.loadingService.emitChange(true);
+    
+    
+    
+    setTimeout(() => {
+      this.loadingService.emitChange(false);
+      nextCallback.emit();
+    }, 1000);
+  }
+
+  registerTarification(nextCallback: any){
+    this.loadingService.emitChange(true);
+    setTimeout(() => {
+      this.loadingService.emitChange(false);
+      nextCallback.emit();
+    }, 1000);
+  }
+
+  gotoDashboard(nextCallback: any){
+    this.loadingService.emitChange(true);
+    setTimeout(() => {
+      this.loadingService.emitChange(false);
+      this.router.navigateByUrl("/pages/dashboard")
+    }, 500);
+  }
+
 }

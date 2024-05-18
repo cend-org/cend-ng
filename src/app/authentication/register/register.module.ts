@@ -25,6 +25,19 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApolloInterceptor } from '../../@core/interceptors/graph.interceptor';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { AvatarModule } from 'primeng/avatar';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { StepperModule } from 'primeng/stepper';
+import { StepsModule } from 'primeng/steps';
+import { FieldsetModule } from 'primeng/fieldset';
+import { TabViewModule } from 'primeng/tabview';
+import { BadgeModule } from 'primeng/badge';
+import { TableModule } from 'primeng/table';
+import { CheckboxModule } from 'primeng/checkbox';
+
+
+
+
+
 @NgModule({
   declarations: [
     RegisterStudentComponent,
@@ -51,7 +64,15 @@ import { AvatarModule } from 'primeng/avatar';
    InputTextareaModule,
    ThemesModule,
    SelectButtonModule,
-   AvatarModule
+   AvatarModule,
+   ProgressSpinnerModule,
+   StepperModule,
+   StepsModule,
+   FieldsetModule,
+   TabViewModule,
+   BadgeModule,
+   TableModule,
+   CheckboxModule
   ],
   providers:[
     { provide: HTTP_INTERCEPTORS, useClass: ApolloInterceptor, multi: true },

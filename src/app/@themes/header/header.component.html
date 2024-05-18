@@ -1,11 +1,16 @@
-<nav class="sm:h-4rem hidden md:block lg:block xl:block fixed w-full z-5">
+<p-toast position="bottom-center" preventOpenDuplicates="true" />
+<nav class="sm:h-4rem hidden md:block lg:block xl:block fixed w-full z-4">
     <div class="w-full h-full  bg-background-main flex justify-content-center">
         <div class="  h-full w-8 flex flex-column md:flex-row lg:flex-row xl:flex-row justify-content-evenly">
             <section class="section-1 w-6  h-full flex justify-content-center align-items-center flex-row gap-2 ">
-                <a [routerLink]="landingNavigationDisabled ? null : ['/dashboard']"
+                <a (click)="onClickCend()"  *ngIf="!IsAuthenticating()" 
                     class="text-3xl poppins-bold font-semibold text-white p-1 cursor-pointer no-underline">
                     CEND
                 </a>
+                <span (click)="onClickCend()"  *ngIf="IsAuthenticating()" 
+                    class="text-3xl poppins-bold font-semibold text-white p-1 cursor-pointer no-underline">
+                    CEND
+                </span>
                 <p>
                     <button
                         class="p-2 poppins-medium border-none bg-transparent text-white border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-3xl">
@@ -31,20 +36,25 @@
                         Aide
                     </button>
                 </p>
-                <p>
-    
+                <p *ngIf="!IsAuthentified() && !IsAuthenticating()">
                     <p-tieredMenu #loginMenu [model]="loginItems" [popup]="true"></p-tieredMenu>
-    
                     <button (click)="loginMenu.toggle($event)" style="width: 130px;"
                         class="p-2 poppins-medium border-none bg-transparent text-white border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg">
                         Se connecter
                     </button>
                 </p>
-                <p>
+                <p *ngIf="!IsAuthentified() && !IsAuthenticating()">
                     <p-tieredMenu #registerMenu [model]="registerItems" [popup]="true"></p-tieredMenu>
                     <button (click)="registerMenu.toggle($event)" style="width: 130px;"
                         class="p-2 poppins-medium border-none bg-white text-green-600 border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg hover:text-white">
                         S'inscrire
+                    </button>
+                </p>
+                <p *ngIf="IsAuthentified() && !IsAuthenticating()">
+                    
+                    <button (click)="onClickLogOut()" style="width: 130px;"
+                        class="p-2 poppins-medium border-none bg-white text-green-600 border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg hover:text-white">
+                        Se déconnecter
                     </button>
                 </p>
             </section>
@@ -52,7 +62,7 @@
     </div>
 </nav>
 
-<nav class="md:hidden lg:hidden xl:hidden h-3rem w-full fixed bg-green-600 z-5">
+<!-- <nav class="md:hidden lg:hidden xl:hidden h-3rem w-full fixed bg-green-600 z-5">
     <div class="w-full h-full flex justify-content-between align-items-center">
         <div class="w-2 h-full flex justify-content-start align-items-center absolute p-1 left-0">
             <a [routerLink]="landingNavigationDisabled ? null : ['/dashboard']"
@@ -60,17 +70,17 @@
                 CEND
             </a>
         </div>
-        <div *ngIf="!landingNavigationDisabled && !isDashboard" class="w-12 h-full justify-content-end flex align-items-center">
+        <div *ngIf="!landingNavigationDisabled && !isDashboard" class="w-12 h-full justify-content-end flex align-items-center gap-1">
             <p-tieredMenu class="mobile-auth-buttons" #loginMobileMenu [model]="loginItems"
                 [popup]="true"></p-tieredMenu>
             <p-tieredMenu class="mobile-auth-buttons" #registerMobileMenu [model]="registerItems"
                 [popup]="true"></p-tieredMenu>
-            <button (click)="loginMobileMenu.toggle($event)"
-                class="p-2 px-4 h-6 poppins-medium border-none bg-transparent text-white border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg hover:text-bluegray-200">
+            <button *ForAuthentified="false" (click)="loginMobileMenu.toggle($event)"
+                class="p-2 px-4 h-6 poppins-medium border-none bg-transparent text-white border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg hover:text-white">
                 Se connecter
             </button>
-            <button (click)="registerMobileMenu.toggle($event)"
-                class="focus:text-white mr-2 text-green-600 bg-white p-2 px-4 h-6 poppins-medium border-none border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-3xl">
+            <button *ForAuthentified="false" (click)="registerMobileMenu.toggle($event)"
+                class="hover:text-white mr-2 text-green-600 bg-white p-2 px-4 h-6 poppins-medium border-none border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-3xl">
                 S'inscrire
             </button>
         </div>
@@ -83,6 +93,51 @@
         </div>
         <button *ngIf="!landingNavigationDisabled" (click)="onClickMobileMenu()"
             class="flex justify-content-center align-items-center  h-full bg-transparent border-none text-2xl mr-2">
+            <i *ngIf="!showMobileMenu" class="pi pi-bars text-white  font-bold text-xl"></i>
+            <i *ngIf="showMobileMenu" class="pi pi-times text-white  font-bold text-xl"></i>
+        </button>
+    </div>
+</nav> -->
+<nav class="md:hidden lg:hidden xl:hidden h-3rem w-full fixed bg-green-600 z-5">
+    <div class="w-full h-full flex justify-content-between align-items-center">
+        
+        <div class="w-2 h-full flex justify-content-start align-items-center absolute p-1 left-0">
+            <a (click)="onClickCend()" *ngIf="!IsAuthenticating()" 
+                class="poppins-bold text-white p-1 text-xl no-underline mr-1">
+                CEND
+            </a>
+            <span *ngIf="IsAuthenticating()" 
+                class="poppins-bold text-white p-1 text-xl no-underline mr-1">
+                CEND
+            </span>
+        </div>
+
+        <div class="w-full" *ngIf="!IsAuthentified() && !IsAuthenticating()">
+            <div class="w-12 h-full justify-content-end flex align-items-center gap-1">
+                <p-tieredMenu class="mobile-auth-buttons" #loginMobileMenu [model]="loginItems"
+                    [popup]="true"></p-tieredMenu>
+                <p-tieredMenu class="mobile-auth-buttons" #registerMobileMenu [model]="registerItems"
+                    [popup]="true"></p-tieredMenu>
+                <button  (click)="loginMobileMenu.toggle($event)"
+                    class="p-2 px-4 h-6 poppins-medium border-none bg-transparent text-white border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg hover:text-white">
+                    Se connecter
+                </button>
+                <button (click)="registerMobileMenu.toggle($event)" 
+                    class="hover:text-white mr-2 text-green-600 bg-white p-2 px-4 h-6 poppins-medium border-none border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-3xl">
+                    S'inscrire
+                </button>
+            </div>
+        </div>
+        
+
+        <div  *ngIf="IsAuthentified() && !IsAuthenticating()"  class="w-12 h-full justify-content-end flex align-items-center">
+            <button  (click)="onClickLogOut()"
+                class="focus:text-white mr-2 text-green-600 bg-white p-2 px-4 h-6 poppins-medium border-none border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-3xl">
+                Se déconnecter
+            </button>
+        </div>
+
+        <button  *ngIf="!IsAuthenticating()" (click)="onClickMobileMenu()"  class="flex justify-content-end align-items-center  h-full bg-transparent border-none text-2xl mr-2">
             <i *ngIf="!showMobileMenu" class="pi pi-bars text-white  font-bold text-xl"></i>
             <i *ngIf="showMobileMenu" class="pi pi-times text-white  font-bold text-xl"></i>
         </button>
@@ -116,39 +171,19 @@
             <i class="{{aboutItem.icon}}"></i>
         </button>
     </div>
-    <!-- <div class="w-12 h-2rem flex">
-        <button routerLink="/pages/about/about-us" class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
-            A propos de nous
-        </button>
-    </div>
-    <div class="w-12 h-2rem flex">
-        <button class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
-            Notre missions
-        </button>
-    </div>
-    <div class="w-12 h-2rem flex">
-        <button class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
-            Les Points forts de CEND
-        </button>
-    </div>
-    <div class="w-12 h-2rem flex">
-        <button class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
-            Comment ça marche
-        </button>
-    </div>
-    <div class="w-12 h-2rem flex">
-        <button class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
-            Aide
-        </button>
-    </div>
-    <div class="w-12 h-2rem flex">
-        <button class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
-            Se connecter
-        </button>
-    </div>
-    <div class="w-12 h-2rem flex">
-        <button class="text-left w-full p-2 poppins-medium border-none bg-transparent text-white  font-medium text-sm cursor-pointer hover:bg-green-500 ">
-            S'inscrire
-        </button>
-    </div> -->
 </section>
+
+
+
+<nav class="md:hidden lg:hidden xl:hidden h-3rem w-full fixed bg-green-600 z-5" *ngIf="loadingService.changeEmitted$ | async">
+    <div class="w-full h-full flex justify-content-between align-items-center">
+        <div class="w-2 h-full flex justify-content-start align-items-center absolute p-1 left-0">
+            <p-skeleton width="5rem" height="2rem" />
+        </div>
+        <div  class="mr-2 w-12 h-full justify-content-end flex align-items-center gap-2">
+            <p-skeleton width="5rem" height="1rem" />
+            <p-skeleton width="5rem" height="2rem" borderRadius="30px" />
+        </div>
+    </div>
+</nav>
+

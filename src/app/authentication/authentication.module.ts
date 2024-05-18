@@ -13,7 +13,8 @@ import { DividerModule } from 'primeng/divider';
 import { ImageModule } from 'primeng/image';
 import { LoginModule } from './login/login.module';
 import { RegisterModule } from './register/register.module';
-import { ToastNoAnimationModule } from 'ngx-toastr';
+import { ThemesModule } from '../@themes/themes.module';
+import { PermissionDirectiveModule } from '../@core/directives/permission-directives.module';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ToastNoAnimationModule } from 'ngx-toastr';
     ButtonModule,
     DividerModule,
     ImageModule,
-    ToastNoAnimationModule.forRoot(),
+    ThemesModule,
+    PermissionDirectiveModule
   ]
 })
 export class AuthenticationModule { }

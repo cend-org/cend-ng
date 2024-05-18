@@ -8,5 +8,7 @@ import { ApolloQueryResult } from '@apollo/client';
 @Injectable()
 export abstract class AuthService{
     abstract GetUserId(): number;
+    abstract IsAuthentified(): boolean;
+    abstract LogOut(): void;
 }
 
