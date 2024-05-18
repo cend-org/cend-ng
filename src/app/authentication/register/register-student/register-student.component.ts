@@ -90,16 +90,27 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
       return;
     }
     this.apolloService.mutate({
-      mutation: REGISTRATION.WITH_EMAIL,
+      mutation: gql`
+      mutation 
+      NewStudent(
+              $email: String!,
+          ) 
+          {
+            NewStudent (
+                  email: $email ,
+              ){
+                  T
+              }
+          }
+  `,
       variables: {
-        input: this.email,
-        as: UserTypeEnum.STUDENT
+        email: this.email,
       },
     }).subscribe({
       next: (response) => {
         let resp: any = response.data;
         if (resp) {
-          this.locaStorageService.save(`${environment.cend_default_lang_id}_tkn`, resp["registerWithEmail"]);
+          this.locaStorageService.save(`${environment.cend_default_lang_id}_tkn`, resp["NewStudent"]["T"]);
           nextCallback.emit();
         };
         this.loadingService.emitChange(false);

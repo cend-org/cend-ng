@@ -40,15 +40,15 @@ export class PASSWORD {
 export class REGISTRATION{
     static WITH_EMAIL: any = gql`
         mutation 
-            registerWithEmail(
-                $input: String!,
-                $as: Int!
+        NewParent(
+                $email: String!,
             ) 
             {
-                registerWithEmail (
-                    input: $input , 
-                    as: $as
-                )
+                NewParent (
+                    email: $email ,
+                ){
+                    T
+                }
             }
     `;
 

@@ -387,14 +387,14 @@ export class RegisterParentComponent implements OnInit {
     this.apolloService.mutate({
       mutation: REGISTRATION.WITH_EMAIL,
       variables: {
-        input: this.email,
-        as: UserTypeEnum.PARENT
+        email: this.email
       },
     }).subscribe({
       next: (response) => {
         let resp: any = response.data;
         if (resp) {
-          this.locaStorageService.save(`${environment.cend_default_lang_id}_tkn`, resp["registerWithEmail"]);
+          this.locaStorageService.save(`${environment.cend_default_lang_id}_tkn`, resp["NewParent"]['T']);
+          console.log(resp["NewParent"]['T']);
           nextCallback.emit();
         };
         this.loadingService.emitChange(false);

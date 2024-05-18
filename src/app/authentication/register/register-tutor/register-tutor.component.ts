@@ -109,16 +109,27 @@ export class RegisterTutorComponent {
       return;
     }
     this.apolloService.mutate({
-      mutation: REGISTRATION.WITH_EMAIL,
+      mutation:gql`
+      mutation 
+      NewTutor(
+              $email: String!,
+          ) 
+          {
+            NewTutor (
+                  email: $email ,
+              ){
+                  T
+              }
+          }
+  `,
       variables: {
-        input: this.email,
-        as: UserTypeEnum.TUTOR
+        email: this.email
       },
     }).subscribe({
       next: (response) => {
         let resp: any = response.data;
         if (resp) {
-          this.locaStorageService.save(`${environment.cend_default_lang_id}_tkn`, resp["registerWithEmail"]);
+          this.locaStorageService.save(`${environment.cend_default_lang_id}_tkn`, resp["NewTutor"]["T"]);
           nextCallback.emit();
         };
         this.loadingService.emitChange(false);
