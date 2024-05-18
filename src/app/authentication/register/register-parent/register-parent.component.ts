@@ -79,6 +79,7 @@ export class RegisterParentComponent implements OnInit {
   selectedSex: any = null;
   childName: string ="";
   childFamilyName: string = "";
+  childEmail:string = "";
   selectedEducationLevel: any = null;
   selectedSubject: any = null;
   selectedcourseType: any = null;
@@ -512,15 +513,18 @@ export class RegisterParentComponent implements OnInit {
   getEducationLevel(nextCallback: any) {
     this.loadingService.emitChange(true);
     this.apolloService.query({
-      query: gql`query {
-        getEducation {
-              Id
-              Name
-          }
-      }`,
+      query: gql`query AcademicLevels {
+        AcademicLevels {
+            Id
+            CreatedAt
+            UpdatedAt
+            DeletedAt
+            Name
+        }
+    }`,
     }).subscribe({
       next: (response: any) => {
-        let educations: Array<any> = response?.data['getEducation'];
+        let educations: Array<any> = response?.data['AcademicLevels'];
         this.educationLevels = educations ? educations : [];
         this.loadingService.emitChange(false);
         nextCallback.emit();
@@ -544,19 +548,25 @@ export class RegisterParentComponent implements OnInit {
     
     this.apolloService.query({
       query: gql`
-      query getSubjects($id: ID!) {
-        getSubjects(id: $id) {
-          Id
-          Name
+      query ($academicLevelId :  Int!) {
+        AcademicCourses(AcademicLevelId: $academicLevelId) {
+            Id
+            CreatedAt
+            UpdatedAt
+            DeletedAt
+            AcademicLevelId
+            Name
         }
-      }`,
+    }`,
       variables: {
-        id: 1 //this.selectedEducationLevel.Id
+        "academicLevelId": this.selectedEducationLevel.Id
+      }, context: {
+        headers: this.headerService.Get()
       }
 
     }).subscribe({
       next: (response: any) => {
-        let subjectList: Array<any> = response?.data['getSubjects'];
+        let subjectList: Array<any> = response?.data['AcademicCourses'];
         this.subjects = subjectList ? subjectList : [];
         this.loadingService.emitChange(false);
         nextCallback.emit();
@@ -575,15 +585,17 @@ export class RegisterParentComponent implements OnInit {
     nextCallback.emit(); //eto
     this.apolloService.mutate({
       mutation: gql`
-        mutation setUserEducationLevel($subjectId: Int!) {
-            setUserEducationLevel(subjectId: $subjectId) {
-              Id,
-              Name
-            }
-        }
+      mutation ($academicLevelId : Int! , $studentId: Int!) {
+        SetStudentAcademicLevelByParent(
+            AcademicLevelId: $academicLevelId ,
+             studentId: $studentId)
+    }
+    
       `,
       variables: {
-        subjectId: this.selectedSubject.Id
+      //  subjectId: this.selectedSubject.Id
+        "academicLevelId": this.selectedSubject.Id,
+        "studentId": this.studentId,
       },
       context: {
         headers: this.headerService.Get()
@@ -604,34 +616,40 @@ export class RegisterParentComponent implements OnInit {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir le type de cours dont vous avez besoins!' });
       return;
     }
+
+    this.loadingService.emitChange(true);
+    setTimeout(() => {
+      this.loadingService.emitChange(false);
+      nextCallback.emit();
+    }, 1000);
     //let user_id: number = this.authService.GetUserId();
 
-    this.apolloService.mutate({
-      mutation: gql`
-        mutation setUserCoursePreference($isOnline: Boolean!) {
-          setUserCoursePreference(isOnline: $isOnline) {
-              Id,
-              UserId
-              IsOnline
-            }
-        }
-      `,
-      variables: {
-        isOnline: this.selectedcourseType.value
-      },
-      context: {
-        headers: this.headerService.Get()
-      }
-    }).subscribe({
-      next: (response: any) => {
-        this.loadingService.emitChange(false);
-        nextCallback.emit();
-      },
-      error: (e) => {
-        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
-        this.loadingService.emitChange(false);
-      }
-    });
+    // this.apolloService.mutate({
+    //   mutation: gql`
+    //     mutation setUserCoursePreference($isOnline: Boolean!) {
+    //       setUserCoursePreference(isOnline: $isOnline) {
+    //           Id,
+    //           UserId
+    //           IsOnline
+    //         }
+    //     }
+    //   `,
+    //   variables: {
+    //     isOnline: this.selectedcourseType.value
+    //   },
+    //   context: {
+    //     headers: this.headerService.Get()
+    //   }
+    // }).subscribe({
+    //   next: (response: any) => {
+    //     this.loadingService.emitChange(false);
+    //     nextCallback.emit();
+    //   },
+    //   error: (e) => {
+    //     this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
+    //     this.loadingService.emitChange(false);
+    //   }
+    // });
   }
   availabilityFrom: Date | undefined;
   availabilityWhere:Date | undefined;
@@ -675,7 +693,7 @@ export class RegisterParentComponent implements OnInit {
       this.router.navigateByUrl("/pages/dashboard")
     }, 500);
   }
-
+  studentId: any = 0;
   registerChildName(nextCallback: any){
     if (!this.childName.trim()) {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Le nom votre jeûne est requis!' });
@@ -687,37 +705,79 @@ export class RegisterParentComponent implements OnInit {
       return;
     }
 
-    this.loadingService.emitChange(true);
-    setTimeout(() => {
-      this.loadingService.emitChange(false);
-      nextCallback.emit(0);
-    }, 500);
+    if(!this.validationService.checkEmail(this.childEmail)){
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez vérifier l\' email!' });
+      return;
+    }
+    // this.loadingService.emitChange(true);
+    // setTimeout(() => {
+    //   this.loadingService.emitChange(false);
+    //   nextCallback.emit(0);
+    // }, 500);
     
-    // this.apolloService.mutate({
-    //   mutation:gql`
-    //   mutation ($profile: UserInput! , $studentId: Int!)  {
-    //     UpdateStudentProfileByParent(
-    //         profile: $profile, 
-    //         studentId: $studentId)
-    // }
-    // `,
-    //   variables: {
-    //     Name: this.childName,
-    //     FamilyName: this.childFamilyName,
-    //   },
-    //   context: {
-    //     headers: this.headerService.Get()
-    //   }
-    // }).subscribe({
-    //   next: (response) => {
-    //     this.registrationStateStep = ParentRegisterStepEnum.STUDENT_SCHOOL_LEVEL;
-    //     this.loadingService.emitChange(false);
-    //     nextCallback.emit();
-    //   },
-    //   error: (e) => {
-    //     this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
-    //     this.loadingService.emitChange(false);
-    //   }
-    // });
+    this.apolloService.mutate({
+      mutation:gql`
+      mutation ($email: String!) {
+          NewStudentByParent(email: $email)
+    }
+    `,
+      variables: {
+        "email" : this.childEmail
+        // Name: this.childName,
+        // FamilyName: this.childFamilyName,
+      },
+      context: {
+        headers: this.headerService.Get()
+      }
+    }).subscribe({
+      next: (response:any) => {
+
+        var r=response["data"];
+        var f = r['NewStudentByParent'];
+        this.studentId = f;
+
+        this.apolloService.mutate({
+          mutation:gql`
+          mutation ($profile: UserInput! , $studentId: Int!)  {
+            UpdateStudentProfileByParent(
+                profile: $profile, 
+                studentId: $studentId)
+        }
+        `,
+          variables: {
+            "profile":  {
+              "Name": this.childName,
+              "FamilyName": this.childFamilyName,
+          },
+          "studentId" : f
+            // Name: this.childName,
+            // FamilyName: this.childFamilyName,
+          },
+          context: {
+            headers: this.headerService.Get()
+          }
+        }).subscribe({
+          next: (response) => {
+            this.registrationStateStep = ParentRegisterStepEnum.STUDENT_SCHOOL_LEVEL;
+            this.loadingService.emitChange(false);
+            nextCallback.emit();
+          },
+          error: (e) => {
+            this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
+            this.loadingService.emitChange(false);
+          }
+        });
+
+
+
+        //this.registrationStateStep = ParentRegisterStepEnum.STUDENT_SCHOOL_LEVEL;
+       // this.loadingService.emitChange(false);
+       // nextCallback.emit();
+      },
+      error: (e) => {
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
+        this.loadingService.emitChange(false);
+      }
+    });
   }
 }
