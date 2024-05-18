@@ -247,15 +247,19 @@ export class RegisterTutorComponent {
   getEducationLevel(nextCallback: any) {
     this.loadingService.emitChange(true);
     this.apolloService.query({
-      query: gql`query {
-        getEducation {
+      query: gql`
+      query AcademicLevels {
+          AcademicLevels {
               Id
+              CreatedAt
+              UpdatedAt
+              DeletedAt
               Name
           }
       }`,
     }).subscribe({
       next: (response: any) => {
-        let educations: Array<any> = response?.data['getEducation'];
+        let educations: Array<any> = response?.data['AcademicLevels'];
         this.educationLevels = educations ? educations : [];
         this.loadingService.emitChange(false);
         nextCallback.emit();
@@ -279,19 +283,23 @@ export class RegisterTutorComponent {
     
     this.apolloService.query({
       query: gql`
-      query getSubjects($id: ID!) {
-        getSubjects(id: $id) {
-          Id
-          Name
+      query ($academicLevelId: Int!) {
+        AcademicCourses(AcademicLevelId: $academicLevelId) {
+            Id
+            CreatedAt
+            UpdatedAt
+            DeletedAt
+            AcademicLevelId
+            Name
         }
-      }`,
+    }`,
       variables: {
-        id: this.selectedEducationLevel.Id
+        "academicLevelId": this.selectedEducationLevel.Id
       }
 
     }).subscribe({
       next: (response: any) => {
-        let subjectList: Array<any> = response?.data['getSubjects'];
+        let subjectList: Array<any> = response?.data['AcademicCourses'];
         this.subjects = subjectList ? subjectList : [];
         this.loadingService.emitChange(false);
         nextCallback.emit();
@@ -339,34 +347,40 @@ export class RegisterTutorComponent {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir le type de cours dont vous avez besoins!' });
       return;
     }
+    this.loadingService.emitChange(true);
+    setTimeout(() => {
+      this.loadingService.emitChange(false);
+      
+     nextCallback.emit();
+    }, 1000);
     //let user_id: number = this.authService.GetUserId();
 
-    this.apolloService.mutate({
-      mutation: gql`
-        mutation setUserCoursePreference($isOnline: Boolean!) {
-          setUserCoursePreference(isOnline: $isOnline) {
-              Id,
-              UserId
-              IsOnline
-            }
-        }
-      `,
-      variables: {
-        isOnline: this.selectedcourseType.value
-      },
-      context: {
-        headers: this.headerService.Get()
-      }
-    }).subscribe({
-      next: (response: any) => {
-        this.loadingService.emitChange(false);
-        nextCallback.emit();
-      },
-      error: (e) => {
-        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
-        this.loadingService.emitChange(false);
-      }
-    });
+    // this.apolloService.mutate({
+    //   mutation: gql`
+    //     mutation setUserCoursePreference($isOnline: Boolean!) {
+    //       setUserCoursePreference(isOnline: $isOnline) {
+    //           Id,
+    //           UserId
+    //           IsOnline
+    //         }
+    //     }
+    //   `,
+    //   variables: {
+    //     isOnline: this.selectedcourseType.value
+    //   },
+    //   context: {
+    //     headers: this.headerService.Get()
+    //   }
+    // }).subscribe({
+    //   next: (response: any) => {
+    //     this.loadingService.emitChange(false);
+    //     nextCallback.emit();
+    //   },
+    //   error: (e) => {
+    //     this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
+    //     this.loadingService.emitChange(false);
+    //   }
+    // });
   }
 
 

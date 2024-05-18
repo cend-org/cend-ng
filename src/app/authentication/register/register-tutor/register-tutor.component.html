@@ -204,9 +204,14 @@
                                     class="card flex justify-content-center h-30rem border-1 pt-6 pb-6 border-gray-300 border-round-lg bg-gray-50">
                                     <div class="flex flex-column gap-3">
                                         <div *ngFor="let subject of subjects" class="pl-4 field-checkbox">
-                                            <p-radioButton [inputId]="subject.Id" name="category" [value]="subject"
+                                            <!-- <p-radioButton [inputId]="subject.Id" name="category" [value]="subject"
                                                 [(ngModel)]="selectedSubject"></p-radioButton>
-                                            <label [for]="subject.Id" class="ml-2">{{ subject.Name }}</label>
+                                            <label [for]="subject.Id" class="ml-2">{{ subject.Name }}</label> -->
+                                            <p-checkbox 
+                                            [(ngModel)]="selectedSubject"
+                                            [label]="subject.Name" 
+                                            name="subject" 
+                                            [value]="subject" />
                                         </div>
                                     </div>
                                 </p-scrollPanel>
