@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -15,6 +15,8 @@ import { ApolloModule } from 'apollo-angular';
 import { LoadingService } from './@core/services/loading.service';
 import { RouteMonitorService } from './@core/services/route-monitor.service';
 import { PermissionDirectiveModule } from './@core/directives/permission-directives.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpLoaderFactory } from './i18n.factory';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +32,7 @@ import { PermissionDirectiveModule } from './@core/directives/permission-directi
     ThemesModule,
     ToastModule,
     PagesModule,
-    ApolloModule
+    ApolloModule,
 
   ],
   templateUrl: './app.component.html',

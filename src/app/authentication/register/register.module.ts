@@ -33,7 +33,8 @@ import { TabViewModule } from 'primeng/tabview';
 import { BadgeModule } from 'primeng/badge';
 import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
-
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 
 
@@ -72,7 +73,9 @@ import { CheckboxModule } from 'primeng/checkbox';
    TabViewModule,
    BadgeModule,
    TableModule,
-   CheckboxModule
+   CheckboxModule,
+   InputIconModule,
+   IconFieldModule
   ],
   providers:[
     { provide: HTTP_INTERCEPTORS, useClass: ApolloInterceptor, multi: true },

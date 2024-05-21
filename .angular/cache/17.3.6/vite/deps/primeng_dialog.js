@@ -1,11 +1,4 @@
 import {
-  FocusTrap,
-  FocusTrapModule
-} from "./chunk-7NEVXQZ3.js";
-import {
-  TimesIcon
-} from "./chunk-BJ67E36J.js";
-import {
   ButtonDirective,
   ButtonModule
 } from "./chunk-XUAA5YGM.js";
@@ -14,10 +7,17 @@ import {
   Ripple,
   RippleModule
 } from "./chunk-736BP3RN.js";
+import "./chunk-IHHDIKUX.js";
+import {
+  FocusTrap,
+  FocusTrapModule
+} from "./chunk-7NEVXQZ3.js";
+import {
+  TimesIcon
+} from "./chunk-BJ67E36J.js";
 import {
   BaseIcon
 } from "./chunk-7OLLRVQ5.js";
-import "./chunk-IHHDIKUX.js";
 import {
   DomHandler
 } from "./chunk-LZMSIMQG.js";

@@ -11,6 +11,11 @@ import {
   DomHandler
 } from "./chunk-LZMSIMQG.js";
 import {
+  RouterLink,
+  RouterLinkActive,
+  RouterModule
+} from "./chunk-VIRGAZX6.js";
+import {
   OverlayService,
   PrimeNGConfig,
   PrimeTemplate,
@@ -23,11 +28,6 @@ import {
   transition,
   trigger
 } from "./chunk-6PHIBCUQ.js";
-import {
-  RouterLink,
-  RouterLinkActive,
-  RouterModule
-} from "./chunk-VIRGAZX6.js";
 import {
   DomSanitizer
 } from "./chunk-EDBDKJQG.js";

@@ -6,7 +6,8 @@
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-11 md:w-3 lg-w-3 xl:w-3" #emailForm="ngForm" name="f"
                         (ngSubmit)="emailForm.form.valid && registerWithEmail(nextCallback)">
-                        <h1 class="text-left text-xl text-cyan-900  poppins-bold ">Indiquez votre numéro de téléphone ou votre adresse
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold ">Indiquez votre numéro de téléphone ou
+                            votre adresse
                             e-mail.</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-2">
@@ -18,35 +19,39 @@
                                 <button type="submit" size="small" pButton pRipple label="Continuer"
                                     class="cursor-pointer bg-color-main w-full  text-white hover:bg-green-600 border-none"></button>
 
-                                    <p-divider align="center" class="text-gray-400 font-medium">
-                                        <span>Ou</span>
-                                    </p-divider>
-                                    <div class="flex flex-column gap-3">
-                                        <button type="button"
-                                        class="hover:border-2 hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
-                                        <p-image class="absolute" src="assets/image/google.svg" alt="Image" width="20" class="ml-4"></p-image>
+                                <p-divider align="center" class="text-gray-400 font-medium">
+                                    <span>Ou</span>
+                                </p-divider>
+                                <div class="flex flex-column gap-3">
+                                    <button type="button"
+                                        class="focus:bg-green-100 hover:border-2 hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-green-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                                        <p-image class="absolute ml-4" src="assets/image/google.svg" alt="Image"
+                                            width="20"></p-image>
                                         <div class="w-full text-gray-600 text-center">Continuer avec google</div>
                                     </button>
                                     <button type="button"
-                                        class="hover:border-2  hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
-                                        <p-image class="absolute" src="assets/image/apple.svg" alt="Image" width="20" class="ml-4" ></p-image>
+                                        class="focus:bg-green-100 hover:border-2  hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-green-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                                        <p-image class="absolute ml-4" src="assets/image/apple.svg" alt="Image"
+                                            width="20"></p-image>
                                         <div class="w-full text-gray-600 text-center">Continuer avec apple</div>
                                     </button>
                                     <button type="button"
-                                        class="hover:border-2  hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
-                                        <p-image class="absolute" src="assets/image/fb.svg" alt="Image" width="20" class="ml-4"></p-image>
+                                        class="focus:bg-green-100 hover:border-2  hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-green-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                                        <p-image class="absolute ml-4" src="assets/image/fb.svg" alt="Image"
+                                            width="20"></p-image>
                                         <div class="w-full text-gray-600 text-center">Continuer avec facebook</div>
                                     </button>
                                     <button type="button"
-                                        class="text-gray-600 hover:text-blue-500  cursor-pointer bg-blue-50 flex justify-content-between border-none border-round-md align-items-center w-full h-3rem">
-                                        <i class="pi pi-qrcode ml-4" ></i>
+                                        class="focus:bg-green-100 text-green-600 hover:text-green-500  cursor-pointer bg-green-50 flex justify-content-between border-none border-round-md align-items-center w-full h-3rem">
+                                        <i class="pi pi-qrcode ml-4"></i>
                                         <div class="w-full text-center">
                                             Connectez-vous avec une qr-code
                                         </div>
                                     </button>
-                                    </div>
+                                </div>
                                 <div class="text-xs text-gray-400 text-center mt-2">
-                                    En continuant, vous acceptz de recevoir au numéro fourni des appels, messages WhatsApp ou SMS, y
+                                    En continuant, vous acceptz de recevoir au numéro fourni des appels, messages
+                                    WhatsApp ou SMS, y
                                     compris de façon automatisée, de la part d'Uber et de ces sociétés affiliées.
                                 </div>
                             </div>
@@ -56,78 +61,79 @@
             </ng-template>
         </p-stepperPanel>
         <p-stepperPanel header="Header II">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
-                <form class="w-11 md:w-3 lg-w-3 xl:w-3" #passwordForm="ngForm" name="passwordForm"
-                    (ngSubmit)="passwordForm.form.valid && registerNewPassword(nextCallback)">
-                    <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez ajouter votre nouveau mot de passe.</h1>
-                    <div class="frm poppins-medium">
-                        <div class="w-full flex flex-column gap-4">
-                            <div class="flex flex-column gap-2">
-                                <label class="text-sm" for="password">Mot de passe</label>
-                                <p-password promptLabel="Entrez votre mot de passe" placeholder="Nouveau mot de passe"
-                                    [(ngModel)]="password" name="password" weakLabel="Trop simple" mediumLabel="Complexite normale"
-                                    strongLabel="Mots de pass complex" class="p-inputtext-sm" id="password"
-                                    [toggleMask]="true"></p-password>
+                    <form class="w-11 md:w-3 lg-w-3 xl:w-3" #passwordForm="ngForm" name="passwordForm"
+                        (ngSubmit)="passwordForm.form.valid && registerNewPassword(nextCallback)">
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez ajouter votre nouveau mot de
+                            passe.</h1>
+                        <div class="frm poppins-medium">
+                            <div class="w-full flex flex-column gap-4">
+                                <div class="flex flex-column gap-2">
+                                    <label class="text-sm" for="password">Mot de passe</label>
+                                    <p-password promptLabel="Entrez votre mot de passe"
+                                        placeholder="Nouveau mot de passe" [(ngModel)]="password" name="password"
+                                        weakLabel="Trop simple" mediumLabel="Complexite normale"
+                                        strongLabel="Mots de pass complex" class="p-inputtext-sm" id="password"
+                                        [toggleMask]="true"></p-password>
+                                </div>
+                                <div class="flex flex-column gap-2">
+                                    <label class="text-sm" for="re-password">Confirmation</label>
+                                    <p-password placeholder="Confirmer votre mot de passe" [(ngModel)]="passwordConfirm"
+                                        name="passwordConfirm" [feedback]="false" class="p-inputtext-sm" id="password"
+                                        [toggleMask]="true"></p-password>
+                                </div>
+                                <button type="submit" size="small" pButton pRipple label="Continuer"
+                                    class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
                             </div>
-                            <div class="flex flex-column gap-2">
-                                <label class="text-sm" for="re-password">Confirmation</label>
-                                <p-password placeholder="Confirmer votre mot de passe" [(ngModel)]="passwordConfirm"
-                                    name="passwordConfirm" [feedback]="false" class="p-inputtext-sm" id="password"
-                                    [toggleMask]="true"></p-password>
-                            </div>
-                            <button type="submit" size="small" pButton pRipple label="Continuer"
-                                class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
                         </div>
-                    </div>
-                </form>
-            </section>
+                    </form>
+                </section>
             </ng-template>
         </p-stepperPanel>
         <p-stepperPanel header="Header III">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-11 md:w-3 lg-w-3 xl:w-3" #aboutForm="ngForm" name="aboutForm"
                         (ngSubmit)="aboutForm.form.valid && registerAboutInfo(nextCallback)">
-                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez remplir les informations suivants.</h1>
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez remplir les informations
+                            suivants.</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-2">
                                 <div class="formgrid grid">
                                     <div class="field col">
                                         <label for="aname">Nom</label>
-                                        <input [(ngModel)]="name" name="aname" placeholder="votre nom" id="aname" type="text"
+                                        <input [(ngModel)]="name" name="aname" placeholder="votre nom" id="aname"
+                                            type="text"
                                             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                                     </div>
                                     <div class="field col">
                                         <label for="familyName">Prénom</label>
-                                        <input [(ngModel)]="familyName" name="familyName" placeholder="votre prénom" id="familyName"
-                                            type="text"
+                                        <input [(ngModel)]="familyName" name="familyName" placeholder="votre prénom"
+                                            id="familyName" type="text"
                                             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                                     </div>
                                 </div>
 
                                 <div class="flex-auto">
                                     <label for="birthDate" class=""> Date de naissance</label>
-                                    <p-calendar placeholder="votre date de naissance" dateFormat="dd.mm.yy" [(ngModel)]="birthDate"
-                                        name="birthDate" [iconDisplay]="'input'" [showIcon]="true" inputId="birthDate"></p-calendar>
+                                    <p-calendar placeholder="votre date de naissance" dateFormat="dd/mm/yy"
+                                        [(ngModel)]="birthDate" name="birthDate" [iconDisplay]="'input'"
+                                        [showIcon]="true" inputId="birthDate"></p-calendar>
                                 </div>
-                                <div class="flex-auto">
-                                    <label for="nickName" class=""> Nom d'utilisateur</label>
-                                    <input [(ngModel)]="nickName" name="nickName" placeholder="Nom utilisateur" id="nickName"
-                                        type="text"
-                                        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                                </div>
-
                                 <div class="flex flex-column mt-2">
                                     <label for="sex" class=""> Choisissez votre sex:</label>
-                                    <p-dropdown placeholder="votre sexe" inputId="sex" [options]="sex" [(ngModel)]="selectedSex"
-                                        optionLabel="key" name="sexname" />
+                                    <p-dropdown placeholder="votre sexe" inputId="sex" [options]="sex"
+                                        [(ngModel)]="selectedSex" optionLabel="key" name="sexname" />
                                 </div>
 
                                 <div class="flex flex-column mt-2">
                                     <label for="lang" class=""> Choisissez votre langue:</label>
-                                    <p-dropdown placeholder="votre langue maternelle" inputId="lang" [options]="languages"
-                                        [(ngModel)]="selectedlanguage" optionLabel="name" name="langname" />
+                                    <p-dropdown placeholder="votre langue maternelle" inputId="lang"
+                                        [options]="languages" [(ngModel)]="selectedlanguage" optionLabel="name"
+                                        name="langname" />
                                 </div>
                                 <button type="submit" size="small" pButton pRipple label="Continuer"
                                     class="mt-2 p-button-success w-full bg-green-500 text-white"></button>
@@ -138,24 +144,35 @@
             </ng-template>
         </p-stepperPanel>
         <p-stepperPanel header="Header IV">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
-                    <form class="w-11 md:w-3 lg-w-3 xl:w-3"   #aboutForm="ngForm" name="aboutForm" (ngSubmit)="aboutForm.form.valid && registerLanguage(nextCallback)">
-                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Quelle est la langue à laquelle vous voulez recevoir
+                    <form class="w-11 md:w-3 lg-w-3 xl:w-3" #aboutForm="ngForm" name="aboutForm"
+                        (ngSubmit)="aboutForm.form.valid && registerLanguage(nextCallback)">
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Quelle est la langue à laquelle vous
+                            voulez recevoir
                             votre éducation ?</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
-                                <div
-                                    class="card flex justify-content-center border-1 pt-6 pb-6 border-gray-300 border-round-lg bg-gray-50">
+                                <div class="pt-4 pb-6 w-full">
                                     <div class="flex flex-column gap-3">
-                                        <div *ngFor="let language of languages" class="field-checkbox">
-                                            <p-radioButton [inputId]="language.key" name="category" [value]="language"
-                                                [(ngModel)]="selectedlanguage"></p-radioButton>
-                                            <div class="relative">
-                                                <label [for]="language.key" class="ml-2">{{ language.name }}</label>
-                                                <label class="text-xs text-gray-400 mt-1 absolute w-full left-0 pl-2 pt-3">{{
-                                                    language.default }}</label>
-                                            </div>
+                                        <p-iconField iconPosition="left">
+                                            <p-inputIcon styleClass="pi pi-search" />
+                                            <input type="text" class="border-2 border-green-300" pInputText
+                                                placeholder="Search" #inp (input)="filterLanguage(inp)" />
+                                        </p-iconField>
+                                        <div class="w-full  h-20rem flex flex-column gap-3 ">
+                                            <button (click)="onClickLanguage(language)" type="button"
+                                                class="py-3 flex inline-flex justify-content-between align-items-center  hover:bg-green-200  border-none text-gray-600 text-left"
+                                                *ngFor="let language of languages">
+                                                <span class="text-xl poppins-bold">
+                                                    {{language.name}} - <span
+                                                        class="uppercase text-xl poppins-medium">{{language.code}}</span>
+                                                </span>
+                                                <span class="text-sm poppins-regular mr-2">
+                                                    {{language.default}}
+                                                </span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -168,19 +185,24 @@
             </ng-template>
         </p-stepperPanel>
         <p-stepperPanel header="Header V">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
-                    <form class="w-11 md:w-3 lg-w-3 xl:w-3" #schoolLevelForm="ngForm" name="schoolLevelForm" (ngSubmit)="schoolLevelForm.form.valid && registerEducationLevel(nextCallback)">
-                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">A quel niveau scolaire êtes vous ?</h1>
+                    <form class="w-11 md:w-3 lg-w-3 xl:w-3" #schoolLevelForm="ngForm" name="schoolLevelForm"
+                        (ngSubmit)="schoolLevelForm.form.valid && registerEducationLevel(nextCallback)">
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">A quel niveau scolaire êtes vous ?
+                        </h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
                                 <p-scrollPanel
                                     class="card flex justify-content-center h-30rem border-1 pt-6 pb-6 border-gray-300 border-round-lg bg-gray-50">
                                     <div class="flex flex-column gap-3">
                                         <div *ngFor="let educationLevel of educationLevels" class="field-checkbox">
-                                            <p-radioButton [inputId]="educationLevel.Id" name="schoolLevel" [value]="educationLevel"
+                                            <p-radioButton [inputId]="educationLevel.Id" name="schoolLevel"
+                                                [value]="educationLevel"
                                                 [(ngModel)]="selectedEducationLevel"></p-radioButton>
-                                            <label [for]="educationLevel.Id" class="ml-2">{{ educationLevel.Name }}</label>
+                                            <label [for]="educationLevel.Id" class="ml-2">{{ educationLevel.Name
+                                                }}</label>
                                         </div>
                                     </div>
                                 </p-scrollPanel>
@@ -194,11 +216,13 @@
             </ng-template>
         </p-stepperPanel>
         <p-stepperPanel header="Header VI">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-11 md:w-3 lg-w-3 xl:w-3" #subjectForm="ngForm" name="subjectForm"
                         (ngSubmit)="subjectForm.form.valid && registerSubject(nextCallback)">
-                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Dans quelle matière avez vous besoin d'aide ?</h1>
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Dans quelle matière avez vous besoin
+                            d'aide ?</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
                                 <p-scrollPanel
@@ -220,21 +244,26 @@
             </ng-template>
         </p-stepperPanel>
         <p-stepperPanel header="Header VII">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
-                    <form class="w-11 md:w-3 lg-w-3 xl:w-3" #courseTypeForm="ngForm" name="courseTypeForm" (ngSubmit)="courseTypeForm.form.valid && registerCourseType(nextCallback)">
-                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Vous préférez des cours en ligne ou en présentiel ?
+                    <form class="w-11 md:w-3 lg-w-3 xl:w-3" #courseTypeForm="ngForm" name="courseTypeForm"
+                        (ngSubmit)="courseTypeForm.form.valid && registerCourseType(nextCallback)">
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Vous préférez des cours en ligne ou en
+                            présentiel ?
                         </h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
-                                <div class="card w-full h-full pt-4 pb-4 border-2 border-gray-300 border-round-lg bg-gray-50 pl-4 pr-4">
+                                <div
+                                    class="card w-full h-full pt-4 pb-4 border-2 border-gray-300 border-round-lg bg-gray-50 pl-4 pr-4">
                                     <div class="flex flex-column gap-3 ">
                                         <div *ngFor="let courseType of courseTypes" class="field-checkbox">
-                                            <p-radioButton [inputId]="courseType.key" name="category" [value]="courseType"
-                                                [(ngModel)]="selectedcourseType"></p-radioButton>
+                                            <p-radioButton [inputId]="courseType.key" name="category"
+                                                [value]="courseType" [(ngModel)]="selectedcourseType"></p-radioButton>
                                             <div class="relative w-full">
                                                 <label [for]="courseType.key" class="ml-2">{{ courseType.name }}</label>
-                                                <label class="text-xs text-gray-400 mt-1 absolute w-full left-0 pl-2 pt-3">{{
+                                                <label
+                                                    class="text-xs text-gray-400 mt-1 absolute w-full left-0 pl-2 pt-3">{{
                                                     courseType.description }}</label>
                                             </div>
                                         </div>
@@ -249,24 +278,28 @@
             </ng-template>
         </p-stepperPanel>
         <p-stepperPanel header="Header IX">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-11 md:w-3 lg-w-3 xl:w-3" #availabilityForm="ngForm" name="availabilityForm"
                         (ngSubmit)="availabilityForm.form.valid && registerAvailability(nextCallback)">
-                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Quelles sont vos disponnibilités pour la premiere
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Quelles sont vos disponnibilités pour
+                            la premiere
                             rencontre avec le tuteur?</h1>
                         <div class="frm poppins-medium">
                             <div class="flex flex-column gap-4">
                                 <span class="flex  availability align-items-center gap-2">
                                     <div class="">
-                                        Vous préférez demain à: 
+                                        Vous préférez demain à:
                                     </div>
-                                    <p-calendar [(ngModel)]="availabilityFrom" name="from"  [showTime]="true" [timeOnly]="true" [iconDisplay]="'input'" [showIcon]="true"
-                                    inputId="icondisplay">
-                                    <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
-                                        <i class="pi pi-clock pointer-events-none" (click)="clickCallBack($event)"></i>
-                                    </ng-template>
-                                </p-calendar>
+                                    <p-calendar [(ngModel)]="availabilityFrom" name="from" [showTime]="true"
+                                        [timeOnly]="true" [iconDisplay]="'input'" [showIcon]="true"
+                                        inputId="icondisplay">
+                                        <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+                                            <i class="pi pi-clock pointer-events-none"
+                                                (click)="clickCallBack($event)"></i>
+                                        </ng-template>
+                                    </p-calendar>
                                 </span>
                                 <div class="flex-auto">
                                     <label for="icondisplay" class="">Ou</label>
@@ -283,17 +316,19 @@
                                 </div>
                                 <span class="flex align-items-center justify-content-between gap-2">
                                     <div class="">
-                                        à: 
+                                        à:
                                     </div>
-                                    <p-calendar [showTime]="true" [timeOnly]="true" [iconDisplay]="'input'" [showIcon]="true" [(ngModel)]="availabilityWhere" name="where"
-                                        Icon="pi pi-user" inputId="icondisplay">
+                                    <p-calendar [showTime]="true" [timeOnly]="true" [iconDisplay]="'input'"
+                                        [showIcon]="true" [(ngModel)]="availabilityWhere" name="where" Icon="pi pi-user"
+                                        inputId="icondisplay">
                                         <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
-                                            <i class="pi pi-clock pointer-events-none" (click)="clickCallBack($event)"></i>
+                                            <i class="pi pi-clock pointer-events-none"
+                                                (click)="clickCallBack($event)"></i>
                                         </ng-template>
                                     </p-calendar>
                                 </span>
                                 <button type="submit" size="small" pButton pRipple label="Continuer"
-                                                    class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                                    class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
                             </div>
                         </div>
                     </form>
@@ -301,34 +336,50 @@
             </ng-template>
         </p-stepperPanel>
         <p-stepperPanel header="Header X">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
-                    <form class="w-11 md:w-3 lg-w-3 xl:w-3" #suggestionsForm="ngForm" name="suggestionsForm" (ngSubmit)="suggestionsForm.form.valid && acceptSuggestion(nextCallback)">
-                        <h1 class="text-center text-xl text-cyan-900 poppins-bold">Voici le meilleur tuteur pour convenir à vos besoins:</h1>
+                    <form class="w-11 md:w-3 lg-w-3 xl:w-3" #suggestionsForm="ngForm" name="suggestionsForm"
+                        (ngSubmit)="suggestionsForm.form.valid && acceptSuggestion(nextCallback)">
+                        <h1 class="text-center text-xl text-cyan-900 poppins-bold">Voici le meilleur tuteur pour
+                            convenir à vos besoins:</h1>
                         <div>
                             <div class="p-2 pl-0">
-                                <div class="w-full h-15rem relative" >
-                                    <video controls  class="w-full h-full bg-green-100">
+                                <div class="w-full h-15rem relative">
+                                    <video controls class="w-full h-full bg-green-100">
                                         <source [src]="fakeVideo">
                                     </video>
-                                    <div class="h-8rem w-8rem bg-gray-100 border-circle border-2 border-green-600 absolute bottom-0 -mb-5 ml-4  bg-no-repeat bg-cover bg-center" style="background-image: url(https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg);">
-                                        
+                                    <div class="h-8rem w-8rem bg-gray-100 border-circle border-2 border-green-600 absolute bottom-0 -mb-5 ml-4  bg-no-repeat bg-cover bg-center"
+                                        style="background-image: url(https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg);">
+
                                     </div>
                                 </div>
                                 <div class="mt-5">
-                                    <div class="text-gray-400 text-xl font-bold p-3" >Nao Julius (naojulius)</div>
+                                    <div class="text-gray-400 text-xl font-bold p-3">Nao Julius (naojulius)</div>
                                     <div class="card">
                                         <p-tabView>
                                             <p-tabPanel header="A propos">
                                                 <p>
-                                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
-                                                    ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                                                    accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+                                                    quae ab illo inventore veritatis et quasi architecto beatae vitae
+                                                    dicta sunt explicabo. Nemo enim
+                                                    ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit,
+                                                    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi
+                                                    nesciunt. Consectetur, adipisci velit, sed quia non numquam eius
+                                                    modi.
                                                 </p>
                                             </p-tabPanel>
                                             <p-tabPanel header="Matières">
                                                 <p>
-                                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
-                                                    ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                                                    accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+                                                    quae ab illo inventore veritatis et quasi architecto beatae vitae
+                                                    dicta sunt explicabo. Nemo enim
+                                                    ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit,
+                                                    sed quia consequuntur magni dolores eos qui ratione voluptatem sequi
+                                                    nesciunt. Consectetur, adipisci velit, sed quia non numquam eius
+                                                    modi.
                                                 </p>
                                             </p-tabPanel>
                                             <p-tabPanel header="Avis">
@@ -341,54 +392,64 @@
                                 </div>
                             </div>
                         </div>
-                    <div class="w-full flex flex-row justify-content-between gap-5">
-                            <button routerLink="/pages/dashboard" type="button"  size="small" pButton pRipple label="Réfuser" class="mt-5 p-button-success  bg-green-500 text-white" [style]="{width: '110px'}"></button>
-                            <button type="submit"  size="small" pButton pRipple label="Accepter" class="mt-5 p-button-success  bg-green-500 text-white" [style]="{width: '110px'}"></button>
+                        <div class="w-full flex flex-row justify-content-between gap-5">
+                            <button routerLink="/pages/dashboard" type="button" size="small" pButton pRipple
+                                label="Réfuser" class="mt-5 p-button-success  bg-green-500 text-white"
+                                [style]="{width: '110px'}"></button>
+                            <button type="submit" size="small" pButton pRipple label="Accepter"
+                                class="mt-5 p-button-success  bg-green-500 text-white"
+                                [style]="{width: '110px'}"></button>
                         </div>
                     </form>
                 </section>
             </ng-template>
         </p-stepperPanel>
         <p-stepperPanel header="Header X">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-11 md:w-3 lg-w-3 xl:w-3" #suggestionsForm="ngForm" name="suggestionsForm"
-                    (ngSubmit)="suggestionsForm.form.valid && registerTarification(nextCallback)">
+                        (ngSubmit)="suggestionsForm.form.valid && registerTarification(nextCallback)">
                         <div class="mt-5 flex flex-column gap-3">
                             <div class="w-full font-normal text-lg text-gray-600">
-                                Tarification est de <span class="text-xl font-bold text-green-600">250</span> ($), pour Mathématiques de  <span class="text-xl font-bold text-green-600">Primaire II</span>.
+                                Tarification est de <span class="text-xl font-bold text-green-600">250</span> ($), pour
+                                Mathématiques de <span class="text-xl font-bold text-green-600">Primaire II</span>.
                             </div>
                             <div class="w-full font-normal text-lg text-gray-600">
-                                Premiere rencontre est à 50% de l'investissement et vous pouvez changer gratuitement pour un autre tuteur si jamis ça ne marche pas avec JACKIE CHAN, ce qui nous étonnerais.
+                                Premiere rencontre est à 50% de l'investissement et vous pouvez changer gratuitement
+                                pour un autre tuteur si jamis ça ne marche pas avec JACKIE CHAN, ce qui nous étonnerais.
                             </div>
-                
+
                             <div class="w-full font-normal text-lg text-gray-600">
-                                Passer au paiement par carte de crédit ou de débit pour la premiére rencontre ce dimanche à 15h:30 avec JACKIE CHAN.
+                                Passer au paiement par carte de crédit ou de débit pour la premiére rencontre ce
+                                dimanche à 15h:30 avec JACKIE CHAN.
                                 <div class="pt-3 text-sm text-gray-400">
                                     Votre paiement seras débité lorsque le tuteur aura confirmé votre rendez-vous.
                                 </div>
                             </div>
                             <button type="submit" size="small" pButton pRipple label="Payer"
-                                                    class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                                class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
                         </div>
                     </form>
                 </section>
             </ng-template>
         </p-stepperPanel>
         <p-stepperPanel header="Header XI">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-11 md:w-3 lg-w-3 xl:w-3" #suggestionsForm="ngForm" name="suggestionsForm"
-                    (ngSubmit)="suggestionsForm.form.valid && gotoDashboard('nextCallback')">
+                        (ngSubmit)="suggestionsForm.form.valid && gotoDashboard('nextCallback')">
                         <div class="mt-5 flex flex-column gap-3">
                             <div class="w-full font-normal text-lg text-cyan-900 text-center">
-                                Merci de faire confiance  a CEND:
+                                Merci de faire confiance a CEND:
                             </div>
                             <div class="text-gray-600 text-lg">
-                                Vous recevrez une confirmation de votre rendez-vous par le tuteur par message sur notre plateforme et par courriel.
+                                Vous recevrez une confirmation de votre rendez-vous par le tuteur par message sur notre
+                                plateforme et par courriel.
                             </div>
                             <button type="submit" size="small" pButton pRipple label="Acceder au tableau de bord"
-                                                                    class="mt-5  p-button-success w-full bg-green-500 text-white"></button>
+                                class="mt-5  p-button-success w-full bg-green-500 text-white"></button>
                         </div>
                     </form>
                 </section>
@@ -396,7 +457,3 @@
         </p-stepperPanel>
     </p-stepper>
 </div>
-
-
-<!-- DEBUG BEGIN -->
-

@@ -1,1 +1,53 @@
-<app-main-login></app-main-login>
+<p-toast position="bottom-center" preventOpenDuplicates="true" />
+<section class="scroll-hide w-full h-full  flex justify-content-center mt-2">
+    <form class="w-11 md:w-3 lg-w-3 xl:w-3" #loginForm="ngForm" name="f" (ngSubmit)="loginForm.form.valid && login()">
+        <h1 class="text-center text-gray-600 poppins-bold">Veuillez-vous connecter à votre compte Tuteur.</h1>
+        <div class="frm poppins-medium">
+            <div class="w-full flex flex-column gap-1">
+                <div class="flex flex-column gap-2">
+                    <label class="text-sm" for="email">E-mail</label>
+                    <input placeholder="votre email" [(ngModel)]="userLoginReq.email" type="email" name="email"
+                        class="p-inputtext-sm" pInputText id="email" aria-describedby="email-help" />
+                </div>
+                <div class="flex flex-column gap-1 mt-2">
+                    <label class="text-sm" for="password">Mots de passe</label>
+                        <p-password  placeholder="Entrer votre mot de passe" [(ngModel)]="userLoginReq.password" name="password"
+                        type="password" class="p-inputtext-sm"   [feedback]="false" class="p-inputtext-sm" id="password"  [toggleMask]="true"></p-password>
+                </div>
+                <button type="submit" size="small" pButton pRipple label="Continuer"
+                    class="mt-4 cursor-pointer bg-color-main w-full  text-white hover:bg-green-600 border-none"></button>
+                    <p-divider align="center" class="text-gray-400 font-medium">
+                        <span>Ou</span>
+                    </p-divider>
+                    <div class="flex flex-column gap-3">
+                        <button type="button"
+                        class="focus:bg-green-100 hover:border-2 hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-green-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                        <p-image class="absolute ml-4" src="assets/image/google.svg" alt="Image" width="20"></p-image>
+                        <div class="w-full text-gray-600 text-center">Continuer avec google</div>
+                    </button>
+                    <button type="button"
+                        class="focus:bg-green-100 hover:border-2  hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-green-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                        <p-image class="absolute ml-4" src="assets/image/apple.svg" alt="Image" width="20" ></p-image>
+                        <div class="w-full text-gray-600 text-center">Continuer avec apple</div>
+                    </button>
+                    <button type="button"
+                        class="focus:bg-green-100 hover:border-2  hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-green-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                        <p-image class="absolute ml-4" src="assets/image/fb.svg" alt="Image" width="20"></p-image>
+                        <div class="w-full text-gray-600 text-center">Continuer avec facebook</div>
+                    </button>
+                    <button type="button"
+                        class="focus:bg-green-100 text-green-600 hover:text-green-500  cursor-pointer bg-green-50 flex justify-content-between border-none border-round-md align-items-center w-full h-3rem">
+                        <i class="pi pi-qrcode ml-4" ></i>
+                        <div class="w-full text-center">
+                            Connectez-vous avec une qr-code
+                        </div>
+                    </button>
+                    </div>
+                    <div class="text-xs text-gray-400 text-center mt-2">
+                    En continuant, vous acceptz de recevoir au numéro fourni des appels, messages WhatsApp ou SMS, y
+                    compris de façon automatisée, de la part d'Uber et de ces sociétés affiliées.
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

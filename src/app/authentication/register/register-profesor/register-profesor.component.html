@@ -407,22 +407,22 @@
                                     </p-divider>
                                     <div class="flex flex-column gap-3">
                                         <button type="button"
-                                        class="hover:border-2 hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
-                                        <p-image class="absolute" src="assets/image/google.svg" alt="Image" width="20" class="ml-4"></p-image>
+                                        class="focus:bg-green-100 hover:border-2 hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-green-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                                        <p-image class="absolute ml-4" src="assets/image/google.svg" alt="Image" width="20"></p-image>
                                         <div class="w-full text-gray-600 text-center">Continuer avec google</div>
                                     </button>
                                     <button type="button"
-                                        class="hover:border-2  hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
-                                        <p-image class="absolute" src="assets/image/apple.svg" alt="Image" width="20" class="ml-4" ></p-image>
+                                        class="focus:bg-green-100 hover:border-2  hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-green-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                                        <p-image class="absolute ml-4" src="assets/image/apple.svg" alt="Image" width="20" ></p-image>
                                         <div class="w-full text-gray-600 text-center">Continuer avec apple</div>
                                     </button>
                                     <button type="button"
-                                        class="hover:border-2  hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-gray-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
-                                        <p-image class="absolute" src="assets/image/fb.svg" alt="Image" width="20" class="ml-4"></p-image>
+                                        class="focus:bg-green-100 hover:border-2  hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-green-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
+                                        <p-image class="absolute ml-4" src="assets/image/fb.svg" alt="Image" width="20"></p-image>
                                         <div class="w-full text-gray-600 text-center">Continuer avec facebook</div>
                                     </button>
                                     <button type="button"
-                                        class="text-gray-600 hover:text-blue-500  cursor-pointer bg-blue-50 flex justify-content-between border-none border-round-md align-items-center w-full h-3rem">
+                                        class="focus:bg-green-100 text-green-600 hover:text-green-500  cursor-pointer bg-green-50 flex justify-content-between border-none border-round-md align-items-center w-full h-3rem">
                                         <i class="pi pi-qrcode ml-4" ></i>
                                         <div class="w-full text-center">
                                             Connectez-vous avec une qr-code
@@ -492,15 +492,15 @@
 
                                 <div class="flex-auto">
                                     <label for="birthDate" class=""> Date de naissance</label>
-                                    <p-calendar placeholder="votre date de naissance" dateFormat="dd.mm.yy" [(ngModel)]="birthDate"
+                                    <p-calendar placeholder="votre date de naissance" dateFormat="dd/mm/yy" [(ngModel)]="birthDate"
                                         name="birthDate" [iconDisplay]="'input'" [showIcon]="true" inputId="birthDate"></p-calendar>
                                 </div>
-                                <div class="flex-auto">
+                                <!-- <div class="flex-auto">
                                     <label for="nickName" class=""> Nom d'utilisateur</label>
                                     <input [(ngModel)]="nickName" name="nickName" placeholder="Nom utilisateur" id="nickName"
                                         type="text"
                                         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                                </div>
+                                </div> -->
 
                                 <div class="flex flex-column mt-2">
                                     <label for="sex" class=""> Choisissez votre sex:</label>
@@ -529,19 +529,24 @@
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
                                 <div
-                                    class="card flex justify-content-center border-1 pt-6 pb-6 border-gray-300 border-round-lg bg-gray-50">
-                                    <div class="flex flex-column gap-3">
-                                        <div *ngFor="let language of languages" class="field-checkbox">
-                                            <p-radioButton [inputId]="language.key" name="category" [value]="language"
-                                                [(ngModel)]="selectedlanguage"></p-radioButton>
-                                            <div class="relative">
-                                                <label [for]="language.key" class="ml-2">{{ language.name }}</label>
-                                                <label class="text-xs text-gray-400 mt-1 absolute w-full left-0 pl-2 pt-3">{{
-                                                    language.default }}</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    class="pt-4 pb-6 w-full">
+                    <div class="flex flex-column gap-3">
+                        <p-iconField iconPosition="left" >
+                            <p-inputIcon styleClass="pi pi-search" />
+                            <input type="text" class="border-2 border-green-300" pInputText placeholder="Search" #inp (input)="filterLanguage(inp)" />
+                        </p-iconField>
+                        <div class="w-full  h-20rem flex flex-column gap-3 ">
+                            <button (click)="onClickLanguage(language)" type="button" class="py-3 flex inline-flex justify-content-between align-items-center  hover:bg-green-200  border-none text-gray-600 text-left" *ngFor="let language of languages">
+                                <span class="text-xl poppins-bold">
+                                    {{language.name}} - <span class="uppercase text-xl poppins-medium">{{language.code}}</span>
+                                </span>
+                                <span class="text-sm poppins-regular mr-2">
+                                    {{language.default}}
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
                                 <button size="small" pButton pRipple label="Continuer"
                                     class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
                             </div>

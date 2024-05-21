@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { StudentRegisterStepEnum } from '../../../@core/enumerations/student-register-step.enum';
-import { MenuItem, MessageService, SelectItemGroup } from 'primeng/api';
+import { MenuItem, MessageService, PrimeNGConfig, SelectItemGroup } from 'primeng/api';
 import { ValidationService } from '../../../@core/services/validation.service';
 import { RegistrationWithInforeq } from '../../../@core/entities/requests/registration-req';
 import { Apollo, gql, Subscription } from 'apollo-angular';
@@ -37,6 +37,7 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
     private messageService: MessageService,
     private loadingService: LoadingService,
      private router: Router,
+     private config: PrimeNGConfig
 
   ) {
     
@@ -76,10 +77,24 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
   courseTypes: any[] = CourseTypeData;
   days: any[] = DaysData;
   ngOnInit(): void {
+    this.config.setTranslation({
+      dayNamesMin: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+      monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre']
+  });
     this.groupedCities = GroupedCitiesData;
    // this.loadingService.emitChange(false);
   }
 
+  filterLanguage(input: any){
+    let searchedLang: string = input.value.toLowerCase();
+    this.languages = this.languages.filter(x=>x.name.toLowerCase().startsWith(searchedLang));
+    if(!searchedLang.trim()){
+      this.languages = LanguageData;
+    }
+  }
+  onClickLanguage(lang: any){
+    this.selectedlanguage = lang;
+  }
   ngAfterViewInit(){
    // this.loadingService.emitChange(false);
   }
@@ -172,10 +187,10 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
       return;
     }
     
-    if (!this.nickName.trim()) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'votre nom d\'utilisateur est requis!' });
-      return;
-    }
+    // if (!this.nickName.trim()) {
+    //   this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'votre nom d\'utilisateur est requis!' });
+    //   return;
+    // }
 
     if (!this.selectedSex) {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir votre sex!' });

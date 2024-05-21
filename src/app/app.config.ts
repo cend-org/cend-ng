@@ -12,10 +12,14 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpLoaderFactory } from './i18n.factory';
 import { JsonInterceptor } from './@core/interceptors/json-interceptor';
 
+
+
+
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes), 
-    // provideClientHydration(), 
+    provideClientHydration(), 
     provideAnimations(), 
     CommonModule,
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
@@ -26,21 +30,13 @@ export const appConfig: ApplicationConfig = {
     } ,
     COMMON_PROVIDER, 
     graphqlProvider,
-    importProvidersFrom(TranslateModule.forRoot({
+    importProvidersFrom(
+      TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
     })),
-    // provideToastr({
-    //   timeOut: 10000,
-    //   positionClass: 'toast-bottom-center',
-    //   preventDuplicates: true,
-    //   progressBar: true,
-    //   easeTime: 300,
-
-    // }),
-   // { provide: HTTP_INTERCEPTORS, useClass: JsonInterceptor, multi: true },
   ],
 };

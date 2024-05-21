@@ -7,12 +7,12 @@ import {
   ChevronRightIcon
 } from "./chunk-5UWI6NED.js";
 import {
-  TimesIcon
-} from "./chunk-BJ67E36J.js";
-import {
   Ripple,
   RippleModule
 } from "./chunk-736BP3RN.js";
+import {
+  TimesIcon
+} from "./chunk-BJ67E36J.js";
 import "./chunk-7OLLRVQ5.js";
 import {
   DomHandler

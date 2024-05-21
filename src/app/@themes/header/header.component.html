@@ -1,8 +1,8 @@
 <p-toast position="bottom-center" preventOpenDuplicates="true" />
 <nav class="sm:h-4rem hidden md:block lg:block xl:block fixed w-full z-4">
     <div class="w-full h-full  bg-background-main flex justify-content-center">
-        <div class="  h-full w-8 flex flex-column md:flex-row lg:flex-row xl:flex-row justify-content-evenly">
-            <section class="section-1 w-6  h-full flex justify-content-center align-items-center flex-row gap-2 ">
+        <div class="h-full w-10 flex flex-column md:flex-row lg:flex-row xl:flex-row justify-content-between">
+            <section class="section-1 w-6  h-full flex justify-content-start align-items-center flex-row gap-2 ">
                 <a (click)="onClickCend()"  *ngIf="!IsAuthenticating()" 
                     class="text-3xl poppins-bold font-semibold text-white p-1 cursor-pointer no-underline">
                     CEND
@@ -23,13 +23,44 @@
                         Tutorat
                     </button>
                 </p>
-                <p-tieredMenu #aboutMenu [model]="aboutItems" [popup]="true"></p-tieredMenu>
-                <button (click)="aboutMenu.toggle($event)"
-                    class="p-2 poppins-medium border-none bg-transparent text-white border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg">
-                    À propos
+               
+                <p class="relative">
+                    <button  (click)="onClickAboutButton(aboutMenu, $event)"
+                    class="flex inline-flex gap-2 align-items-center p-2  poppins-medium border-none bg-transparent text-white border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-lg">
+                    <span>À propos de nous</span>
+                    <i *ngIf="!desktopMobileAboutMenu" class="pi pi-angle-down"></i>
+                    <i *ngIf="desktopMobileAboutMenu" class="pi pi-angle-up"></i>
+                   
+                    <!-- <div *ngIf="desktopMobileAboutMenu" class="absolute bg-white shadow-3 w-20rem top-0 mt-6 border-round-md left-0">
+                        <button  *ngFor="let aboutItem of aboutItems" (click)="onMavigateAboutItems(aboutItem.routerLink)"
+                            class="w-full flex inline justify-content-between align-items-center text-lg poppins-regular text-gray-800 text-left w-full p-2 poppins-medium border-none bg-transparent  font-medium text-sm cursor-pointer hover:bg-green-500 ">
+                            <span>{{aboutItem.label}}</span>
+                            <i class="{{aboutItem.icon}}"></i>
+                        </button>
+                        
+                        </div> -->
                 </button>
+                <p-tieredMenu #aboutMenu [model]="aboutItems" [popup]="true" class="absolute top-0 left-0 mt-6"></p-tieredMenu>
+                </p>
             </section>
-            <section class="section-1 w-6  h-full flex justify-content-center align-items-center flex-row gap-2">
+            <section class="section-1 w-6  h-full flex justify-content-end align-items-center flex-row gap-2">
+                <p>
+                    <button (click)="toggleLanguageMenu()"
+                        class="flex flex-inline gap-2 relative p-2 poppins-medium border-none bg-transparent text-white border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-3xl">
+                            <i class="pi pi-language p-1 text-sm bg-white text-green-500 border-circle"></i>
+                        <span>
+                            {{selectedLanguage.label}}-{{selectedLanguage.code}}
+                        </span>
+                        <div *ngIf="languagesMenu" class="absolute bg-white shadow-3 w-10rem top-0 mt-6 border-round-md left-0">
+                        <button  *ngFor="let lg of languages" (click)="onChooseLanguage(lg)"
+                            class="w-full flex inline justify-content-between align-items-center text-lg poppins-regular text-gray-800 text-left w-full p-2 poppins-medium border-none bg-transparent  font-medium text-sm cursor-pointer hover:bg-green-500 ">
+                            {{lg.label}}-{{lg.code}}
+                        </button>
+                        
+                        </div>
+                        <!-- <p-tieredMenu class="w-10" #languageMenu [model]="languages" [popup]="true"></p-tieredMenu> -->
+                    </button>
+                </p>
                 <p>
                     <button
                         class="p-2 poppins-medium border-none bg-transparent text-white border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-3xl">
@@ -159,15 +190,9 @@
     <div class="w-12 h-2.5rem flex">
         <button (click)="onClickMobileAbourMenu()"
             class="text-lg poppins-regular  text-gray-800 flex inline align-items-center gap-3   text-left w-full p-2 poppins-medium border-none bg-transparent  font-medium text-sm cursor-pointer hover:bg-green-500 ">
-            <span> À propos</span>
+            <span>À propos de nous</span>
             <i *ngIf="!showMobileAboutMenu" class="pi pi-angle-down"></i>
             <i *ngIf="showMobileAboutMenu" class="pi pi-angle-up"></i>
-        </button>
-    </div>
-    <div class="w-12 h-2.5rem flex">
-        <button
-            class="text-lg poppins-regular text-gray-800 text-left w-full p-2 poppins-medium border-none bg-transparent  font-medium text-sm cursor-pointer hover:bg-green-500 ">
-            Aide
         </button>
     </div>
     <div class="w-full flex flex-column pl-4 pr-4" *ngIf="showMobileAboutMenu">
@@ -175,6 +200,12 @@
             class="w-full flex inline justify-content-between align-items-center text-lg poppins-regular text-gray-800 text-left w-full p-2 poppins-medium border-none bg-transparent  font-medium text-sm cursor-pointer hover:bg-green-500 ">
             <span>{{aboutItem.label}}</span>
             <i class="{{aboutItem.icon}}"></i>
+        </button>
+    </div>
+    <div class="w-12 h-2.5rem flex">
+        <button
+            class="text-lg poppins-regular text-gray-800 text-left w-full p-2 poppins-medium border-none bg-transparent  font-medium text-sm cursor-pointer hover:bg-green-500 ">
+            Aide
         </button>
     </div>
 </section>

@@ -12,6 +12,15 @@ body{
     margin: 0px !important;
     font-family: 'poppins-medium';
 }
+*:focus {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+}
+.text-main-green{
+    color: #1da750;
+}
 // body{
 //     overflow-y: scroll;
 // }

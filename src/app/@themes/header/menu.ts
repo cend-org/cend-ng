@@ -34,7 +34,7 @@ export const menus : Array<Menu> = [
 
 export const aboutItems : Array<Menu> = [
     {
-        label : "À propos de nous",
+        label : "Qui sommes-nous ?",
         icon : "pi pi-info-circle",
         routerLink: "/pages/about/about-us"
         

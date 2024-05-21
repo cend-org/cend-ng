@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TutorRegisterStepEnum } from '../../../@core/enumerations/tutor-register-step.enum';
-import { SelectItemGroup } from 'primeng/api';
+import { PrimeNGConfig, SelectItemGroup } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { FileUploadEvent } from 'primeng/fileupload';
 import { Apollo, gql } from 'apollo-angular';
@@ -49,6 +49,7 @@ export class RegisterTutorComponent {
     private http: HttpClient, 
     private loadingService: LoadingService,
     private router: Router,
+    private config: PrimeNGConfig
   ) { }
   inputNotValid: boolean = false;
 
@@ -94,13 +95,27 @@ export class RegisterTutorComponent {
   days: any[] = DaysData;
   uploadForm: FormGroup | undefined;
   ngOnInit(): void {
-    //this.getEducationLevel();
+    this.config.setTranslation({
+      dayNamesMin: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+      monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre']
+  });
     this.selectedDays = this.days[0];
     this.groupedCities = GroupedCitiesData;
     this.uploadForm = this.formBuilder.group({
       photo: [''],
       video: [''],
     });
+  }
+  
+  filterLanguage(input: any){
+    let searchedLang: string = input.value.toLowerCase();
+    this.languages = this.languages.filter(x=>x.name.toLowerCase().startsWith(searchedLang));
+    if(!searchedLang.trim()){
+      this.languages = LanguageData;
+    }
+  }
+  onClickLanguage(lang: any){
+    this.selectedlanguage = lang;
   }
   registerWithEmail(nextCallback: any){
 
@@ -191,10 +206,10 @@ export class RegisterTutorComponent {
       return;
     }
     
-    if (!this.nickName.trim()) {
-      this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'votre nom d\'utilisateur est requis!' });
-      return;
-    }
+    // if (!this.nickName.trim()) {
+    //   this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'votre nom d\'utilisateur est requis!' });
+    //   return;
+    // }
 
     if (!this.selectedSex) {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir votre sex!' });
@@ -236,6 +251,8 @@ export class RegisterTutorComponent {
     });
   }
   registerLanguage(nextCallback: any){
+    
+
     this.getEducationLevel(nextCallback);
     // this.loadingService.emitChange(true);
     // setTimeout(() => {
@@ -245,7 +262,6 @@ export class RegisterTutorComponent {
     // }, 1000);
   }
   getEducationLevel(nextCallback: any) {
-    this.loadingService.emitChange(true);
     this.apolloService.query({
       query: gql`
       query AcademicLevels {
@@ -353,6 +369,7 @@ export class RegisterTutorComponent {
       
      nextCallback.emit();
     }, 1000);
+
     //let user_id: number = this.authService.GetUserId();
 
     // this.apolloService.mutate({

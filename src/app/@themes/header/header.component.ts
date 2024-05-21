@@ -5,6 +5,10 @@ import { NavigationEnd, Router } from '@angular/router';
 import { LoadingService } from '../../@core/services/loading.service';
 import { AuthService } from '../../@core/services/auth.service';
 import { ForAuthentifiedDirective } from '../../@core/directives/for-authentified.directive';
+import { LanguageData } from '../../@core/datas/language-data';
+import { environment } from '../../environments/environment';
+import { LocalStorageService } from '../../@core/services/local-storage.service';
+import { LangConfigService } from '../../@core/services/lang-config.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +16,10 @@ import { ForAuthentifiedDirective } from '../../@core/directives/for-authentifie
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit{
-  constructor(private router: Router, public loadingService: LoadingService, private authService: AuthService, private messageService: MessageService,){}
+  private clickCount = 0;
+  private singleClickTimer: any;
+
+  constructor(private router: Router, public loadingService: LoadingService, private authService: AuthService, private messageService: MessageService, private localStorageService: LocalStorageService, private langConfigService: LangConfigService){}
   showMobileMenu: boolean = false;
   showMobileAboutMenu: boolean = false;
   navButtons: any = navMenuButtons;
@@ -24,8 +31,35 @@ export class HeaderComponent implements OnInit{
   registerItems: MenuItem[] | undefined;
   landingNavigationDisabled: boolean = false;
   isDashboard:boolean = false;
+  desktopMobileAboutMenu:boolean = false;
+  languagesMenu: boolean = false;
+  selectedLanguage: any = {}
+  languages = [
+    {
+        label : "Francais",
+        code : "fr",
+        
+    }, 
+    {
+        label : "Anglais",
+        code: "en"
+    },
+]
+toggleLanguageMenu(){
+  this.languagesMenu = !this.languagesMenu;
+  this.desktopMobileAboutMenu = false;
+  this.showMobileAboutMenu = false;
+}
 
+onChooseLanguage(lang:any){ 
+  this.selectedLanguage = lang;
+  this.localStorageService.save(`${environment.cend_default_lang_id}_lang`, lang.code);
+  this.langConfigService.configure();
+
+
+}
   ngOnInit(): void {
+    this.selectedLanguage = this.languages[0];
     this.menus = menus;
     this.aboutItems = aboutItems;
     this.loginItems = loginItems;
@@ -77,4 +111,30 @@ export class HeaderComponent implements OnInit{
     let hide = this.router.url.startsWith("/authentication/register")? true : false;
     return hide;
   }
+
+
+
+
+  onClickAboutButton(aboutMenu:any, $event:any){
+
+    //this.desktopMobileAboutMenu = !this.desktopMobileAboutMenu;
+    this.clickCount++; 
+  if (this.clickCount == 1) {
+    this.singleClickTimer = setTimeout(() => {
+      this.desktopMobileAboutMenu = !this.desktopMobileAboutMenu;
+      aboutMenu.toggle($event);
+      this.clickCount = 0;
+  
+    }, 300); // Délai pour distinguer un double clic
+  } else if (this.clickCount === 2) {
+    clearTimeout(this.singleClickTimer);
+    this.router.navigateByUrl("/pages/about/about-us");
+    //this.navigateToAboutPage();
+    this.clickCount = 0;
+    this.desktopMobileAboutMenu = false;
+  }
+
+  }
+ 
 }
+

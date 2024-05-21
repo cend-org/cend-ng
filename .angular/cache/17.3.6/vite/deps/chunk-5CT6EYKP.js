@@ -3,9 +3,6 @@ import {
   RippleModule
 } from "./chunk-736BP3RN.js";
 import {
-  NG_VALUE_ACCESSOR
-} from "./chunk-5NY3OXPO.js";
-import {
   AutoFocus,
   AutoFocusModule
 } from "./chunk-IHHDIKUX.js";
@@ -14,6 +11,9 @@ import {
   PrimeTemplate,
   SharedModule
 } from "./chunk-LX2E4IGY.js";
+import {
+  NG_VALUE_ACCESSOR
+} from "./chunk-5NY3OXPO.js";
 import {
   CommonModule,
   NgClass,
@@ -631,4 +631,4 @@ export {
   SelectButton,
   SelectButtonModule
 };
-//# sourceMappingURL=chunk-AKCI7GEC.js.map
+//# sourceMappingURL=chunk-5CT6EYKP.js.map
