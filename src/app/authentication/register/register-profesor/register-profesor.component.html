@@ -495,13 +495,6 @@
                                     <p-calendar placeholder="votre date de naissance" dateFormat="dd/mm/yy" [(ngModel)]="birthDate"
                                         name="birthDate" [iconDisplay]="'input'" [showIcon]="true" inputId="birthDate"></p-calendar>
                                 </div>
-                                <!-- <div class="flex-auto">
-                                    <label for="nickName" class=""> Nom d'utilisateur</label>
-                                    <input [(ngModel)]="nickName" name="nickName" placeholder="Nom utilisateur" id="nickName"
-                                        type="text"
-                                        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                                </div> -->
-
                                 <div class="flex flex-column mt-2">
                                     <label for="sex" class=""> Choisissez votre sex:</label>
                                     <p-dropdown placeholder="votre sexe" inputId="sex" [options]="sex" [(ngModel)]="selectedSex"
@@ -511,7 +504,15 @@
                                 <div class="flex flex-column mt-2">
                                     <label for="lang" class=""> Choisissez votre langue:</label>
                                     <p-dropdown placeholder="votre langue maternelle" inputId="lang" [options]="languages"
-                                        [(ngModel)]="selectedlanguage" optionLabel="name" name="langname" />
+                                        [(ngModel)]="selectedlanguage" optionLabel="name" name="langname" >
+    
+                                        <ng-template let-language pTemplate="item">
+                                            <div class="flex justify-content-between align-items-center gap-2 px-2">
+                                                <span class="poppins-medium">{{language.name}}</span>
+                                                <span class="uppercase">{{ language.code }}</span>
+                                            </div>
+                                        </ng-template>
+                                    </p-dropdown>
                                 </div>
                                 <button type="submit" size="small" pButton pRipple label="Continuer"
                                     class="mt-2 p-button-success w-full bg-green-500 text-white"></button>
@@ -521,11 +522,11 @@
                 </section>
             </ng-template>
         </p-stepperPanel>
-        <p-stepperPanel header="Language">
+        <p-stepperPanel header="Etudiants">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
-                    <form class="w-11 md:w-3 lg-w-3 xl:w-3"   #aboutForm="ngForm" name="aboutForm" (ngSubmit)="aboutForm.form.valid && registerLanguage(nextCallback)">
-                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Quelle est la langue à laquelle vous voulez faire votre éducation ?</h1>
+                    <form class="w-11 md:w-3 lg-w-3 xl:w-3"   #aboutForm="ngForm" name="aboutForm" (ngSubmit)="aboutForm.form.valid && registerStudentName(nextCallback)">
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Quel est le nom de votre etudiant ?</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
                                 <div
@@ -535,7 +536,7 @@
                             <p-inputIcon styleClass="pi pi-search" />
                             <input type="text" class="border-2 border-green-300" pInputText placeholder="Search" #inp (input)="filterLanguage(inp)" />
                         </p-iconField>
-                        <div class="w-full  h-20rem flex flex-column gap-3 ">
+                        <!-- <div class="w-full  h-20rem flex flex-column gap-3 ">
                             <button (click)="onClickLanguage(language)" type="button" class="py-3 flex inline-flex justify-content-between align-items-center  hover:bg-green-200  border-none text-gray-600 text-left" *ngFor="let language of languages">
                                 <span class="text-xl poppins-bold">
                                     {{language.name}} - <span class="uppercase text-xl poppins-medium">{{language.code}}</span>
@@ -544,7 +545,7 @@
                                     {{language.default}}
                                 </span>
                             </button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                                 <button size="small" pButton pRipple label="Continuer"
@@ -559,19 +560,27 @@
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-11 md:w-3 lg-w-3 xl:w-3" #schoolLevelForm="ngForm" name="schoolLevelForm" (ngSubmit)="schoolLevelForm.form.valid && registerEducationLevel(nextCallback)">
-                        <h1 class="text-left text-xl text-cyan-900  poppins-bold"> Vous enseignez quel niveau scolaire ?</h1>
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">À quel niveau scolaire enseignez-vous ?</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
-                                <p-scrollPanel
-                                    class="card flex justify-content-center h-30rem border-1 pt-6 pb-6 border-gray-300 border-round-lg bg-gray-50">
+                                <div class="pt-4 pb-6 w-full">
                                     <div class="flex flex-column gap-3">
-                                        <div *ngFor="let educationLevel of educationLevels" class="field-checkbox">
-                                            <p-radioButton [inputId]="educationLevel.Id" name="schoolLevel" [value]="educationLevel"
-                                                [(ngModel)]="selectedEducationLevel"></p-radioButton>
-                                            <label [for]="educationLevel.Id" class="ml-2">{{ educationLevel.Name }}</label>
+                                        <p-iconField iconPosition="left">
+                                            <p-inputIcon styleClass="pi pi-search" />
+                                            <input type="text" class="border-2 border-green-300" pInputText
+                                                placeholder="Search" #inp (input)="filterEducationLevel(inp)" />
+                                        </p-iconField>
+                                        <div class="w-full   h-30rem md:h-10rem lg:h-20rem xl:h-20rem flex flex-column gap-3 overflow-y-scroll">
+                                            <button (click)="onClickEducationLevel(educationLevel)" type="button"
+                                                class="py-3 {{getEducationLevelBackground(educationLevel)}}  border-none text-gray-600 text-left"
+                                                *ngFor="let educationLevel of _educationLevels">
+                                                <span class="text-xl poppins-bold">
+                                                    {{educationLevel.Name}}
+                                                </span>
+                                            </button>
                                         </div>
                                     </div>
-                                </p-scrollPanel>
+                                </div>
                                 <button type="submit" size="small" pButton pRipple label="Continuer"
                                     class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
 
@@ -589,21 +598,26 @@
                         <h1 class="text-left text-xl text-cyan-900  poppins-bold">Dans quelle matière votre jeûne a-t-il besoin d'aide ?</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
-                                <p-scrollPanel
-                                    class="card flex justify-content-center h-30rem border-1 pt-6 pb-6 border-gray-300 border-round-lg bg-gray-50">
+                                <div class="pt-4 pb-6 w-full">
                                     <div class="flex flex-column gap-3">
-                                        <div *ngFor="let subject of subjects" class="pl-4 field-checkbox">
-                                            <!-- <p-radioButton [inputId]="subject.Id" name="category" [value]="subject"
-                                                [(ngModel)]="selectedSubject"></p-radioButton>
-                                            <label [for]="subject.Id" class="ml-2">{{ subject.Name }}</label> -->
-                                            <p-checkbox 
-                                            [(ngModel)]="selectedSubject"
-                                            [label]="subject.Name" 
-                                            name="subject" 
-                                            [value]="subject" />
+                                        <p-iconField iconPosition="left">
+                                            <p-inputIcon styleClass="pi pi-search" />
+                                            <input type="text" class="border-2 border-green-300" pInputText
+                                                placeholder="Search" #inp (input)="filterAcademicCourse(inp)" />
+                                        </p-iconField>
+                                        <div class="w-full   h-30rem md:h-10rem lg:h-20rem xl:h-20rem flex flex-column gap-3 overflow-y-scroll">
+                                            <button #AcademicCoursesBtn
+                                                (click)="onClickAcademicCourse(subject, AcademicCoursesBtn)"
+                                                type="button"
+                                                class="py-3 {{getAcademicCourseSelectedBackground(subject)}}  border-none text-gray-600 text-left"
+                                                *ngFor="let subject of _subjects">
+                                                <span class="text-xl poppins-bold">
+                                                    {{subject.Name}}
+                                                </span>
+                                            </button>
                                         </div>
                                     </div>
-                                </p-scrollPanel>
+                                </div>
                                 <button type="submit" size="small" pButton pRipple label="Continuer"
                                     class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
                             </div>
@@ -639,7 +653,7 @@
                 </section>
             </ng-template>
         </p-stepperPanel>
-        <p-stepperPanel header="VIDEO PRESENTATION">
+        <!-- <p-stepperPanel header="VIDEO PRESENTATION">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section   class="w-full h-screen  flex justify-content-center mt-2">
                     <div class="w-11 md:w-3 lg-w-3 xl:w-3" >
@@ -668,9 +682,9 @@
                     </div>
                 </section>
             </ng-template>
-        </p-stepperPanel>
+        </p-stepperPanel> -->
 
-        <p-stepperPanel header="DESCRIPTION">
+        <!-- <p-stepperPanel header="DESCRIPTION">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section  class="w-full h-screen  flex justify-content-center mt-2">
                     <form class="w-11 md:w-3 lg-w-3 xl:w-3"  #descriptionForm="ngForm" name="descriptionForm"
@@ -708,8 +722,8 @@
                     </form>
                 </section>
             </ng-template>
-        </p-stepperPanel>
-        <p-stepperPanel header="TYPE DE COURS">
+        </p-stepperPanel> -->
+        <!-- <p-stepperPanel header="TYPE DE COURS">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-11 md:w-3 lg-w-3 xl:w-3" #courseTypeForm="ngForm" name="courseTypeForm" (ngSubmit)="courseTypeForm.form.valid && registerCourseType(nextCallback)">
@@ -737,8 +751,8 @@
                     </form>
                 </section>
             </ng-template>
-        </p-stepperPanel>
-        <p-stepperPanel header="DISPONIBILITE">
+        </p-stepperPanel> -->
+        <!-- <p-stepperPanel header="DISPONIBILITE">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 
             <section  class="w-full h-screen  flex justify-content-center mt-2">
@@ -759,8 +773,8 @@
             </section>
 
             </ng-template>
-        </p-stepperPanel>
-        <p-stepperPanel header="VERIFICATON">
+        </p-stepperPanel> -->
+        <!-- <p-stepperPanel header="VERIFICATON">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section  class="w-full h-screen  flex justify-content-center mt-2">
                 <form class="w-11 md:w-3 lg-w-3 xl:w-3" #verificationForm="ngForm" name="verificationForm"
@@ -776,8 +790,8 @@
             </section>
 
             </ng-template>
-        </p-stepperPanel>
-        <p-stepperPanel header="RENUMERATION">
+        </p-stepperPanel> -->
+        <!-- <p-stepperPanel header="RENUMERATION">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section  class="w-full  flex justify-content-center mt-2">
                     <form class="w-11 md:w-3 lg-w-3 xl:w-3" #verificationForm="ngForm" name="verificationForm"
@@ -802,7 +816,7 @@
                 </section>
 
             </ng-template>
-        </p-stepperPanel>
+        </p-stepperPanel> -->
         <p-stepperPanel header="ETAPE FINAL">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section  class="w-full  flex justify-content-center mt-2">
@@ -812,7 +826,7 @@
                             <div class="flex flex-column gap-5">
                                 <div class="card p-2">
                                     <div class="w-full font-normal text-lg text-gray-600">
-                                    L'équipe confirmera que tout est bon. Si accepté, on va de l'avant et vous devenez un tuteur autonome.
+                                   Nous avons envoye un message de verification a vos etudiants. Nous vous enverons un email lorque votre identite ait ete verifie
                                     </div>
                                 </div>
                                 <button type="submit" size="small" pButton pRipple label="Finir l'enregistrement" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>

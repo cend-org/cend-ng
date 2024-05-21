@@ -34,17 +34,7 @@ export class HeaderComponent implements OnInit{
   desktopMobileAboutMenu:boolean = false;
   languagesMenu: boolean = false;
   selectedLanguage: any = {}
-  languages = [
-    {
-        label : "Francais",
-        code : "fr",
-        
-    }, 
-    {
-        label : "Anglais",
-        code: "en"
-    },
-]
+  languages = LanguageData;
 toggleLanguageMenu(){
   this.languagesMenu = !this.languagesMenu;
   this.desktopMobileAboutMenu = false;
@@ -86,7 +76,12 @@ onChooseLanguage(lang:any){
     }
   }
   onClickCend(){
-    this.router.navigateByUrl('/dashboard');
+    if(this.authService.IsAuthentified()){
+      this.router.navigateByUrl('/dashboard');
+    }else{
+      this.router.navigateByUrl('/pages/landing');
+    }
+    
   }
 
   onClickLogOut(){

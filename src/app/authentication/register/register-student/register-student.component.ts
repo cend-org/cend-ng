@@ -46,13 +46,24 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
 
 
 
-  email: string =``;
-  password: string = "";
-  passwordConfirm: string = "";
-  name: string = "";
-  familyName: string = "";
-  birthDate: any = "";
-  nickName: string = "";
+  // email: string =``;
+  // password: string = "";
+  // passwordConfirm: string = "";
+  // name: string = "";
+  // familyName: string = "";
+  // birthDate: any = "";
+  // nickName: string = "";
+
+
+  email: string =`tutor${Math.random().toString(36).substr(2, 9)}@email.com`;
+  password: string = "password";
+  passwordConfirm: string = "password";
+  name: string = "nao";
+  familyName: string = "julius";
+  birthDate: any = new Date();
+  nickName: string = `parent_${Math.random().toString(36).substr(2, 9)}`;
+
+  
 
 
   registrationProfileInfoReq: RegistrationWithInforeq = new RegistrationWithInforeq();
@@ -84,17 +95,100 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
     this.groupedCities = GroupedCitiesData;
    // this.loadingService.emitChange(false);
   }
-
-  filterLanguage(input: any){
-    let searchedLang: string = input.value.toLowerCase();
-    this.languages = this.languages.filter(x=>x.name.toLowerCase().startsWith(searchedLang));
-    if(!searchedLang.trim()){
-      this.languages = LanguageData;
+  filterLanguage(input: any) {
+    const searchedLang = this.normalizeString(input.value);
+    if (!searchedLang.trim()) {
+      this.languages = LanguageData; // Restaure les données d'origine si la recherche est vide
+    } else {
+      this.languages = this.languages.filter(x =>
+        this.normalizeString(x.name).includes(searchedLang)
+      );
     }
+
   }
-  onClickLanguage(lang: any){
+  onClickLanguage(lang: any) {
     this.selectedlanguage = lang;
   }
+  normalizeString(str: string): string {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  }
+  getSelectedLanguageBackground(lang: any): String {
+    if (this.selectedlanguage && this.selectedlanguage.code.toLowerCase() == lang.code.toLowerCase()) {
+      return "bg-green-200";
+    }
+    return "";
+  }
+
+
+  _subjects: any[] = [];
+  selectedSubjects: any[] = [];
+
+  get SelectedSubjectsNames(): string {
+    return this.selectedSubjects.map(item => item.Name).join(', ');
+  }
+  getAcademicCourseSelectedBackground(subject: any): String {
+    if (this.selectedSubjects.find(x => x.Name.toLowerCase() == subject.Name.toLowerCase())) {
+      return "bg-green-200";
+    }
+    return "";
+  }
+
+  onClickEducationLevel(education: any) {
+    this.selectedEducationLevel = education;
+  }
+
+  _educationLevels: Array<any> = []
+  filterEducationLevel(input: any) {
+    const searchedEd = this.normalizeString(input.value);
+    if (!searchedEd.trim()) {
+      this._educationLevels = this.educationLevels; // Restaure les données d'origine si la recherche est vide
+    } else {
+      this._educationLevels = this.educationLevels.filter(subject =>
+        this.normalizeString(subject.Name).includes(searchedEd)
+      );
+    }
+  }
+
+  getEducationLevelBackground(educationLevel: any): String {
+
+    if (this.selectedEducationLevel && this.selectedEducationLevel.Name.toLowerCase() == educationLevel.Name.toLowerCase()) {
+      return "bg-green-200";
+    }
+    return "";
+  }
+
+  onClickCourseType(coursetype: any) {
+    this.selectedcourseType = coursetype
+  }
+
+  getCourseTypeSelectedBackground(courseType: any): String {
+    if (this.selectedcourseType && this.selectedcourseType.name.toLowerCase() == courseType.name.toLowerCase()) {
+      return "bg-green-200";
+    }
+    return "";
+  }
+
+  filterAcademicCourse(input: any) {
+    const searchedCourse = this.normalizeString(input.value);
+    if (!searchedCourse.trim()) {
+      this._subjects = [...this.selectedSubjects, ...this.subjects.filter(subject => !this.selectedSubjects.includes(subject))];
+    } else {
+      const filteredCourses = this.subjects.filter(subject =>
+        this.normalizeString(subject.Name).includes(searchedCourse) &&
+        !this.selectedSubjects.includes(subject)
+      );
+      this._subjects = [...this.selectedSubjects, ...filteredCourses];
+    }
+  }
+
+  onClickAcademicCourse(subject: any, button: HTMLElement) {
+    if (this.selectedSubjects.find(x => x.Name.toLowerCase() == subject.Name.toLowerCase())) {
+      this.selectedSubjects = this.selectedSubjects.filter(x => x.Id != subject.Id);
+    } else {
+      this.selectedSubjects.push(subject);
+    }
+  }
+
   ngAfterViewInit(){
    // this.loadingService.emitChange(false);
   }
@@ -223,7 +317,7 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
     }).subscribe({
       next: (response) => {
        this.loadingService.emitChange(false);
-       nextCallback.emit()
+       this.getAcademicLevel(nextCallback);
       },
       error: (e) => {
         this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
@@ -232,7 +326,11 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
     });
   }
   registerLanguage(nextCallback: any){
-    this.getEducationLevel(nextCallback);
+
+
+
+
+    //this.getAcademicLevel(nextCallback);
     // this.loadingService.emitChange(true);
     // setTimeout(() => {
     //   this.loadingService.emitChange(false);
@@ -240,20 +338,25 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
     //  // nextCallback.emit();
     // }, 1000);
   }
-  getEducationLevel(nextCallback: any) {
+  getAcademicLevel(nextCallback: any) {
     this.loadingService.emitChange(true);
     this.apolloService.query({
-      query: gql`query {
-        getEducation {
-              Id
-              Name
-          }
-      }`,
+      query: gql`query AcademicLevels {
+        AcademicLevels {
+            Id
+            CreatedAt
+            UpdatedAt
+            DeletedAt
+            Name
+        }
+    }`,
     }).subscribe({
       next: (response: any) => {
-        let educations: Array<any> = response?.data['getEducation'];
+        let educations: Array<any> = response?.data['AcademicLevels'];
         this.educationLevels = educations ? educations : [];
+        this._educationLevels = educations;
         this.loadingService.emitChange(false);
+
         nextCallback.emit();
       },
       error: (e) => {
@@ -267,7 +370,31 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir votre niveau scolaire!' });
       return;
     }
-    this.getSubjects(nextCallback);
+    this.apolloService.mutate({
+      mutation: gql`
+      mutation ($academicLevelId : Int! ) {
+        SetUserAcademicLevel(AcademicLevelId: $academicLevelId)
+    }
+      `,
+      variables: {
+        //subjectId: this.selectedSubject.Id
+        "academicLevelId" : this.selectedEducationLevel.Id
+      },
+      context: {
+        headers: this.headerService.Get()
+      }
+    }).subscribe({
+      next: (response: any) => {
+        this.loadingService.emitChange(false);
+        this.getSubjects(nextCallback);
+        //nextCallback.emit();
+      },
+      error: (e) => {
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
+        this.loadingService.emitChange(false);
+      }
+    });
+    //this.getSubjects(nextCallback);
     //this.registrationStateStep = StudentRegisterStepEnum.SUBJECT;
   }
   getSubjects(nextCallback: any) {
@@ -275,20 +402,27 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
     
     this.apolloService.query({
       query: gql`
-      query getSubjects($id: ID!) {
-        getSubjects(id: $id) {
-          Id
-          Name
+      query ($academicLevelId :  Int!) {
+        AcademicCourses(AcademicLevelId: $academicLevelId) {
+            Id
+            CreatedAt
+            UpdatedAt
+            DeletedAt
+            AcademicLevelId
+            Name
         }
-      }`,
+    }`,
       variables: {
-        id: this.selectedEducationLevel.Id
+        "academicLevelId": this.selectedEducationLevel.Id
+      }, context: {
+        headers: this.headerService.Get()
       }
 
     }).subscribe({
       next: (response: any) => {
-        let subjectList: Array<any> = response?.data['getSubjects'];
+        let subjectList: Array<any> = response?.data['AcademicCourses'];
         this.subjects = subjectList ? subjectList : [];
+        this._subjects = subjectList ? subjectList : [];
         this.loadingService.emitChange(false);
         nextCallback.emit();
       },
@@ -299,22 +433,26 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
     });
   }
   registerSubject(nextCallback: any){
-      if (!this.selectedSubject) {
+      if (this.selectedSubjects.length <= 0) {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir la matière dont vous avez besoins d\'aide!' });
       return;
     }
+    let formatedCoursesIds: Array<any> = [];
+    this.selectedSubjects.forEach(element => {
+      formatedCoursesIds.push({
+        "CourseId": element.Id
+      })
+    });
 
     this.apolloService.mutate({
       mutation: gql`
-        mutation setUserEducationLevel($subjectId: Int!) {
-            setUserEducationLevel(subjectId: $subjectId) {
-              Id,
-              Name
-            }
-        }
+      mutation ($courses: [UserAcademicCourseInput]!)  {
+        NewUserAcademicCourses(courses: $courses)
+    }
       `,
       variables: {
-        subjectId: this.selectedSubject.Id
+       // subjectId: this.selectedSubject.Id
+       "courses": formatedCoursesIds
       },
       context: {
         headers: this.headerService.Get()
@@ -339,16 +477,22 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
 
     this.apolloService.mutate({
       mutation: gql`
-        mutation setUserCoursePreference($isOnline: Boolean!) {
-          setUserCoursePreference(isOnline: $isOnline) {
-              Id,
-              UserId
-              IsOnline
-            }
+      mutation ($coursesPreferences: UserAcademicCoursePreferenceInput!)  {
+        UpdAcademicCoursePreference(coursesPreferences: $coursesPreferences) {
+            Id
+            CreatedAt
+            UpdatedAt
+            DeletedAt
+            UserId
+            IsOnline
         }
+    }
       `,
       variables: {
-        isOnline: this.selectedcourseType.value
+        //isOnline: this.selectedcourseType.value
+        "coursesPreferences":  {
+          "IsOnline" : this.selectedcourseType.value
+      }
       },
       context: {
         headers: this.headerService.Get()
@@ -372,49 +516,115 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez verifier votre disponibilite ' });
       return;
     }
+    this.getSuggestedTutor(nextCallback);
     this.loadingService.emitChange(true);
     setTimeout(() => {
       this.loadingService.emitChange(false);
       nextCallback.emit();
     }, 1000);
-    // this.apolloService.mutate({
-    //   mutation: gql`
-    //     query SuggestTutor($studentId: Int!) {
-    //       studentId(studentId: $studentId) {
-    //         Name
-    //         FamilyName
-    //         NickName
-    //         Email
-    //         Sex
-    //         Lang
-    //         Status
-    //         ProfileImageXid
-    //         Description
-    //         CoverText
-    //         Profile
-    //         ExperienceDetail
-    //         AdditionalDescription
-    //         AddOnTitle
-    //         }
-    //     }
-    //   `,
-    //   variables: {
-    //     studentId: this.authService.GetUserId()
-    //   },
-    //   context: {
-    //     headers: this.headerService.Get()
-    //   }
-    // }).subscribe({
-    //   next: (response: any) => {
-    //     this.loadingService.emitChange(false);
-    //     nextCallback.emit();
-    //   },
-    //   error: (e) => {
-    //     this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
-    //     this.loadingService.emitChange(false);
-    //   }
-    // });
+
   }
+
+  suggestedTutor: any = null;
+  presentationVideo: string = "";
+  suggestedTutorProfileImage: string = "";
+  getSuggestedTutor(nextCallback: any) {
+    this.apolloService.query({
+      query: gql`
+      query ($studentId: Int!) {
+        SuggestTutor(studentId: $studentId) {
+            Name
+            FamilyName
+            NickName
+            Email
+            Sex
+            Lang
+            Status
+            ProfileImageXid
+            Description
+            CoverText
+            Profile
+            ExperienceDetail
+            AdditionalDescription
+            AddOnTitle
+        }
+    }`,
+      variables: {
+        "studentId": this.authService.GetUserId()
+      },
+      context: {
+        headers: this.headerService.Get()
+      }
+
+    }).subscribe({
+      next: (response: any) => {
+        this.suggestedTutor = response["data"]["SuggestTutor"];
+        let suggestedTutorId =  response["data"]["SuggestTutor"]['Id'];
+        if(suggestedTutorId){
+          this.apolloService.query({
+            query: gql`query ($userId : Int!) {
+              UserVideoPresentation(userId: $userId)
+          }
+          `,
+            variables: {
+              "userId": suggestedTutorId
+            }, context: {
+              headers: this.headerService.Get()
+            }
+      
+          }).subscribe({
+            next: (response: any) => {
+              this.presentationVideo = response["data"]["UserVideoPresentation"];
+              this.apolloService.query({
+                query: gql`query ($tutorId : Int!) {
+                  UserProfileImageThumb(userId: $tutorId)
+              }
+              `,
+                variables: {
+                  "tutorId": suggestedTutorId
+                }, context: {
+                  headers: this.headerService.Get()
+                }
+          
+              }).subscribe({
+                next: (response: any) => {
+                  this.suggestedTutorProfileImage = `background-image: url(${response["data"]["UserProfileImageThumb"]})`;
+                  this.loadingService.emitChange(false);
+                  nextCallback.emit();
+                },
+                error: (e) => {
+                  this.suggestedTutorProfileImage = `background-image: url(assets/image/avatar.svg)`;
+                  this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
+                  this.loadingService.emitChange(false);
+                }
+              });
+  
+            },
+            error: (e) => {
+              //this.suggestedTutorProfileImage = `background-image: url(assets/image/avatar.svg)`;
+              this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
+              this.loadingService.emitChange(false);
+            }
+          });
+        }
+
+        this.loadingService.emitChange(false);
+      },
+      error: (e) => {
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
+        this.loadingService.emitChange(false);
+      }
+    });
+
+
+    
+
+    
+  }
+
+
+
+
 
   debug: boolean = false;
   fakeVideo: string = "/assets/video/rabbit.mp4"

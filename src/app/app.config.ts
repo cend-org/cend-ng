@@ -19,7 +19,7 @@ import { JsonInterceptor } from './@core/interceptors/json-interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes), 
-    provideClientHydration(), 
+  //  provideClientHydration(), 
     provideAnimations(), 
     CommonModule,
     provideHttpClient(withFetch(), withInterceptorsFromDi()),

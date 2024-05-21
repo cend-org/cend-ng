@@ -48,21 +48,21 @@ export class RegisterProfesorComponent {
 
   error_message: string = '';
 
-  email: string = "";
-  password: string = "";
-  passwordConfirm: string = "";
-  name: string = "";
-  familyName: string = "";
-  birthDate: any = "";
-  nickName: string = "";
+  // email: string = "";
+  // password: string = "";
+  // passwordConfirm: string = "";
+  // name: string = "";
+  // familyName: string = "";
+  // birthDate: any = "";
+  // nickName: string = "";
 
-  // email: string =`parent_${Math.random().toString(36).substr(2, 9)}@email.com`;
-  // password: string = "pwd";
-  // passwordConfirm: string = "pwd";
-  // name: string = "nao";
-  // familyName: string = "julius";
-  // birthDate: any = new Date();
-  // nickName: string = `parent_${Math.random().toString(36).substr(2, 9)}`;
+  email: string =`tutor${Math.random().toString(36).substr(2, 9)}@email.com`;
+  password: string = "password";
+  passwordConfirm: string = "password";
+  name: string = "nao";
+  familyName: string = "julius";
+  birthDate: any = new Date();
+  nickName: string = `parent_${Math.random().toString(36).substr(2, 9)}`;
 
 
   registrationProfileInfoReq: RegistrationWithInforeq = new RegistrationWithInforeq();
@@ -98,6 +98,74 @@ export class RegisterProfesorComponent {
       photo: [''],
       video: [''],
     });
+  }
+
+  _subjects: any[] = [];
+  selectedSubjects: any[] = [];
+  filterAcademicCourse(input: any) {
+    const searchedCourse = this.normalizeString(input.value);
+    if (!searchedCourse.trim()) {
+      this._subjects = [...this.selectedSubjects, ...this.subjects.filter(subject => !this.selectedSubjects.includes(subject))];
+    } else {
+      const filteredCourses = this.subjects.filter(subject =>
+        this.normalizeString(subject.Name).includes(searchedCourse) &&
+        !this.selectedSubjects.includes(subject)
+      );
+      this._subjects = [...this.selectedSubjects, ...filteredCourses];
+    }
+  }
+
+  onClickAcademicCourse(subject: any, button: HTMLElement) {
+    if (this.selectedSubjects.find(x => x.Name.toLowerCase() == subject.Name.toLowerCase())) {
+      this.selectedSubjects = this.selectedSubjects.filter(x => x.Id != subject.Id);
+    } else {
+      this.selectedSubjects.push(subject);
+    }
+  }
+
+  getAcademicCourseSelectedBackground(subject: any): String {
+    if (this.selectedSubjects.find(x => x.Name.toLowerCase() == subject.Name.toLowerCase())) {
+      return "bg-green-200";
+    }
+    return "";
+  }
+
+  onClickEducationLevel(education: any) {
+    this.selectedEducationLevel = education;
+  }
+
+  _educationLevels: Array<any> = []
+  filterEducationLevel(input: any) {
+    const searchedEd = this.normalizeString(input.value);
+    if (!searchedEd.trim()) {
+      this._educationLevels = this.educationLevels; // Restaure les données d'origine si la recherche est vide
+    } else {
+      this._educationLevels = this.educationLevels.filter(subject =>
+        this.normalizeString(subject.Name).includes(searchedEd)
+      );
+    }
+  }
+
+  getEducationLevelBackground(educationLevel: any): String {
+
+    if (this.selectedEducationLevel && this.selectedEducationLevel.Name.toLowerCase() == educationLevel.Name.toLowerCase()) {
+      return "bg-green-200";
+    }
+    return "";
+  }
+
+  onClickCourseType(coursetype: any) {
+    this.selectedcourseType = coursetype
+  }
+
+  getCourseTypeSelectedBackground(courseType: any): String {
+    if (this.selectedcourseType && this.selectedcourseType.name.toLowerCase() == courseType.name.toLowerCase()) {
+      return "bg-green-200";
+    }
+    return "";
+  }
+  normalizeString(str: string): string {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   }
 
 
@@ -237,7 +305,7 @@ export class RegisterProfesorComponent {
     }).subscribe({
       next: (response) => {
        this.loadingService.emitChange(false);
-       nextCallback.emit()
+       this.getAcademicLevelLevel(nextCallback);
       },
       error: (e) => {
         this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
@@ -246,7 +314,7 @@ export class RegisterProfesorComponent {
     });
   }
   registerLanguage(nextCallback: any){
-    this.getEducationLevel(nextCallback);
+    
     // this.loadingService.emitChange(true);
     // setTimeout(() => {
     //   this.loadingService.emitChange(false);
@@ -254,7 +322,7 @@ export class RegisterProfesorComponent {
     //  // nextCallback.emit();
     // }, 1000);
   }
-  getEducationLevel(nextCallback: any) {
+  getAcademicLevelLevel(nextCallback: any) {
     this.loadingService.emitChange(true);
     this.apolloService.query({
       query: gql`
@@ -271,6 +339,7 @@ export class RegisterProfesorComponent {
       next: (response: any) => {
         let educations: Array<any> = response?.data['AcademicLevels'];
         this.educationLevels = educations ? educations : [];
+        this._educationLevels = educations;
         this.loadingService.emitChange(false);
         nextCallback.emit();
       },
@@ -311,6 +380,7 @@ export class RegisterProfesorComponent {
       next: (response: any) => {
         let subjectList: Array<any> = response?.data['AcademicCourses'];
         this.subjects = subjectList ? subjectList : [];
+        this._subjects = subjectList ? subjectList : [];
         this.loadingService.emitChange(false);
         nextCallback.emit();
       },
@@ -321,22 +391,35 @@ export class RegisterProfesorComponent {
     });
   }
   registerSubject(nextCallback: any){
-      if (!this.selectedSubject) {
+    //   if (!this.selectedSubject) {
+    //   this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir la matière dont vous avez besoins d\'aide!' });
+    //   return;
+    // }
+    //nextCallback.emit(); //eto
+    if (this.selectedSubjects.length <= 0) {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir la matière dont vous avez besoins d\'aide!' });
       return;
     }
-    nextCallback.emit(); //eto
+
+    let formatedCoursesIds: Array<any> = [];
+    this.selectedSubjects.forEach(element => {
+      formatedCoursesIds.push({
+        "CourseId": element.Id
+      })
+    });
+
+
+
+
+
     this.apolloService.mutate({
       mutation: gql`
-        mutation setUserEducationLevel($subjectId: Int!) {
-            setUserEducationLevel(subjectId: $subjectId) {
-              Id,
-              Name
-            }
-        }
+      mutation ($courses: [UserAcademicCourseInput]!)  {
+          NewUserAcademicCourses(courses: $courses)
+      }
       `,
       variables: {
-        subjectId: this.selectedSubject.Id
+        "courses": formatedCoursesIds
       },
       context: {
         headers: this.headerService.Get()
@@ -562,5 +645,11 @@ export class RegisterProfesorComponent {
       this.router.navigateByUrl("pages/dashboard");
     }, 1000);
   }
-
+  registerStudentName(nextCallback:any){
+    this.loadingService.emitChange(true);
+    setTimeout(() => {
+      this.loadingService.emitChange(false);
+      nextCallback.emit();
+    }, 1000);
+  }
 }

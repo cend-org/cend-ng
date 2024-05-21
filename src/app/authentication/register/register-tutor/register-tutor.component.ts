@@ -55,21 +55,21 @@ export class RegisterTutorComponent {
 
   error_message: string = '';
 
-  email: string = "";
-  password: string = "";
-  passwordConfirm: string = "";
-  name: string = "";
-  familyName: string = "";
-  birthDate: any = "";
-  nickName: string = "";
+  // email: string = "";
+  // password: string = "";
+  // passwordConfirm: string = "";
+  // name: string = "";
+  // familyName: string = "";
+  // birthDate: any = "";
+  // nickName: string = "";
 
-  // email: string =`parent_${Math.random().toString(36).substr(2, 9)}@email.com`;
-  // password: string = "pwd";
-  // passwordConfirm: string = "pwd";
-  // name: string = "nao";
-  // familyName: string = "julius";
-  // birthDate: any = new Date();
-  // nickName: string = `parent_${Math.random().toString(36).substr(2, 9)}`;
+  email: string =`tutor${Math.random().toString(36).substr(2, 9)}@email.com`;
+  password: string = "password";
+  passwordConfirm: string = "password";
+  name: string = Math.random().toString(36).substr(2, 9);
+  familyName: string = Math.random().toString(36).substr(2, 9);
+  birthDate: any = new Date();
+  nickName: string = `parent_${Math.random().toString(36).substr(2, 9)}`;
 
 
   registrationProfileInfoReq: RegistrationWithInforeq = new RegistrationWithInforeq();
@@ -104,18 +104,107 @@ export class RegisterTutorComponent {
     this.uploadForm = this.formBuilder.group({
       photo: [''],
       video: [''],
+      cv:['']
     });
   }
   
-  filterLanguage(input: any){
-    let searchedLang: string = input.value.toLowerCase();
-    this.languages = this.languages.filter(x=>x.name.toLowerCase().startsWith(searchedLang));
-    if(!searchedLang.trim()){
-      this.languages = LanguageData;
+
+  _subjects: any[] = [];
+  selectedSubjects: any[] = [];
+  filterAcademicCourse(input: any) {
+    const searchedCourse = this.normalizeString(input.value);
+    if (!searchedCourse.trim()) {
+      this._subjects = [...this.selectedSubjects, ...this.subjects.filter(subject => !this.selectedSubjects.includes(subject))];
+    } else {
+      const filteredCourses = this.subjects.filter(subject =>
+        this.normalizeString(subject.Name).includes(searchedCourse) &&
+        !this.selectedSubjects.includes(subject)
+      );
+      this._subjects = [...this.selectedSubjects, ...filteredCourses];
     }
   }
-  onClickLanguage(lang: any){
+
+  onClickAcademicCourse(subject: any, button: HTMLElement) {
+    if (this.selectedSubjects.find(x => x.Name.toLowerCase() == subject.Name.toLowerCase())) {
+      this.selectedSubjects = this.selectedSubjects.filter(x => x.Id != subject.Id);
+    } else {
+      this.selectedSubjects.push(subject);
+    }
+  }
+
+  getAcademicCourseSelectedBackground(subject: any): String {
+    if (this.selectedSubjects.find(x => x.Name.toLowerCase() == subject.Name.toLowerCase())) {
+      return "bg-green-200";
+    }
+    return "";
+  }
+
+  onClickEducationLevel(education: any) {
+    this.selectedEducationLevel = education;
+  }
+
+  _educationLevels: Array<any> = []
+  filterEducationLevel(input: any) {
+    const searchedEd = this.normalizeString(input.value);
+    if (!searchedEd.trim()) {
+      this._educationLevels = this.educationLevels; // Restaure les données d'origine si la recherche est vide
+    } else {
+      this._educationLevels = this.educationLevels.filter(subject =>
+        this.normalizeString(subject.Name).includes(searchedEd)
+      );
+    }
+  }
+
+  getEducationLevelBackground(educationLevel: any): String {
+
+    if (this.selectedEducationLevel && this.selectedEducationLevel.Name.toLowerCase() == educationLevel.Name.toLowerCase()) {
+      return "bg-green-200";
+    }
+    return "";
+  }
+
+  onClickCourseType(coursetype: any) {
+    this.selectedcourseType = coursetype
+  }
+
+  getCourseTypeSelectedBackground(courseType: any): String {
+    if (this.selectedcourseType && this.selectedcourseType.name.toLowerCase() == courseType.name.toLowerCase()) {
+      return "bg-green-200";
+    }
+    return "";
+  }
+
+
+
+
+
+
+
+
+
+
+  filterLanguage(input: any) {
+    const searchedLang = this.normalizeString(input.value);
+    if (!searchedLang.trim()) {
+      this.languages = LanguageData; // Restaure les données d'origine si la recherche est vide
+    } else {
+      this.languages = this.languages.filter(x =>
+        this.normalizeString(x.name).includes(searchedLang)
+      );
+    }
+
+  }
+  onClickLanguage(lang: any) {
     this.selectedlanguage = lang;
+  }
+  normalizeString(str: string): string {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  }
+  getSelectedLanguageBackground(lang: any): String {
+    if (this.selectedlanguage && this.selectedlanguage.code.toLowerCase() == lang.code.toLowerCase()) {
+      return "bg-green-200";
+    }
+    return "";
   }
   registerWithEmail(nextCallback: any){
 
@@ -242,7 +331,7 @@ export class RegisterTutorComponent {
     }).subscribe({
       next: (response) => {
        this.loadingService.emitChange(false);
-       nextCallback.emit()
+       this.getAcademicLevel(nextCallback);
       },
       error: (e) => {
         this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
@@ -253,7 +342,7 @@ export class RegisterTutorComponent {
   registerLanguage(nextCallback: any){
     
 
-    this.getEducationLevel(nextCallback);
+    
     // this.loadingService.emitChange(true);
     // setTimeout(() => {
     //   this.loadingService.emitChange(false);
@@ -261,7 +350,7 @@ export class RegisterTutorComponent {
     //  // nextCallback.emit();
     // }, 1000);
   }
-  getEducationLevel(nextCallback: any) {
+  getAcademicLevel(nextCallback: any) {
     this.apolloService.query({
       query: gql`
       query AcademicLevels {
@@ -277,6 +366,7 @@ export class RegisterTutorComponent {
       next: (response: any) => {
         let educations: Array<any> = response?.data['AcademicLevels'];
         this.educationLevels = educations ? educations : [];
+        this._educationLevels = educations;
         this.loadingService.emitChange(false);
         nextCallback.emit();
       },
@@ -291,12 +381,36 @@ export class RegisterTutorComponent {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir votre niveau scolaire!' });
       return;
     }
-    this.getSubjects(nextCallback);
+    let academicLevels: Array<any> = [this.selectedEducationLevel.Id];
+    
+    this.apolloService.mutate({
+      mutation: gql`
+      mutation ($academicLevelIds: [Int]!) {
+    NewUserAcademicLevels(academicLevelIds: $academicLevelIds)
+      }
+      `,
+      variables: {
+        "academicLevelIds": academicLevels,
+      },
+      context: {
+        headers: this.headerService.Get()
+      }
+    }).subscribe({
+      next: (response: any) => {
+        this.loadingService.emitChange(false);
+        this.getSubjects(nextCallback)
+        //nextCallback.emit()
+      },
+      error: (e) => {
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
+        this.loadingService.emitChange(false);
+      }
+    });
+    
+   // this.getSubjects(nextCallback);
     //this.registrationStateStep = StudentRegisterStepEnum.SUBJECT;
   }
   getSubjects(nextCallback: any) {
-
-    
     this.apolloService.query({
       query: gql`
       query ($academicLevelId: Int!) {
@@ -317,6 +431,7 @@ export class RegisterTutorComponent {
       next: (response: any) => {
         let subjectList: Array<any> = response?.data['AcademicCourses'];
         this.subjects = subjectList ? subjectList : [];
+        this._subjects = subjectList ? subjectList : [];
         this.loadingService.emitChange(false);
         nextCallback.emit();
       },
@@ -327,22 +442,27 @@ export class RegisterTutorComponent {
     });
   }
   registerSubject(nextCallback: any){
-      if (!this.selectedSubject) {
+      if (this.selectedSubjects.length <= 0) {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir la matière dont vous avez besoins d\'aide!' });
       return;
     }
-    nextCallback.emit(); //eto
+
+    let formatedCoursesIds: Array<any> = [];
+    this.selectedSubjects.forEach(element => {
+      formatedCoursesIds.push({
+        "CourseId": element.Id
+      })
+    });
+
+
     this.apolloService.mutate({
       mutation: gql`
-        mutation setUserEducationLevel($subjectId: Int!) {
-            setUserEducationLevel(subjectId: $subjectId) {
-              Id,
-              Name
-            }
-        }
+      mutation ($courses :  [UserAcademicCourseInput]!) {
+        NewUserAcademicCourses(courses: $courses)
+    }
       `,
       variables: {
-        subjectId: this.selectedSubject.Id
+        "courses": formatedCoursesIds
       },
       context: {
         headers: this.headerService.Get()
@@ -363,46 +483,56 @@ export class RegisterTutorComponent {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir le type de cours dont vous avez besoins!' });
       return;
     }
-    this.loadingService.emitChange(true);
-    setTimeout(() => {
-      this.loadingService.emitChange(false);
+
+   // nextCallback.emit();
+   
+
+    // this.loadingService.emitChange(true);
+    // setTimeout(() => {
+    //   this.loadingService.emitChange(false);
       
-     nextCallback.emit();
-    }, 1000);
+    //  nextCallback.emit();
+    // }, 1000);
 
     //let user_id: number = this.authService.GetUserId();
 
-    // this.apolloService.mutate({
-    //   mutation: gql`
-    //     mutation setUserCoursePreference($isOnline: Boolean!) {
-    //       setUserCoursePreference(isOnline: $isOnline) {
-    //           Id,
-    //           UserId
-    //           IsOnline
-    //         }
-    //     }
-    //   `,
-    //   variables: {
-    //     isOnline: this.selectedcourseType.value
-    //   },
-    //   context: {
-    //     headers: this.headerService.Get()
-    //   }
-    // }).subscribe({
-    //   next: (response: any) => {
-    //     this.loadingService.emitChange(false);
-    //     nextCallback.emit();
-    //   },
-    //   error: (e) => {
-    //     this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
-    //     this.loadingService.emitChange(false);
-    //   }
-    // });
+    this.apolloService.mutate({
+      mutation: gql`
+      mutation ($coursesPreferences: UserAcademicCoursePreferenceInput!)  {
+        UpdAcademicCoursePreference(coursesPreferences: $coursesPreferences) {
+            Id
+            CreatedAt
+            UpdatedAt
+            DeletedAt
+            UserId
+            IsOnline
+        }
+    }
+    
+      `,
+      variables: {
+        "coursesPreferences":  {
+          "IsOnline" : this.selectedcourseType.value
+      }
+      },
+      context: {
+        headers: this.headerService.Get()
+      }
+    }).subscribe({
+      next: (response: any) => {
+        this.loadingService.emitChange(false);
+        nextCallback.emit();
+      },
+      error: (e) => {
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
+        this.loadingService.emitChange(false);
+      }
+    });
   }
 
 
   selectedImageSrc: string = "assets/image/avatar.svg";
-  selectedVideoSrc: string  = "assets/image/video.svg";
+  selectedVideoSrc: string  = "assets/image/file-upload.svg";
   onPhotoSelected(event: any) {
     const file = event.target?.files[0];
     if (event.target.files.length <= 0) {
@@ -422,6 +552,29 @@ export class RegisterTutorComponent {
       this.selectedImageSrc = reader.result as string;
     }
     reader.readAsDataURL(file);
+
+  }
+  cvName: string = ""
+  onCvSelected(event: any) {
+    const file = event.target?.files[0];
+    if (event.target.files.length <= 0) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validationt!', detail: 'Veuillez ajouter un fichier valide!' });
+      return;
+    }
+    let extension: string = file?.name.substring(file?.name.lastIndexOf('.') + 1);
+    
+    if (!environment.accepted_cv.includes(extension.toLowerCase())) {
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validationt!', detail: 'Veuillez ajouter un fichier  valide!' });
+      return;
+    }
+
+    this.uploadForm?.get('cv')?.setValue(file);
+    this.cvName = file.name;
+   // const reader = new FileReader();
+    // reader.onload = () => {
+    //   this.selectedImageSrc = reader.result as string;
+    // }
+    // reader.readAsDataURL(file);
 
   }
   onVideoSelected(event: any) {
@@ -457,6 +610,30 @@ export class RegisterTutorComponent {
       this.uploadService.Upload(false, formData).subscribe({
         next: (resp: HttpResponse<any>)=>{
           this.registrationStateStep = TutorRegisterStepEnum.VIDEO;
+          this.loadingService.emitChange(false);
+          nextCallback.emit()
+        }, 
+        error: (e)=>{
+          this.loadingService.emitChange(false);
+          this.messageService.add({ severity: 'error', summary: 'Erreur de traitement!', detail: 'Une erreur est survenue lors du traitement!' });
+        }
+       });
+
+    } else {
+      this.cvName  = "";
+      this.messageService.add({ severity: 'warn', summary: 'Erreur de validationt!', detail: 'Veuillez ajouter une photo!' });
+    }
+  }
+
+  registerCv(nextCallback: any){
+    let formData = new FormData();
+    let fileValue = this.uploadForm?.get("cv")?.value;
+    if (fileValue) {
+      formData.append('documentType', JSON.stringify(UploadTypeEnum.CV));
+      formData.append('file', fileValue);
+      
+      this.uploadService.Upload(false, formData).subscribe({
+        next: (resp: HttpResponse<any>)=>{
           this.loadingService.emitChange(false);
           nextCallback.emit()
         }, 
@@ -565,6 +742,14 @@ export class RegisterTutorComponent {
     }
   ];
   registerRenumeration(nextCallback: any){
+    this.loadingService.emitChange(true);
+    setTimeout(() => {
+      this.loadingService.emitChange(false);
+      nextCallback.emit();
+    }, 1000);
+  }
+
+  registerFinalStep(nextCallback: any){
     this.loadingService.emitChange(true);
     setTimeout(() => {
       this.loadingService.emitChange(false);

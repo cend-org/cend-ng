@@ -135,9 +135,16 @@
 
                                 <div class="flex flex-column mt-2">
                                     <label for="lang" class=""> Choisissez votre langue:</label>
-                                    <p-dropdown placeholder="votre langue maternelle" inputId="lang"
-                                        [options]="languages" [(ngModel)]="selectedlanguage" optionLabel="name"
-                                        name="langname" />
+                                    <p-dropdown placeholder="votre langue maternelle" inputId="lang" [options]="languages"
+                                        [(ngModel)]="selectedlanguage" optionLabel="name" name="langname" >
+    
+                                        <ng-template let-language pTemplate="item">
+                                            <div class="flex justify-content-between align-items-center gap-2 px-2">
+                                                <span class="poppins-medium">{{language.name}}</span>
+                                                <span class="uppercase">{{ language.code }}</span>
+                                            </div>
+                                        </ng-template>
+                                    </p-dropdown>
                                 </div>
                                 <button type="submit" size="small" pButton pRipple label="Continuer"
                                     class="mt-2 p-button-success w-full bg-green-500 text-white"></button>
@@ -196,8 +203,8 @@
                                                 placeholder="Search" #inp (input)="filterLanguage(inp)" />
                                         </p-iconField>
                                         <div class="w-full  h-20rem flex flex-column gap-3 ">
-                                            <button (click)="onClickLanguage(language)" type="button"
-                                                class="py-3 flex inline-flex justify-content-between align-items-center  hover:bg-green-200  border-none text-gray-600 text-left"
+                                            <button   (click)="onClickLanguage(language)" type="button"
+                                                class="py-3 flex inline-flex justify-content-between align-items-center cursor-pointer  {{getSelectedLanguageBackground(language)}}  border-none text-gray-600 text-left"
                                                 *ngFor="let language of languages">
                                                 <span class="text-xl poppins-bold">
                                                     {{language.name}} - <span
@@ -206,6 +213,7 @@
                                                 <span class="text-sm poppins-regular mr-2">
                                                     {{language.default}}
                                                 </span>
+                                                
                                             </button>
                                         </div>
                                     </div>
@@ -235,7 +243,7 @@
                                             <input type="text" class="border-2 border-green-300" pInputText
                                                 placeholder="Search" #inp (input)="filterEducationLevel(inp)" />
                                         </p-iconField>
-                                        <div class="w-full  h-30rem flex flex-column gap-3 overflow-y-scroll">
+                                        <div class="w-full  h-30rem md:h-10rem lg:h-20rem xl:h-20rem flex flex-column gap-3 overflow-y-scroll">
                                             <button (click)="onClickEducationLevel(educationLevel)" type="button"
                                                 class="py-3 {{getEducationLevelBackground(educationLevel)}}  border-none text-gray-600 text-left"
                                                 *ngFor="let educationLevel of _educationLevels">
@@ -273,7 +281,7 @@
                                             <input type="text" class="border-2 border-green-300" pInputText
                                                 placeholder="Search" #inp (input)="filterAcademicCourse(inp)" />
                                         </p-iconField>
-                                        <div class="w-full  h-30rem flex flex-column gap-3 overflow-y-scroll">
+                                        <div class="w-full  h-30rem md:h-10rem lg:h-20rem xl:h-20rem flex flex-column gap-3 overflow-y-scroll">
                                             <button #AcademicCoursesBtn
                                                 (click)="onClickAcademicCourse(subject, AcademicCoursesBtn)"
                                                 type="button"
@@ -307,7 +315,7 @@
                             <div class="w-full flex flex-column gap-4">
                                 <div class="pt-4 pb-6 w-full">
                                     <div class="flex flex-column gap-3">
-                                        <div class="w-full  h-30rem flex flex-column gap-3 overflow-y-scroll">
+                                        <div class="w-full  h-auto flex flex-column gap-3">
                                             <button (click)="onClickCourseType(courseType)" type="button"
                                                 class="py-3 {{getCourseTypeSelectedBackground(courseType)}}  border-none text-gray-600 text-left"
                                                 *ngFor="let courseType of courseTypes">
@@ -398,7 +406,7 @@
                         (ngSubmit)="suggestionsForm.form.valid && acceptSuggestion(nextCallback)">
                         <h1 class="text-center text-xl text-cyan-900 poppins-bold">Voici le meilleur tuteur pour
                             convenir à vos besoins:</h1>
-                            <div>
+                            <div class="block md:hidden lg:hidden xl:hidden">
                                 <div class="p-2 pl-0">
                                     <div class="w-full h-15rem relative">
                                         <video controls #presentationVideo autoplay class="w-full h-full bg-green-100">
@@ -414,6 +422,32 @@
                                     </div>
                                     <div class="mt-5 poppins-regular ">
                                         <p class="overflow-y-scroll h-12rem poppins-regular">
+                                            <span *ngIf="suggestedTutor?.CoverText"><<</span> {{suggestedTutor?.CoverText}} <span *ngIf="suggestedTutor?.CoverText">>></span>
+                                            
+                                        </p>
+                                        <div class="w-full flex justify-content-end">
+                                            <button  type="button" pButton pRipple
+                                                label="Choisir un autre tuteur?" class="mt-5 p-button-success font-normal poppins-regular border-none w-auto bg-green-200 text-gray-700"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hidden md:block lg:block xl:block">
+                                <div class="p-2 pl-0">
+                                    <div class="w-full h-8rem relative">
+                                        <video controls #presentationVideo autoplay class="w-full h-full bg-green-100">
+                                            <source [src]="presentationVideo">
+                                        </video>
+                                        <div class="h-4rem w-4rem bg-gray-100 border-circle border-2 border-green-600 absolute bottom-0 -mb-12 ml-2  bg-no-repeat bg-cover bg-center"
+                                            [style]="suggestedTutorProfileImage">
+                                        </div>
+                                    </div>
+                                    <div class="w-full pt-3">
+                                        <div  class="text-gray-900 text-lg font-semiboldtext-center poppins-bold ml-6">{{suggestedTutor?.Name}} {{suggestedTutor?.FamilyName}}</div>
+                                        <div  class="text-gray-500 text-sm font-regular  text-center poppins-bold ml-6">{{suggestedTutor?.AddOnTitle}}</div>
+                                    </div>
+                                    <div class="mt-5 poppins-regular ">
+                                        <p class="overflow-y-scroll h-5rem poppins-regular text-sm">
                                             <span *ngIf="suggestedTutor?.CoverText"><<</span> {{suggestedTutor?.CoverText}} <span *ngIf="suggestedTutor?.CoverText">>></span>
                                             
                                         </p>
@@ -440,17 +474,17 @@
                         (ngSubmit)="suggestionsForm.form.valid && registerTarification(nextCallback)">
                         <div class="mt-5 flex flex-column gap-3">
                             <div class="w-full font-normal text-lg text-gray-600">
-                                Tarification est de <span class="text-xl font-bold text-green-600">250</span> ($), pour
-                                Mathématiques de <span class="text-xl font-bold text-green-600">Primaire II</span>.
+                                Tarif est de 250 $, pour {{SelectedSubjectsNames}}.
+                               
                             </div>
                             <div class="w-full font-normal text-lg text-gray-600">
                                 Premiere rencontre est à 50% de l'investissement et vous pouvez changer gratuitement
-                                pour un autre tuteur si jamis ça ne marche pas avec JACKIE CHAN, ce qui nous étonnerais.
+                                pour un autre tuteur si jamais ça ne marche pas avec {{suggestedTutor.Name}} {{suggestedTutor.familyName}}, ce qui nous étonnerais.
                             </div>
 
                             <div class="w-full font-normal text-lg text-gray-600">
                                 Passer au paiement par carte de crédit ou de débit pour la premiére rencontre ce
-                                dimanche à 15h:30 avec JACKIE CHAN.
+                                {{selectedDays.name}} à {{availabilityWhere}} avec  {{suggestedTutor.Name}} {{suggestedTutor.familyName}}.
                                 <div class="pt-3 text-sm text-gray-400">
                                     Votre paiement seras débité lorsque le tuteur aura confirmé votre rendez-vous.
                                 </div>
@@ -477,14 +511,18 @@
                                 Vous recevrez une confirmation de votre rendez-vous par le tuteur par message sur notre
                                 plateforme et par courriel.
                             </div>
-                            <div class="text-gray-400 text-sm py-2">
+                            <div class="text-gray-400 text-lg py-2">
                                 Un compte étudiant lié à votre compte parent a été crée au nom de <span
-                                    class="text-gray-600 text-sm font-semibold">{{childName}}
-                                    {{childFamilyName}}</span>,
-                                voici les accès pour votre jeûne: <span
-                                    class="text-gray-600 text-sm font-semibold">{{name}}</span>
+                                    class="text-gray-600 text-lg font-semibold">{{childName}} {{childFamilyName}}</span>,
+                                voici les accès: 
+                                <p class="poppins-bold">
+                                   Email: {{studentEmail}}
+                                </p>
+                                <p class="poppins-bold">
+                                    Mots de passe: {{studentMdp}}
+                                </p>
                             </div>
-                            <button type="submit" size="small" pButton pRipple label="Acceder au tableau de bord"
+                            <button type="submit" size="small" pButton pRipple label="Continuer"
                                 class="mt-5  p-button-success w-full bg-green-500 text-white"></button>
                         </div>
                     </form>

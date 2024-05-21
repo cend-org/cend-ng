@@ -7,7 +7,7 @@
                     class="text-3xl poppins-bold font-semibold text-white p-1 cursor-pointer no-underline">
                     CEND
                 </a>
-                <span (click)="onClickCend()"  *ngIf="IsAuthenticating()" 
+                <span   *ngIf="IsAuthenticating()" 
                     class="text-3xl poppins-bold font-semibold text-white p-1 cursor-pointer no-underline">
                     CEND
                 </span>
@@ -49,12 +49,12 @@
                         class="flex flex-inline gap-2 relative p-2 poppins-medium border-none bg-transparent text-white border-round-3xl font-medium text-sm cursor-pointer hover:bg-green-500 hover:border-round-3xl">
                             <i class="pi pi-language p-1 text-sm bg-white text-green-500 border-circle"></i>
                         <span>
-                            {{selectedLanguage.label}}-{{selectedLanguage.code}}
+                            {{selectedLanguage.name}}-{{selectedLanguage.code}}
                         </span>
                         <div *ngIf="languagesMenu" class="absolute bg-white shadow-3 w-10rem top-0 mt-6 border-round-md left-0">
                         <button  *ngFor="let lg of languages" (click)="onChooseLanguage(lg)"
                             class="w-full flex inline justify-content-between align-items-center text-lg poppins-regular text-gray-800 text-left w-full p-2 poppins-medium border-none bg-transparent  font-medium text-sm cursor-pointer hover:bg-green-500 ">
-                            {{lg.label}}-{{lg.code}}
+                            {{lg.name}}-{{lg.code}}
                         </button>
                         
                         </div>

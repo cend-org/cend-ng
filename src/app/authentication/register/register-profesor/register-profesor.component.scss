@@ -97,6 +97,9 @@ $main-border-color: #3A9B23;
 
 
   ::ng-deep{
+    .p-inputtext {
+        width: 100%;
+    }
     .p-password{
         width:  100%;
    }

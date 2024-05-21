@@ -38,7 +38,7 @@ export class RegisterParentComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.selectedlanguage = LanguageData[0]
+    //this.selectedlanguage = LanguageData[0]
     this.config.setTranslation({
       dayNamesMin: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
       monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre']
@@ -51,13 +51,23 @@ export class RegisterParentComponent implements OnInit {
   loading: boolean = false;
 
 
-  email: string = '';
-  password: string = '';
-  passwordConfirm: string = '';
-  name: string = "";
-  familyName: string = "";
-  birthDate: any = "";
-  nickName: string = "";
+  // email: string = '';
+  // password: string = '';
+  // passwordConfirm: string = '';
+  // name: string = "";
+  // familyName: string = "";
+  // birthDate: any = "";
+  // nickName: string = "";
+
+
+  email: string =`parent${Math.random().toString(36).substr(2, 9)}@email.com`;
+  password: string = "password";
+  passwordConfirm: string = "password";
+  name: string = Math.random().toString(36).substr(2, 9);
+  familyName: string = Math.random().toString(36).substr(2, 9);
+  birthDate: any = new Date();
+  nickName: string = `parent_${Math.random().toString(36).substr(2, 9)}`;
+
 
 
   selectedlanguage: any = null;
@@ -90,7 +100,10 @@ export class RegisterParentComponent implements OnInit {
 
   _subjects: any[] = [];
   selectedSubjects: any[] = [];
-  @ViewChild('AcademicCoursesBtn', { static: false }) button: ElementRef | undefined;
+
+  get SelectedSubjectsNames(): string {
+    return this.selectedSubjects.map(item => item.Name).join(', ');
+  }
   filterAcademicCourse(input: any) {
     const searchedCourse = this.normalizeString(input.value);
     if (!searchedCourse.trim()) {
@@ -328,7 +341,7 @@ export class RegisterParentComponent implements OnInit {
       }
     });
 
-    this.getEducationLevel(nextCallback);
+    this.getAcademicLevel(nextCallback);
     // this.loadingService.emitChange(true);
     // setTimeout(() => {
     //   this.loadingService.emitChange(false);
@@ -336,8 +349,8 @@ export class RegisterParentComponent implements OnInit {
     //  // nextCallback.emit();
     // }, 1000);
   }
-  getEducationLevel(nextCallback: any) {
-    this.loadingService.emitChange(true);
+  getAcademicLevel(nextCallback: any) {
+    //this.loadingService.emitChange(true);
     this.apolloService.query({
       query: gql`query AcademicLevels {
         AcademicLevels {
@@ -367,7 +380,35 @@ export class RegisterParentComponent implements OnInit {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir votre niveau scolaire!' });
       return;
     }
-    this.getSubjects(nextCallback);
+    this.apolloService.mutate({
+      mutation: gql`
+      mutation ($academicLevelId : Int! , $studentId: Int!) {
+        SetStudentAcademicLevelByParent(
+            AcademicLevelId: $academicLevelId ,
+             studentId: $studentId)
+    }
+    
+      `,
+      variables: {
+        "academicLevelId":this.selectedEducationLevel.Id,
+        "studentId": this.studentId,
+      },
+      context: {
+        headers: this.headerService.Get()
+      }
+    }).subscribe({
+      next: (response: any) => {
+        this.loadingService.emitChange(false);
+        this.getSubjects(nextCallback);
+      },
+      error: (e) => {
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
+        this.loadingService.emitChange(false);
+      }
+    });
+
+
+   // this.getSubjects(nextCallback);
     //this.registrationStateStep = StudentRegisterStepEnum.SUBJECT;
   }
   getSubjects(nextCallback: any) {
@@ -450,11 +491,34 @@ export class RegisterParentComponent implements OnInit {
       return;
     }
 
-    this.loadingService.emitChange(true);
-    setTimeout(() => {
-      this.loadingService.emitChange(false);
-      nextCallback.emit();
-    }, 1000);
+    this.apolloService.mutate({
+      mutation: gql`
+      mutation ($coursesPreferences: UserAcademicCoursePreferenceInput! , $studentId: Int!)  {
+        UpdStudentAcademicCoursesPreferenceByParent(
+            coursesPreferences: $coursesPreferences
+            studentId: $studentId
+        )
+    }
+      `,
+      variables: {
+        "coursesPreferences":  {
+          "IsOnline" : this.selectedcourseType.value
+      },
+      "studentId" : this.studentId
+      },
+      context: {
+        headers: this.headerService.Get()
+      }
+    }).subscribe({
+      next: (response: any) => {
+        this.loadingService.emitChange(false);
+        nextCallback.emit();
+      },
+      error: (e) => {
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
+        this.loadingService.emitChange(false);
+      }
+    });
     //let user_id: number = this.authService.GetUserId();
 
     // this.apolloService.mutate({
@@ -492,7 +556,10 @@ export class RegisterParentComponent implements OnInit {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez verifier votre disponibilite ' });
       return;
     }
-    this.getSuggestedTutor();
+
+
+
+    this.getSuggestedTutor(nextCallback);
     this.loadingService.emitChange(true);
     setTimeout(() => {
       this.loadingService.emitChange(false);
@@ -528,6 +595,8 @@ export class RegisterParentComponent implements OnInit {
     }, 500);
   }
   studentId: any = 0;
+  studentEmail: any = "";
+  studentMdp: any = "";
   registerChildName(nextCallback: any) {
     if (!this.childName.trim()) {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Le nom votre jeûne est requis!' });
@@ -591,6 +660,8 @@ export class RegisterParentComponent implements OnInit {
     }).subscribe({
       next: (response: any) => {
         this.studentId = response["data"]["UserStudent"]["Id"];
+        this.studentEmail = response["data"]["UserStudent"]["Email"];
+        this.studentMdp = response["data"]["UserStudent"]["Matricule"];
         this.loadingService.emitChange(false);
         nextCallback.emit();
       },
@@ -603,7 +674,7 @@ export class RegisterParentComponent implements OnInit {
   suggestedTutor: any = null;
   presentationVideo: string = "";
   suggestedTutorProfileImage: string = "";
-  getSuggestedTutor() {
+  getSuggestedTutor(nextCallback: any) {
     this.apolloService.query({
       query: gql`
       query ($studentId: Int!) {
@@ -625,7 +696,7 @@ export class RegisterParentComponent implements OnInit {
         }
     }`,
       variables: {
-        "studentId": 1
+        "studentId": this.studentId
       },
       context: {
         headers: this.headerService.Get()
@@ -634,6 +705,55 @@ export class RegisterParentComponent implements OnInit {
     }).subscribe({
       next: (response: any) => {
         this.suggestedTutor = response["data"]["SuggestTutor"];
+        let suggestedTutorId =  response["data"]["SuggestTutor"]['Id'];
+        if(suggestedTutorId){
+          this.apolloService.query({
+            query: gql`query ($userId : Int!) {
+              UserVideoPresentation(userId: $userId)
+          }
+          `,
+            variables: {
+              "userId": suggestedTutorId
+            }, context: {
+              headers: this.headerService.Get()
+            }
+      
+          }).subscribe({
+            next: (response: any) => {
+              this.presentationVideo = response["data"]["UserVideoPresentation"];
+              this.apolloService.query({
+                query: gql`query ($tutorId : Int!) {
+                  UserProfileImageThumb(userId: $tutorId)
+              }
+              `,
+                variables: {
+                  "tutorId": suggestedTutorId
+                }, context: {
+                  headers: this.headerService.Get()
+                }
+          
+              }).subscribe({
+                next: (response: any) => {
+                  this.suggestedTutorProfileImage = `background-image: url(${response["data"]["UserProfileImageThumb"]})`;
+                  this.loadingService.emitChange(false);
+                  nextCallback.emit();
+                },
+                error: (e) => {
+                  this.suggestedTutorProfileImage = `background-image: url(assets/image/avatar.svg)`;
+                  this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
+                  this.loadingService.emitChange(false);
+                }
+              });
+  
+            },
+            error: (e) => {
+              //this.suggestedTutorProfileImage = `background-image: url(assets/image/avatar.svg)`;
+              this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
+              this.loadingService.emitChange(false);
+            }
+          });
+        }
+
         this.loadingService.emitChange(false);
       },
       error: (e) => {
@@ -643,50 +763,8 @@ export class RegisterParentComponent implements OnInit {
     });
 
 
-    this.apolloService.query({
-      query: gql`query ($userId : Int!) {
-        UserVideoPresentation(userId: $userId)
-    }
-    `,
-      variables: {
-        "userId": 1
-      }, context: {
-        headers: this.headerService.Get()
-      }
+    
 
-    }).subscribe({
-      next: (response: any) => {
-        this.presentationVideo = response["data"]["UserVideoPresentation"];
-        this.loadingService.emitChange(false);
-      },
-      error: (e) => {
-        //this.suggestedTutorProfileImage = `background-image: url(assets/image/avatar.svg)`;
-        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
-        this.loadingService.emitChange(false);
-      }
-    });
-
-    this.apolloService.query({
-      query: gql`query ($tutorId : Int!) {
-        UserProfileImageThumb(userId: $tutorId)
-    }
-    `,
-      variables: {
-        "tutorId": 1
-      }, context: {
-        headers: this.headerService.Get()
-      }
-
-    }).subscribe({
-      next: (response: any) => {
-        this.suggestedTutorProfileImage = `background-image: url(${response["data"]["UserProfileImageThumb"]})`;
-        this.loadingService.emitChange(false);
-      },
-      error: (e) => {
-        this.suggestedTutorProfileImage = `background-image: url(assets/image/avatar.svg)`;
-        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
-        this.loadingService.emitChange(false);
-      }
-    });
+    
   }
 }

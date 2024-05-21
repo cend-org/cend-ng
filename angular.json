@@ -13,7 +13,8 @@
       "i18n" : {
         "locales": {
           "fr": "src/assets/i18n/fr.json",
-          "en": "src/assets/i18n/en.json"
+          "en": "src/assets/i18n/en.json",
+          "ca": "src/assets/i18n/ca.json"
         }
 
       },

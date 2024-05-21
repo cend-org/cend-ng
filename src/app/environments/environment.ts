@@ -8,4 +8,5 @@ export const environment = {
 
     "accepted_videos": ['mp4', 'ogg', 'webm', 'avi', 'mov', 'wmv', 'flv', 'mkv'],
     "accepted_photo":  ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp'],
+    "accepted_cv": [ "pdf", "docx"],
 }
