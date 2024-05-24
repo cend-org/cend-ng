@@ -21,6 +21,7 @@ import { environment } from '../../../environments/environment';
 import { REGISTRATION, PASSWORD } from '../../../services/graphs/auth.graph';
 import { Router } from '@angular/router';
 import { LoadingService } from '../../../@core/services/loading.service';
+import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-register-profesor',
@@ -43,26 +44,38 @@ export class RegisterProfesorComponent {
     private loadingService: LoadingService,
     private router: Router,
     private config: PrimeNGConfig
-  ) { }
+  ) {
+
+
+    this.inputSubject.pipe(
+      debounceTime(2000), // Wait for 2 seconds of no typing
+      distinctUntilChanged(), // Only emit if the value has changed
+      switchMap(value =>this.searchStudent(value)) // Switch to the new request
+    ).subscribe(response => {
+      console.log('Search Response:', response);
+    });
+
+   }
+
   inputNotValid: boolean = false;
 
   error_message: string = '';
 
-  // email: string = "";
-  // password: string = "";
-  // passwordConfirm: string = "";
-  // name: string = "";
-  // familyName: string = "";
-  // birthDate: any = "";
-  // nickName: string = "";
+  email: string = "";
+  password: string = "";
+  passwordConfirm: string = "";
+  name: string = "";
+  familyName: string = "";
+  birthDate: any = "";
+  nickName: string = "";
 
-  email: string =`tutor${Math.random().toString(36).substr(2, 9)}@email.com`;
-  password: string = "password";
-  passwordConfirm: string = "password";
-  name: string = "nao";
-  familyName: string = "julius";
-  birthDate: any = new Date();
-  nickName: string = `parent_${Math.random().toString(36).substr(2, 9)}`;
+  // email: string =`tutor${Math.random().toString(36).substr(2, 9)}@email.com`;
+  // password: string = "password";
+  // passwordConfirm: string = "password";
+  // name: string = "nao";
+  // familyName: string = "julius";
+  // birthDate: any = new Date();
+  // nickName: string = `parent_${Math.random().toString(36).substr(2, 9)}`;
 
 
   registrationProfileInfoReq: RegistrationWithInforeq = new RegistrationWithInforeq();
@@ -87,6 +100,9 @@ export class RegisterProfesorComponent {
   days: any[] = DaysData;
   uploadForm: FormGroup | undefined;
   ngOnInit(): void {
+    this.searchSubject.pipe(debounceTime(this.debounceTimeMs)).subscribe((searchValue) => {
+      this.performSearch(searchValue);
+    });
     //this.getEducationLevel();
     this.config.setTranslation({
       dayNamesMin: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
@@ -646,10 +662,140 @@ export class RegisterProfesorComponent {
     }, 1000);
   }
   registerStudentName(nextCallback:any){
-    this.loadingService.emitChange(true);
-    setTimeout(() => {
-      this.loadingService.emitChange(false);
-      nextCallback.emit();
-    }, 1000);
+    // this.loadingService.emitChange(true);
+    // setTimeout(() => {
+    //   this.loadingService.emitChange(false);
+    //   nextCallback.emit();
+    // }, 1000);
+    this.apolloService.mutate({
+      mutation: gql`
+      mutation ($studentId: Int!) {
+        NewStudentProfessor(userId: $studentId) {
+            Id
+            CreatedAt
+            UpdatedAt
+            DeletedAt
+            Name
+            FamilyName
+            NickName
+            Email
+            Matricule
+            Age
+            BirthDate
+            Sex
+            Lang
+            Status
+            ProfileImageXid
+            Description
+            CoverText
+            Profile
+            ExperienceDetail
+            AdditionalDescription
+            AddOnTitle
+        }
+    }
+    
+      `,
+      variables: {
+        "studentId": this.selectedStudentId
+      },
+      context: {
+        headers: this.headerService.Get()
+      }
+    }).subscribe({
+      next: (response: any) => {
+        this.loadingService.emitChange(false);
+        nextCallback.emit()
+      },
+      error: (e) => {
+        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du traitement!', detail: e.message });
+        this.loadingService.emitChange(false);
+      }
+    });
   }
+
+
+
+  searchedStudentName: string = '';
+  private inputSubject: Subject<string> = new Subject<string>();
+  searchStudent(value: string): any {
+    console.log(value)
+  }
+  onInputChange(value: string) {
+    this.inputSubject.next(value);
+  }
+
+  searchStudentNameVal: string = '';
+  SearchedStudentList:Array<any> = [];
+  selectedStudentId: any = '';
+  private searchSubject = new Subject<string>();
+  private readonly debounceTimeMs = 2000; 
+  search() {
+    this.searchSubject.next(this.searchStudentNameVal);
+  }
+  performSearch(v: string){
+     if (this.searchStudentNameVal) {
+      this.apolloService.mutate({
+        mutation: gql`
+        query ($name: String!) {
+          ProfessorStudent(keyWord: $name) {
+              Id
+              CreatedAt
+              UpdatedAt
+              DeletedAt
+              Name
+              FamilyName
+              NickName
+              Email
+              Matricule
+              Age
+              BirthDate
+              Sex
+              Lang
+              Status
+              ProfileImageXid
+              Description
+              CoverText
+              Profile
+              ExperienceDetail
+              AdditionalDescription
+              AddOnTitle
+          }
+      }
+      
+        `,
+        variables: {
+          name: v
+        },
+        context: {
+          headers: this.headerService.Get()
+        }
+      }).subscribe({
+        next: (response: any) => {
+          this.loadingService.emitChange(false);
+          this.SearchedStudentList = response.data.ProfessorStudent;
+        },
+        error: (error: any) => {
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Erreur lors du traitement!',
+            detail: error.message
+          });
+          this.loadingService.emitChange(false);
+        }
+      });
+    }
+
+  }
+  onClickStudent(student: any){
+    this.selectedStudentId = student.Id;
+  }
+  getSelectedStudentBackground(student: any){
+    if (this.selectedStudentId && this.selectedStudentId.toLowerCase() == student.Id.toLowerCase()) {
+      return "bg-green-200";
+    }
+    return "";
+  }
+
+
 }

@@ -2,17 +2,12 @@ import { gql } from "apollo-angular";
 
 export class LOGIN{
     static EMAIL: any = gql`
-        mutation 
-            Login(
-                $email: String!, 
-                $password: String!
-            ) 
-            {
-                logIn(
-                    email: $email, 
-                    password: $password
-                )
-            }
+    mutation ($email: String! , $password:  String!) {
+        Login(email: $email, password: $password) {
+            T
+        }
+    }
+    
     `;
 }
 export class PASSWORD {

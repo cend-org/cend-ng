@@ -49,8 +49,10 @@ export class LoginParentComponent {
     }).subscribe({
       next: (response) => {
        let resp: any = response.data;
+
+
        if (resp) {
-         this.locaStorageService.save(`${environment.cend_default_lang_id}_tkn`, resp["registerWithEmail"]);
+         this.locaStorageService.save(`${environment.cend_default_lang_id}_tkn`, resp["Login"]["T"]);
          this.messageService.add({ severity: 'success', summary: 'OK!', detail: 'Connecte avec succes!' });
         this.router.navigateByUrl("/pages/dashboard")
 

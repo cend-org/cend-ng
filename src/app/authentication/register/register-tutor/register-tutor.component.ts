@@ -55,21 +55,21 @@ export class RegisterTutorComponent {
 
   error_message: string = '';
 
-  // email: string = "";
-  // password: string = "";
-  // passwordConfirm: string = "";
-  // name: string = "";
-  // familyName: string = "";
-  // birthDate: any = "";
-  // nickName: string = "";
+  email: string = "";
+  password: string = "";
+  passwordConfirm: string = "";
+  name: string = "";
+  familyName: string = "";
+  birthDate: any = "";
+  nickName: string = "";
 
-  email: string =`tutor${Math.random().toString(36).substr(2, 9)}@email.com`;
-  password: string = "password";
-  passwordConfirm: string = "password";
-  name: string = Math.random().toString(36).substr(2, 9);
-  familyName: string = Math.random().toString(36).substr(2, 9);
-  birthDate: any = new Date();
-  nickName: string = `parent_${Math.random().toString(36).substr(2, 9)}`;
+  // email: string =`tutor${Math.random().toString(36).substr(2, 9)}@email.com`;
+  // password: string = "password";
+  // passwordConfirm: string = "password";
+  // name: string = Math.random().toString(36).substr(2, 9);
+  // familyName: string = Math.random().toString(36).substr(2, 9);
+  // birthDate: any = new Date();
+  // nickName: string = `parent_${Math.random().toString(36).substr(2, 9)}`;
 
 
   registrationProfileInfoReq: RegistrationWithInforeq = new RegistrationWithInforeq();
