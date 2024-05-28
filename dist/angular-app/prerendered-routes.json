@@ -18,17 +18,9 @@
     "/authentication/tutor",
     "/pages",
     "/pages/about",
-    "/pages/about-us",
-    "/pages/about/about-us",
-    "/pages/about/how-it-works",
-    "/pages/about/our-mission",
-    "/pages/about/strong-points",
     "/pages/dashboard",
     "/pages/dashboard/home",
     "/pages/home",
-    "/pages/how-it-works",
-    "/pages/landing",
-    "/pages/our-mission",
-    "/pages/strong-points"
+    "/pages/landing"
   ]
 }

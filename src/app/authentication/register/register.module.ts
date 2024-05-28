@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { ImageModule } from 'primeng/image';
 import { InputTextModule } from 'primeng/inputtext';
@@ -36,6 +35,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 
+import { ButtonModule } from 'primeng/button';
 
 
 
@@ -50,7 +50,6 @@ import { InputIconModule } from 'primeng/inputicon';
     CommonModule,
     RegisterRoutingModule,
    InputTextModule,
-   ButtonModule,
    DividerModule,
    ImageModule,
    InputOtpModule,
@@ -75,7 +74,8 @@ import { InputIconModule } from 'primeng/inputicon';
    TableModule,
    CheckboxModule,
    InputIconModule,
-   IconFieldModule
+   IconFieldModule,
+   ButtonModule
   ],
   providers:[
     { provide: HTTP_INTERCEPTORS, useClass: ApolloInterceptor, multi: true },

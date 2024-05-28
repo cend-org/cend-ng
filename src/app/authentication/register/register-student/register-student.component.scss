@@ -7,6 +7,32 @@ $main-text-color: #3A9B23;
 
 
 ::ng-deep{
+    .diponnibility{
+        p-calendar{
+            span{
+                .p-inputtext{
+                    width: 90px !important;
+                    height: 10px !important;
+                    background: rgb(241, 241, 241);
+                }
+            }
+        }
+    }
+    .diponnibilitya{
+        p-calendar{
+            span{
+                .p-inputtext{
+                    width: 120px !important;
+                    height: 10px !important;
+                    background: rgb(241, 241, 241);
+                }
+            }
+        }
+    }
+    .p-stepper .p-stepper-panels{
+        padding: 0px !important;
+        padding-top: 1.2rem !important;
+    }
     .p-inputtext {
         width: 100%;
     }

@@ -19,11 +19,6 @@ import {
   DomHandler
 } from "./chunk-LZMSIMQG.js";
 import {
-  RouterLink,
-  RouterLinkActive,
-  RouterModule
-} from "./chunk-VIRGAZX6.js";
-import {
   ObjectUtils,
   PrimeNGConfig,
   PrimeTemplate,
@@ -31,6 +26,11 @@ import {
   UniqueComponentId,
   zindexutils
 } from "./chunk-LX2E4IGY.js";
+import {
+  RouterLink,
+  RouterLinkActive,
+  RouterModule
+} from "./chunk-VIRGAZX6.js";
 import "./chunk-EDBDKJQG.js";
 import "./chunk-KK7YXH7V.js";
 import {

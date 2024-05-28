@@ -10,7 +10,7 @@
         <p-stepperPanel header="Header I">
             <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
-                    <form class="w-11 md:w-3 lg-w-3 xl:w-3" #emailForm="ngForm" name="f"
+                    <form class="w-full md:w-3 lg-w-3 xl:w-3" #emailForm="ngForm" name="f"
                         (ngSubmit)="emailForm.form.valid && registerWithEmail(nextCallback)">
                         <h1 class="text-left text-xl text-cyan-900  poppins-bold ">Indiquez votre numéro de téléphone ou votre adresse
                             e-mail.</h1>
@@ -64,7 +64,7 @@
         <p-stepperPanel header="Header II">
             <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
-                <form class="w-11 md:w-3 lg-w-3 xl:w-3" #passwordForm="ngForm" name="passwordForm"
+                <form class="w-full md:w-3 lg-w-3 xl:w-3" #passwordForm="ngForm" name="passwordForm"
                     (ngSubmit)="passwordForm.form.valid && registerNewPassword(nextCallback)">
                     <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez ajouter votre nouveau mot de passe.</h1>
                     <div class="frm poppins-medium">
@@ -93,7 +93,7 @@
         <p-stepperPanel header="Header III">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
-                    <form class="w-11 md:w-3 lg-w-3 xl:w-3" #aboutForm="ngForm" name="aboutForm"
+                    <form class="w-full md:w-3 lg-w-3 xl:w-3" #aboutForm="ngForm" name="aboutForm"
                         (ngSubmit)="aboutForm.form.valid && registerAboutInfo(nextCallback)">
                         <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez remplir les informations suivants.</h1>
                         <div class="frm poppins-medium">
@@ -147,7 +147,7 @@
         <p-stepperPanel header="Etudiants">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
-                    <form class="w-11 md:w-3 lg-w-3 xl:w-3"   #aboutForm="ngForm" name="aboutForm" (ngSubmit)="aboutForm.form.valid && registerStudentName(nextCallback)">
+                    <form class="w-full md:w-3 lg-w-3 xl:w-3"   #aboutForm="ngForm" name="aboutForm" (ngSubmit)="aboutForm.form.valid && registerStudentName(nextCallback)">
                         <h1 class="text-left text-xl text-cyan-900  poppins-bold">Quel est le nom de votre etudiant ?</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
@@ -180,7 +180,7 @@
         <p-stepperPanel header="NiIVEAU SCOLAIRE">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
-                    <form class="w-11 md:w-3 lg-w-3 xl:w-3" #schoolLevelForm="ngForm" name="schoolLevelForm" (ngSubmit)="schoolLevelForm.form.valid && registerEducationLevel(nextCallback)">
+                    <form class="w-full md:w-3 lg-w-3 xl:w-3" #schoolLevelForm="ngForm" name="schoolLevelForm" (ngSubmit)="schoolLevelForm.form.valid && registerEducationLevel(nextCallback)">
                         <h1 class="text-left text-xl text-cyan-900  poppins-bold">À quel niveau scolaire enseignez-vous ?</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
@@ -214,7 +214,7 @@
         <p-stepperPanel header="SUBJECT">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
-                    <form class="w-11 md:w-3 lg-w-3 xl:w-3" #subjectForm="ngForm" name="subjectForm"
+                    <form class="w-full md:w-3 lg-w-3 xl:w-3" #subjectForm="ngForm" name="subjectForm"
                         (ngSubmit)="subjectForm.form.valid && registerSubject(nextCallback)">
                         <h1 class="text-left text-xl text-cyan-900  poppins-bold">Dans quelle matière votre jeûne a-t-il besoin d'aide ?</h1>
                         <div class="frm poppins-medium">
@@ -250,7 +250,7 @@
         <p-stepperPanel header="PHOTO DE PROFILE">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section  class="w-full h-screen  flex justify-content-center mt-2">
-                    <div class="w-11 md:w-3 lg-w-3 xl:w-3" >
+                    <div class="w-full md:w-3 lg-w-3 xl:w-3" >
                         <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez télécharger une photo professionelle:</h1>
                         <div class="mb-2 p-2 flex flex-col justify-content-center gap-3">
                             <i class="pi pi-info-circle text-green-500" style="font-size: 1rem" ></i>
@@ -277,7 +277,7 @@
         <!-- <p-stepperPanel header="VIDEO PRESENTATION">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section   class="w-full h-screen  flex justify-content-center mt-2">
-                    <div class="w-11 md:w-3 lg-w-3 xl:w-3" >
+                    <div class="w-full md:w-3 lg-w-3 xl:w-3" >
                         <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez mettre une vidéos de présentation:</h1>
                         <div class="mb-2 p-2 flex flex-col justify-content-center gap-3">
                             <i class="pi pi-info-circle text-green-500" style="font-size: 1rem" ></i>
@@ -308,7 +308,7 @@
         <!-- <p-stepperPanel header="DESCRIPTION">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section  class="w-full h-screen  flex justify-content-center mt-2">
-                    <form class="w-11 md:w-3 lg-w-3 xl:w-3"  #descriptionForm="ngForm" name="descriptionForm"
+                    <form class="w-full md:w-3 lg-w-3 xl:w-3"  #descriptionForm="ngForm" name="descriptionForm"
                     (ngSubmit)="descriptionForm.form.valid && registerDescription(nextCallback)">
                         <h1 class="text-left text-xl text-cyan-900  poppins-bold">Description du profil.</h1>
                         <div class="mb-2 p-2 flex flex-col justify-content-center gap-3">
@@ -347,7 +347,7 @@
         <!-- <p-stepperPanel header="TYPE DE COURS">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
-                    <form class="w-11 md:w-3 lg-w-3 xl:w-3" #courseTypeForm="ngForm" name="courseTypeForm" (ngSubmit)="courseTypeForm.form.valid && registerCourseType(nextCallback)">
+                    <form class="w-full md:w-3 lg-w-3 xl:w-3" #courseTypeForm="ngForm" name="courseTypeForm" (ngSubmit)="courseTypeForm.form.valid && registerCourseType(nextCallback)">
                         <h1 class="text-left text-xl text-cyan-900  poppins-bold">Vous désiriez une aide en ligne ou en présentiel ?
                         </h1>
                         <div class="frm poppins-medium">
@@ -377,7 +377,7 @@
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 
             <section  class="w-full h-screen  flex justify-content-center mt-2">
-                <form class="w-11 md:w-3 lg-w-3 xl:w-3" #availabilityForm="ngForm" name="availabilityForm"
+                <form class="w-full md:w-3 lg-w-3 xl:w-3" #availabilityForm="ngForm" name="availabilityForm"
                 (ngSubmit)="availabilityForm.form.valid && registerAvailability(nextCallback)">
                     <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez définir votre disponibilité.</h1>
                     <div class="poppins-medium">
@@ -398,7 +398,7 @@
         <!-- <p-stepperPanel header="VERIFICATON">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section  class="w-full h-screen  flex justify-content-center mt-2">
-                <form class="w-11 md:w-3 lg-w-3 xl:w-3" #verificationForm="ngForm" name="verificationForm"
+                <form class="w-full md:w-3 lg-w-3 xl:w-3" #verificationForm="ngForm" name="verificationForm"
                 (ngSubmit)="verificationForm.form.valid && registerVerification(nextCallback)">
                     <h1 class="text-left text-xl text-cyan-900  poppins-bold">Vérification dossier criminel</h1>
                     <div class="poppins-medium">
@@ -415,7 +415,7 @@
         <!-- <p-stepperPanel header="RENUMERATION">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section  class="w-full  flex justify-content-center mt-2">
-                    <form class="w-11 md:w-3 lg-w-3 xl:w-3" #verificationForm="ngForm" name="verificationForm"
+                    <form class="w-full md:w-3 lg-w-3 xl:w-3" #verificationForm="ngForm" name="verificationForm"
                     (ngSubmit)="verificationForm.form.valid && registerRenumeration(nextCallback)">
                         <h1 class="text-left text-xl text-cyan-900  poppins-bold">Rénumération</h1>
                         <div class="poppins-medium">
@@ -441,7 +441,7 @@
         <p-stepperPanel header="ETAPE FINAL">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section  class="w-full  flex justify-content-center mt-2">
-                    <form class="w-11 md:w-3 lg-w-3 xl:w-3" #verificationForm="ngForm" name="verificationForm"
+                    <form class="w-full md:w-3 lg-w-3 xl:w-3" #verificationForm="ngForm" name="verificationForm"
                     (ngSubmit)="verificationForm.form.valid && registerRenumeration(nextCallback)">
                         <div class="poppins-medium">
                             <div class="flex flex-column gap-5">

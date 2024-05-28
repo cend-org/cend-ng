@@ -10,29 +10,29 @@ const routes: Routes = [
     {
         path: '',
         component: AboutComponent,
-        children: [
-            {
-                path: '',
-                redirectTo: 'about-us',
-                pathMatch: 'full',
-              },
-              {
-                path: 'about-us',
-                component: AboutUsComponent
-              },
-              {
-                path: 'our-mission',
-                component: OurMissionComponent
-              },
-              {
-                path: 'strong-points',
-                component: StrongPointComponent
-              },
-              {
-                path: 'how-it-works',
-                component: HowItWorksComponent
-              },
-        ]
+        // children: [
+        //     {
+        //         path: '',
+        //         redirectTo: 'about-us',
+        //         pathMatch: 'full',
+        //       },
+        //       {
+        //         path: 'about-us',
+        //         component: AboutUsComponent
+        //       },
+        //       {
+        //         path: 'our-mission',
+        //         component: OurMissionComponent
+        //       },
+        //       {
+        //         path: 'strong-points',
+        //         component: StrongPointComponent
+        //       },
+        //       {
+        //         path: 'how-it-works',
+        //         component: HowItWorksComponent
+        //       },
+        // ]
     }
 ];
 

@@ -46,22 +46,22 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
 
 
 
-  email: string =``;
-  password: string = "";
-  passwordConfirm: string = "";
-  name: string = "";
-  familyName: string = "";
-  birthDate: any = "";
-  nickName: string = "";
+  // email: string =``;
+  // password: string = "";
+  // passwordConfirm: string = "";
+  // name: string = "";
+  // familyName: string = "";
+  // birthDate: any = "";
+  // nickName: string = "";
 
 
-  // email: string =`tutor${Math.random().toString(36).substr(2, 9)}@email.com`;
-  // password: string = "password";
-  // passwordConfirm: string = "password";
-  // name: string = "nao";
-  // familyName: string = "julius";
-  // birthDate: any = new Date();
-  // nickName: string = `parent_${Math.random().toString(36).substr(2, 9)}`;
+  email: string =`tutor${Math.random().toString(36).substr(2, 9)}@email.com`;
+  password: string = "password";
+  passwordConfirm: string = "password";
+  name: string = "nao";
+  familyName: string = "julius";
+  birthDate: any = new Date();
+  nickName: string = `parent_${Math.random().toString(36).substr(2, 9)}`;
 
   
 
@@ -94,6 +94,7 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
   });
     this.groupedCities = GroupedCitiesData;
    // this.loadingService.emitChange(false);
+   this.getSuggestedTutor("");
   }
   filterLanguage(input: any) {
     const searchedLang = this.normalizeString(input.value);
@@ -353,8 +354,12 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
     }).subscribe({
       next: (response: any) => {
         let educations: Array<any> = response?.data['AcademicLevels'];
-        this.educationLevels = educations ? educations : [];
-        this._educationLevels = educations;
+        // this.educationLevels = educations ? educations : [];
+        // this._educationLevels = educations;
+        this.academicLevelItem = educations[0];
+        this.academicLevelItems = educations;
+        this.originalAcademicLevelItems = educations;
+        this.filterAcademicLevel();
         this.loadingService.emitChange(false);
 
         nextCallback.emit();
@@ -366,7 +371,7 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
     });
   }
   registerEducationLevel(nextCallback: any){
-    if (!this.selectedEducationLevel) {
+    if (!this.academicLevelItem) {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir votre niveau scolaire!' });
       return;
     }
@@ -378,7 +383,7 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
       `,
       variables: {
         //subjectId: this.selectedSubject.Id
-        "academicLevelId" : this.selectedEducationLevel.Id
+        "academicLevelId" : this.academicLevelItem.Id
       },
       context: {
         headers: this.headerService.Get()
@@ -413,7 +418,7 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
         }
     }`,
       variables: {
-        "academicLevelId": this.selectedEducationLevel.Id
+        "academicLevelId": this.academicLevelItem.Id
       }, context: {
         headers: this.headerService.Get()
       }
@@ -421,8 +426,13 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
     }).subscribe({
       next: (response: any) => {
         let subjectList: Array<any> = response?.data['AcademicCourses'];
-        this.subjects = subjectList ? subjectList : [];
-        this._subjects = subjectList ? subjectList : [];
+        // this.subjects = subjectList ? subjectList : [];
+        // this._subjects = subjectList ? subjectList : [];
+        this.originalSubjectListItems = subjectList;
+        this.subjectListItems = subjectList;
+        this.filteredSubjectListItem.push(subjectList[0]);
+        this.filterSubjectList();
+        
         this.loadingService.emitChange(false);
         nextCallback.emit();
       },
@@ -433,12 +443,12 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
     });
   }
   registerSubject(nextCallback: any){
-      if (this.selectedSubjects.length <= 0) {
+      if (this.filteredSubjectListItem.length <= 0) {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir la matière dont vous avez besoins d\'aide!' });
       return;
     }
     let formatedCoursesIds: Array<any> = [];
-    this.selectedSubjects.forEach(element => {
+    this.filteredSubjectListItem.forEach(element => {
       formatedCoursesIds.push({
         "CourseId": element.Id
       })
@@ -508,11 +518,15 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  availabilityFrom: Date | undefined;
-  availabilityWhere:Date | undefined;
+  // availabilityFrom: Date | undefined;
+  // availabilityWhere:Date | undefined;
+
+  availabilityTommorrowAt: Date | undefined;
+  avalabilityTommorrowDate: Date | undefined;
+  availabilityTommorrowHour: Date | undefined;
 
   registerAvailability(nextCallback: any){
-    if (!this.availabilityFrom || !this.availabilityWhere || !this.selectedDays) {
+    if (!this.availabilityTommorrowAt || !this.avalabilityTommorrowDate || !this.availabilityTommorrowHour) {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez verifier votre disponibilite ' });
       return;
     }
@@ -525,102 +539,108 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
 
   }
 
-  suggestedTutor: any = null;
-  presentationVideo: string = "";
-  suggestedTutorProfileImage: string = "";
-  getSuggestedTutor(nextCallback: any) {
-    this.apolloService.query({
-      query: gql`
-      query ($studentId: Int!) {
-        SuggestTutor(studentId: $studentId) {
-            Name
-            FamilyName
-            NickName
-            Email
-            Sex
-            Lang
-            Status
-            ProfileImageXid
-            Description
-            CoverText
-            Profile
-            ExperienceDetail
-            AdditionalDescription
-            AddOnTitle
-        }
-    }`,
-      variables: {
-        "studentId": this.authService.GetUserId()
-      },
-      context: {
-        headers: this.headerService.Get()
-      }
+  // suggestedTutor: any = null;
+  // presentationVideo: string = "";
+  // suggestedTutorProfileImage: string = "";
+  // getSuggestedTutor(nextCallback: any) {
+  //   this.apolloService.query({
+  //     query: gql`
+  //     query SuggestTutorToUser {
+  //       SuggestTutorToUser {
+  //           Id
+  //           CreatedAt
+  //           UpdatedAt
+  //           DeletedAt
+  //           Name
+  //           FamilyName
+  //           NickName
+  //           Email
+  //           Matricule
+  //           Age
+  //           BirthDate
+  //           Sex
+  //           Lang
+  //           Status
+  //           ProfileImageXid
+  //           Description
+  //           CoverText
+  //           Profile
+  //           ExperienceDetail
+  //           AdditionalDescription
+  //           AddOnTitle
+  //       }
+  //   }
+    
+  //     `,
+  //     context: {
+  //       headers: this.headerService.Get()
+  //     }
 
-    }).subscribe({
-      next: (response: any) => {
-        this.suggestedTutor = response["data"]["SuggestTutor"];
-        let suggestedTutorId =  response["data"]["SuggestTutor"]['Id'];
-        if(suggestedTutorId){
-          this.apolloService.query({
-            query: gql`query ($userId : Int!) {
-              UserVideoPresentation(userId: $userId)
-          }
-          `,
-            variables: {
-              "userId": suggestedTutorId
-            }, context: {
-              headers: this.headerService.Get()
-            }
+  //   }).subscribe({
+  //     next: (response: any) => {
+  //       this.suggestedTutor = response["data"]["SuggestTutor"];
+  //       let suggestedTutorId =  response["data"]["SuggestTutor"]['Id'];
+  //       if(suggestedTutorId){
+  //         this.apolloService.query({
+  //           query: gql`query ($userId : Int!) {
+  //             UserVideoPresentation(userId: $userId)
+  //         }
+  //         `,
+  //           variables: {
+  //             "userId": suggestedTutorId
+  //           }, context: {
+  //             headers: this.headerService.Get()
+  //           }
       
-          }).subscribe({
-            next: (response: any) => {
-              this.presentationVideo = response["data"]["UserVideoPresentation"];
-              this.apolloService.query({
-                query: gql`query ($tutorId : Int!) {
-                  UserProfileImageThumb(userId: $tutorId)
-              }
-              `,
-                variables: {
-                  "tutorId": suggestedTutorId
-                }, context: {
-                  headers: this.headerService.Get()
-                }
+  //         }).subscribe({
+  //           next: (response: any) => {
+  //             this.presentationVideo = response["data"]["UserVideoPresentation"];
+  //             this.apolloService.query({
+  //               query: gql`query ($tutorId : Int!) {
+  //                 UserProfileImageThumb(userId: $tutorId)
+  //             }
+  //             `,
+  //               variables: {
+  //                 "tutorId": suggestedTutorId
+  //               }, context: {
+  //                 headers: this.headerService.Get()
+  //               }
           
-              }).subscribe({
-                next: (response: any) => {
-                  this.suggestedTutorProfileImage = `background-image: url(${response["data"]["UserProfileImageThumb"]})`;
-                  this.loadingService.emitChange(false);
-                  nextCallback.emit();
-                },
-                error: (e) => {
-                  this.suggestedTutorProfileImage = `background-image: url(assets/image/avatar.svg)`;
-                  this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
-                  this.loadingService.emitChange(false);
-                }
-              });
+  //             }).subscribe({
+  //               next: (response: any) => {
+  //                 this.suggestedTutorProfileImage = `background-image: url(${response["data"]["UserProfileImageThumb"]})`;
+  //                 this.loadingService.emitChange(false);
+  //                 nextCallback.emit();
+  //               },
+  //               error: (e) => {
+  //                 this.suggestedTutorProfileImage = `background-image: url(assets/image/avatar.svg)`;
+  //                 this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
+  //                 this.loadingService.emitChange(false);
+  //               }
+  //             });
   
-            },
-            error: (e) => {
-              //this.suggestedTutorProfileImage = `background-image: url(assets/image/avatar.svg)`;
-              this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
-              this.loadingService.emitChange(false);
-            }
-          });
-        }
+  //           },
+  //           error: (e) => {
+  //             //this.suggestedTutorProfileImage = `background-image: url(assets/image/avatar.svg)`;
+  //             this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
+  //             this.loadingService.emitChange(false);
+  //           }
+  //         });
+  //       }
 
-        this.loadingService.emitChange(false);
-      },
-      error: (e) => {
-        this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
-        this.loadingService.emitChange(false);
-      }
-    });
+  //       this.loadingService.emitChange(false);
+  //     },
+  //     error: (e) => {
+  //       this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
+  //       this.loadingService.emitChange(false);
+  //     }
+  //   });
 
-
-    
 
     
-  }
+
+    
+  //}
 
 
 
@@ -656,5 +676,325 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
       this.router.navigateByUrl("/pages/dashboard")
     }, 500);
   }
+
+
+
+
+  originalAcademicLevelItems: Array<any> = [];
+  academicLevelItems: Array<any> = []
+  academicLevelItem: any = {};
+  searchedAcademicLevelItem: string = '';
+  viewAcademicLevelLimit: number = 6;
+  academicLevelIndex: number = 0;
+
+  onClickAcademicLevelItems(item: any) {
+    this.academicLevelItem = item;
+  }
+
+
+  filterAcademicLevel() {
+    this.academicLevelItems = [];
+    const searchedEd = this.normalizeString(this.searchedAcademicLevelItem);
+    if (!searchedEd.trim()) {
+      this.academicLevelItems = this.originalAcademicLevelItems.slice(0, this.viewAcademicLevelLimit); 
+      this.academicLevelIndex = 0;
+    } else {
+      const filteredItems = this.originalAcademicLevelItems.filter(x =>
+        this.normalizeString(x.Name).includes(searchedEd)
+      );
+      this.academicLevelItems = filteredItems.slice(0,  this.viewAcademicLevelLimit);
+    }
+  }
+  loadMoreAcademicLevel() {
+    this.academicLevelItems = [];
+    if(this.academicLevelIndex == 0){
+      this.academicLevelIndex = this.viewAcademicLevelLimit;
+    }
+    const nextIndex = this.academicLevelIndex + this.viewAcademicLevelLimit;
+    const nextSet = this.originalAcademicLevelItems.slice(this.academicLevelIndex, nextIndex);
+    this.academicLevelItems = [...this.academicLevelItems, ...nextSet];
+    this.academicLevelIndex = nextIndex;
+  }
+  
+  hasMoreAcademicLevelItems(): boolean {
+    return this.academicLevelIndex < this.originalAcademicLevelItems.length;
+  }
+  getSelectedAcademicBackground(item: any): String {
+
+    if (this.academicLevelItem && this.academicLevelItem.Name.toLowerCase() == item.Name.toLowerCase()) {
+      return "bg-green-200";
+    }
+    return "";
+  }
+
+
+
+  originalSubjectListItems: Array<any> = [];
+  subjectListItems: Array<any> = []
+  filteredSubjectListItem: Array<any> = [];
+  searchedSubjectListItemItem: string = '';
+  viewsubjectListItemlistLimit: number = 6;
+  subjectListIndex: number = 0;
+
+  onClickSubjectListItems(item: any) {
+    if(this.filteredSubjectListItem.includes(item)){
+      this.filteredSubjectListItem = this.filteredSubjectListItem.filter(x=>x.Id != item.Id);
+    }else{
+      this.filteredSubjectListItem.push(item);
+    }
+  }
+
+  filterSubjectList() {
+    const searchedEd = this.normalizeString(this.searchedSubjectListItemItem);
+    if (!searchedEd.trim()) {
+      // If search is empty, show the selected items along with the first 6 items
+      this.subjectListItems = [
+        ...this.filteredSubjectListItem,
+        ...this.originalSubjectListItems
+          .filter(item => !this.filteredSubjectListItem.some(selectedItem => selectedItem.Id === item.Id))
+          .slice(0, this.viewsubjectListItemlistLimit - this.filteredSubjectListItem.length)
+      ];
+      this.subjectListIndex = 0;
+    } else {
+      const filteredItems = this.originalSubjectListItems.filter(x =>
+        this.normalizeString(x.Name).includes(searchedEd)
+      );
+      // Calculate the number of items to display, considering both selected and filtered items
+      const remainingLimit = this.viewsubjectListItemlistLimit - this.filteredSubjectListItem.length;
+      this.subjectListItems = [
+        ...this.filteredSubjectListItem,
+        ...filteredItems
+          .filter(item => !this.filteredSubjectListItem.some(selectedItem => selectedItem.Id === item.Id))
+          .slice(0, remainingLimit)
+      ];
+    }
+  }
+  
+
+
+loadMoreSubjectList() {
+  this.subjectListItems = [];
+  if(this.subjectListIndex == 0){
+    this.subjectListIndex = this.viewsubjectListItemlistLimit;
+  }
+  const nextIndex = this.subjectListIndex + this.viewsubjectListItemlistLimit;
+  const nextSet = this.originalSubjectListItems.slice(this.subjectListIndex, nextIndex);
+  this.subjectListItems = [...this.subjectListItems, ...nextSet];
+  this.subjectListIndex = nextIndex;
+}
+
+hasMoreSubjectListItems(): boolean {
+  return this.subjectListIndex < this.originalSubjectListItems.length;
+}
+getSelectedSubjectBackground(item: any): String {
+  if(this.filteredSubjectListItem.length > 0 && this.filteredSubjectListItem.includes(item)){
+    return "bg-green-200";
+  }
+  return "";
+}
+
+
+
+suggestedTutor: any = null;
+presentationVideo: string = "";
+suggestedTutorProfileImage: string = "";
+isSuggestedTutor: boolean = true;
+tutorId: number = 0;
+continueWithoutTutor(nextCallback: any){
+  this.isSuggestedTutor = false;
+  nextCallback.emit();
+}
+
+getAnotherTutor(){
+  this.apolloService.query({
+    query: gql`
+    query ($tutorId : Int!) {
+      SuggestOtherTutorToUser (lastTutorId: $tutorId) {
+          Id
+          Name
+          FamilyName
+          NickName
+          Email
+          Sex
+          Lang
+          Status
+          ProfileImageXid
+          Description
+          CoverText
+          Profile
+          ExperienceDetail
+          AdditionalDescription
+          AddOnTitle
+      }
+  }
+  
+    `,
+    variables: {
+      "tutorId": this.tutorId
+    },
+    context: {
+      headers: this.headerService.Get()
+    }
+
+  }).subscribe({
+    next: (response: any) => {
+      this.suggestedTutor = response["data"]["SuggestTutor"];
+      let suggestedTutorId = response["data"]["SuggestTutor"]['Id'];
+      if (suggestedTutorId) {
+        this.apolloService.query({
+          query: gql`query ($userId : Int!) {
+            UserVideoPresentation(userId: $userId)
+        }
+        `,
+          variables: {
+            "userId": suggestedTutorId
+          }, context: {
+            headers: this.headerService.Get()
+          }
+
+        }).subscribe({
+          next: (response: any) => {
+            this.presentationVideo = response["data"]["UserVideoPresentation"];
+            this.apolloService.query({
+              query: gql`query ($tutorId : Int!) {
+                UserProfileImageThumb(userId: $tutorId)
+            }
+            `,
+              variables: {
+                "tutorId": suggestedTutorId
+              }, context: {
+                headers: this.headerService.Get()
+              }
+
+            }).subscribe({
+              next: (response: any) => {
+                this.suggestedTutorProfileImage = `background-image: url(${response["data"]["UserProfileImageThumb"]})`;
+                this.loadingService.emitChange(false);
+               // nextCallback.emit();
+              },
+              error: (e) => {
+                this.suggestedTutorProfileImage = `background-image: url(assets/image/avatar.svg)`;
+                this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
+                this.loadingService.emitChange(false);
+              }
+            });
+
+          },
+          error: (e) => {
+            //this.suggestedTutorProfileImage = `background-image: url(assets/image/avatar.svg)`;
+            this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
+            this.loadingService.emitChange(false);
+          }
+        });
+      }
+
+      this.loadingService.emitChange(false);
+    },
+    error: (e) => {
+     // this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
+     this.loadingService.emitChange(false);
+    }
+  });
+}
+
+getSuggestedTutor(nextCallback: any) {
+  this.apolloService.query({
+    query: gql`
+    query SuggestTutorToUser {
+      SuggestTutorToUser {
+          Id
+          CreatedAt
+          UpdatedAt
+          DeletedAt
+          Name
+          FamilyName
+          NickName
+          Email
+          Matricule
+          Age
+          BirthDate
+          Sex
+          Lang
+          Status
+          ProfileImageXid
+          Description
+          CoverText
+          Profile
+          ExperienceDetail
+          AdditionalDescription
+          AddOnTitle
+      }
+  }
+  
+    `,
+    context: {
+      headers: this.headerService.Get()
+    }
+
+  }).subscribe({
+    next: (response: any) => {
+      this.suggestedTutor = response["data"]["SuggestTutor"];
+      let suggestedTutorId = response["data"]["SuggestTutor"]['Id'];
+      this.tutorId = response["data"]["SuggestTutor"]['Id'];
+      this.isSuggestedTutor = true;
+      if (suggestedTutorId) {
+        this.apolloService.query({
+          query: gql`query ($userId : Int!) {
+            UserVideoPresentation(userId: $userId)
+        }
+        `,
+          variables: {
+            "userId": suggestedTutorId
+          }, context: {
+            headers: this.headerService.Get()
+          }
+
+        }).subscribe({
+          next: (response: any) => {
+            this.presentationVideo = response["data"]["UserVideoPresentation"];
+            this.apolloService.query({
+              query: gql`query ($tutorId : Int!) {
+                UserProfileImageThumb(userId: $tutorId)
+            }
+            `,
+              variables: {
+                "tutorId": suggestedTutorId
+              }, context: {
+                headers: this.headerService.Get()
+              }
+
+            }).subscribe({
+              next: (response: any) => {
+                this.suggestedTutorProfileImage = `background-image: url(${response["data"]["UserProfileImageThumb"]})`;
+                this.loadingService.emitChange(false);
+                nextCallback.emit();
+              },
+              error: (e) => {
+                this.suggestedTutorProfileImage = `background-image: url(assets/image/avatar.svg)`;
+                this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
+                this.loadingService.emitChange(false);
+              }
+            });
+
+          },
+          error: (e) => {
+            //this.suggestedTutorProfileImage = `background-image: url(assets/image/avatar.svg)`;
+            this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
+            this.loadingService.emitChange(false);
+          }
+        });
+      }
+
+      this.loadingService.emitChange(false);
+    },
+    error: (e) => {
+     // this.messageService.add({ severity: 'warn', summary: 'Erreur lors du recupération de donnée!', detail: e.message });
+
+    // nextCallback.emit();
+     this.isSuggestedTutor = false;
+     this.loadingService.emitChange(false);
+    }
+  });
+}
 
 }

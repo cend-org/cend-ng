@@ -15,8 +15,10 @@ import { ApiUploadService } from "../services/api-upload.service";
 import { LoadingService } from "../@core/services/loading.service";
 import { RouteMonitorService } from "../@core/services/route-monitor.service";
 import {GUARDS_SERVICES} from "../@core/services/guard/guards";
+import { DialogService } from "primeng/dynamicdialog";
 export const COMMON_PROVIDER = [
     GUARDS_SERVICES,
+    DialogService,
     ApiService, 
     MessageService,
     HeaderService, 

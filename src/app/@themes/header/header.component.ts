@@ -68,9 +68,9 @@ onChooseLanguage(lang:any){
   onClickMobileAbourMenu(){
     this.showMobileAboutMenu = !this.showMobileAboutMenu;
   }
-  onClickLinks(link:string){
+  onClickLinks(link:string, _fragment: string | undefined){
     if(link){
-      this.router.navigateByUrl(link);
+      this.router.navigate([link], {fragment: _fragment});
       this.showMobileMenu = false;
       this.showMobileAboutMenu = false;
     }

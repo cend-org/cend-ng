@@ -21,19 +21,22 @@ import { LoadingComponent } from './loading/loading.component';
 
 import { PermissionDirectiveModule } from '../@core/directives/permission-directives.module';
 import { StepsModule } from 'primeng/steps';
+import { DaysComponent } from './modals/days/days.component';
 @NgModule({
   declarations: [
     HeaderComponent,
     LoginSkeletonComponent,
     LandingSkeletonComponent,
     LoadingComponent,
+    DaysComponent,
 
   ],
   exports: [
     HeaderComponent,
     LoginSkeletonComponent,
     LandingSkeletonComponent,
-    LoadingComponent
+    LoadingComponent,
+    DaysComponent
 
 
   ], 

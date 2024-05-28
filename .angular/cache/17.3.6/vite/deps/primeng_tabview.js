@@ -1,11 +1,11 @@
 import {
-  Tooltip,
-  TooltipModule
-} from "./chunk-T5RLB6K5.js";
-import {
   ChevronLeftIcon,
   ChevronRightIcon
 } from "./chunk-5UWI6NED.js";
+import {
+  Tooltip,
+  TooltipModule
+} from "./chunk-T5RLB6K5.js";
 import {
   Ripple,
   RippleModule

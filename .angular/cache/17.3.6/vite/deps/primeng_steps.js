@@ -5,6 +5,7 @@ import {
 import {
   DomHandler
 } from "./chunk-LZMSIMQG.js";
+import "./chunk-LX2E4IGY.js";
 import {
   ActivatedRoute,
   Router,
@@ -12,7 +13,6 @@ import {
   RouterLinkActive,
   RouterModule
 } from "./chunk-VIRGAZX6.js";
-import "./chunk-LX2E4IGY.js";
 import "./chunk-EDBDKJQG.js";
 import "./chunk-KK7YXH7V.js";
 import {
