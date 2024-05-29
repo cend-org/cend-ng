@@ -460,7 +460,7 @@ export class RegisterTutorComponent {
     });
   }
   registerSubject(nextCallback: any){
-      if (this.filteredSubjectListItem.length <= 0) {
+    if (this.filteredSubjectListItem.length <= 0) {
       this.messageService.add({ severity: 'warn', summary: 'Erreur de validation!', detail: 'Veuillez choisir la matière dont vous avez besoins d\'aide!' });
       return;
     }

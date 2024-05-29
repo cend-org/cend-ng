@@ -182,8 +182,7 @@
                                                     name="searchTerm" (input)="filterAcademicLevel()" />
                                             </p-iconField>
                                         </div>
-                                        <div
-                                            class="w-full  h-30rem md:h-10rem lg:h-20rem xl:h-20rem flex flex-column gap-3 overflow-y-scroll">
+                                       <div class="w-full  h-30rem md:h-10rem lg:h-15rem xl:h-15rem flex flex-column gap-3 overflow-y-scroll" style="scrollbar-width:none !important ;">
                                             <button (click)="onClickAcademicLevelItems(educationLevel)" type="button"
                                                 class="py-3 {{getSelectedAcademicBackground(educationLevel)}}  border-none text-gray-600 text-left"
                                                 *ngFor="let educationLevel of academicLevelItems">
@@ -233,8 +232,7 @@
                                                     name="searchTerm" (input)="filterSubjectList()" />
                                             </p-iconField>
                                         </div>
-                                        <div
-                                            class="w-full  h-30rem md:h-10rem lg:h-20rem xl:h-20rem flex flex-column gap-3 overflow-y-scroll">
+                                       <div class="w-full  h-30rem md:h-10rem lg:h-15rem xl:h-15rem flex flex-column gap-3 overflow-y-scroll" style="scrollbar-width:none !important ;">
                                             <button (click)="onClickSubjectListItems(subject)" type="button"
                                                 class="py-3 {{getSelectedSubjectBackground(subject)}}  border-none text-gray-600 text-left"
                                                 *ngFor="let subject of subjectListItems">
