@@ -46,25 +46,13 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
 
 
 
-  // email: string =``;
-  // password: string = "";
-  // passwordConfirm: string = "";
-  // name: string = "";
-  // familyName: string = "";
-  // birthDate: any = "";
-  // nickName: string = "";
-
-
-  email: string =`tutor${Math.random().toString(36).substr(2, 9)}@email.com`;
-  password: string = "password";
-  passwordConfirm: string = "password";
-  name: string = "nao";
-  familyName: string = "julius";
-  birthDate: any = new Date();
-  nickName: string = `parent_${Math.random().toString(36).substr(2, 9)}`;
-
-  
-
+  email: string =``;
+  password: string = "";
+  passwordConfirm: string = "";
+  name: string = "";
+  familyName: string = "";
+  birthDate: any = "";
+  nickName: string = "";
 
   registrationProfileInfoReq: RegistrationWithInforeq = new RegistrationWithInforeq();
   registrationStateStep: StudentRegisterStepEnum = StudentRegisterStepEnum.EMAIL;

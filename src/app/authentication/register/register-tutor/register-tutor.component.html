@@ -1,13 +1,13 @@
 <p-toast position="bottom-center" preventOpenDuplicates="true" />
     <div class="card">
     <p-stepper [linear]="true">
-        
-        <p-stepperPanel header="Header I">
+        <p-stepperPanel header="EMAIL">
             <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-full md:w-3 lg-w-3 xl:w-3" #emailForm="ngForm" name="f"
                         (ngSubmit)="emailForm.form.valid && registerWithEmail(nextCallback)">
-                        <h1 class="text-left text-xl text-cyan-900  poppins-bold ">Indiquez votre numéro de téléphone ou votre adresse
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold ">Indiquez votre numéro de téléphone ou
+                            votre adresse
                             e-mail.</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-2">
@@ -19,35 +19,39 @@
                                 <button type="submit" size="small" pButton pRipple label="Continuer"
                                     class="cursor-pointer bg-color-main w-full  text-white hover:bg-green-600 border-none"></button>
 
-                                    <p-divider align="center" class="text-gray-400 font-medium">
-                                        <span>Ou</span>
-                                    </p-divider>
-                                    <div class="flex flex-column gap-3">
-                                        <button type="button"
+                                <p-divider align="center" class="text-gray-400 font-medium">
+                                    <span>Ou</span>
+                                </p-divider>
+                                <div class="flex flex-column gap-3">
+                                    <button type="button"
                                         class="focus:bg-green-100 hover:border-2 hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-green-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
-                                        <p-image class="absolute ml-4" src="assets/image/google.svg" alt="Image" width="20"></p-image>
+                                        <p-image class="absolute ml-4" src="assets/image/google.svg" alt="Image"
+                                            width="20"></p-image>
                                         <div class="w-full text-gray-600 text-center">Continuer avec google</div>
                                     </button>
                                     <button type="button"
                                         class="focus:bg-green-100 hover:border-2  hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-green-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
-                                        <p-image class="absolute ml-4" src="assets/image/apple.svg" alt="Image" width="20" ></p-image>
+                                        <p-image class="absolute ml-4" src="assets/image/apple.svg" alt="Image"
+                                            width="20"></p-image>
                                         <div class="w-full text-gray-600 text-center">Continuer avec apple</div>
                                     </button>
                                     <button type="button"
                                         class="focus:bg-green-100 hover:border-2  hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-green-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
-                                        <p-image class="absolute ml-4" src="assets/image/fb.svg" alt="Image" width="20"></p-image>
+                                        <p-image class="absolute ml-4" src="assets/image/fb.svg" alt="Image"
+                                            width="20"></p-image>
                                         <div class="w-full text-gray-600 text-center">Continuer avec facebook</div>
                                     </button>
                                     <button type="button"
                                         class="focus:bg-green-100 text-green-600 hover:text-green-500  cursor-pointer bg-green-50 flex justify-content-between border-none border-round-md align-items-center w-full h-3rem">
-                                        <i class="pi pi-qrcode ml-4" ></i>
+                                        <i class="pi pi-qrcode ml-4"></i>
                                         <div class="w-full text-center">
                                             Connectez-vous avec une qr-code
                                         </div>
                                     </button>
-                                    </div>
+                                </div>
                                 <div class="text-xs text-gray-400 text-center mt-2">
-                                    En continuant, vous acceptz de recevoir au numéro fourni des appels, messages WhatsApp ou SMS, y
+                                    En continuant, vous acceptz de recevoir au numéro fourni des appels, messages
+                                    WhatsApp ou SMS, y
                                     compris de façon automatisée, de la part d'Uber et de ces sociétés affiliées.
                                 </div>
                             </div>
@@ -56,66 +60,81 @@
                 </section>
             </ng-template>
         </p-stepperPanel>
-        <p-stepperPanel header="Header II">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
+        <p-stepperPanel header="PASSWORD">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
-                <form class="w-full md:w-3 lg-w-3 xl:w-3" #passwordForm="ngForm" name="passwordForm"
-                    (ngSubmit)="passwordForm.form.valid && registerNewPassword(nextCallback)">
-                    <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez ajouter votre nouveau mot de passe.</h1>
-                    <div class="frm poppins-medium">
-                        <div class="w-full flex flex-column gap-4">
-                            <div class="flex flex-column gap-2">
-                                <label class="text-sm" for="password">Mot de passe</label>
-                                <p-password promptLabel="Entrez votre mot de passe" placeholder="Nouveau mot de passe"
-                                    [(ngModel)]="password" name="password" weakLabel="Trop simple" mediumLabel="Complexite normale"
-                                    strongLabel="Mots de pass complex" class="p-inputtext-sm" id="password"
-                                    [toggleMask]="true"></p-password>
+                    <form class="w-full md:w-3 lg-w-3 xl:w-3" #passwordForm="ngForm" name="passwordForm"
+                        (ngSubmit)="passwordForm.form.valid && registerNewPassword(nextCallback)">
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez ajouter votre nouveau mot de
+                            passe.</h1>
+                        <div class="frm poppins-medium">
+                            <div class="w-full flex flex-column gap-4">
+                                <div class="flex flex-column gap-2">
+                                    <label class="text-sm" for="password">Mot de passe</label>
+                                    <p-password promptLabel="Entrez votre mot de passe"
+                                        placeholder="Nouveau mot de passe" [(ngModel)]="password" name="password"
+                                        weakLabel="Trop simple" mediumLabel="Complexite normale"
+                                        strongLabel="Mots de pass complex" class="p-inputtext-sm" id="password"
+                                        [toggleMask]="true"></p-password>
+                                </div>
+                                <div class="flex flex-column gap-2">
+                                    <label class="text-sm" for="re-password">Confirmation</label>
+                                    <p-password placeholder="Confirmer votre mot de passe" [(ngModel)]="passwordConfirm"
+                                        name="passwordConfirm" [feedback]="false" class="p-inputtext-sm" id="password"
+                                        [toggleMask]="true"></p-password>
+                                </div>
+                                <div class="w-full p-3 absolute left-0 bottom-0 lg:hidden xl:hidden">
+                                    <button type="submit" pButton label="Continuer" size="large"
+                                        class="cursor-pointer bg-main-green w-full text-white border-0"></button>
+                                </div>
+                                <div class="w-full p-3 absolute left-0 bottom-0 lg:hidden xl:hidden">
+                                    <button type="submit" pButton label="Continuer" size="large"
+                                        class="cursor-pointer bg-main-green w-full text-white border-0"></button>
+                                </div>
+                                <button type="submit" pButton label="Continuer" size="small"
+                                    class="hidden lg:block xl:block cursor-pointer s w-full bg-main-green text-white"></button>
                             </div>
-                            <div class="flex flex-column gap-2">
-                                <label class="text-sm" for="re-password">Confirmation</label>
-                                <p-password placeholder="Confirmer votre mot de passe" [(ngModel)]="passwordConfirm"
-                                    name="passwordConfirm" [feedback]="false" class="p-inputtext-sm" id="password"
-                                    [toggleMask]="true"></p-password>
-                            </div>
-                            <button type="submit" size="small" pButton pRipple label="Continuer"
-                                class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
                         </div>
-                    </div>
-                </form>
-            </section>
+                    </form>
+                </section>
             </ng-template>
         </p-stepperPanel>
-        <p-stepperPanel header="Header III">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
+        <p-stepperPanel header="ABOUT">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-full md:w-3 lg-w-3 xl:w-3" #aboutForm="ngForm" name="aboutForm"
                         (ngSubmit)="aboutForm.form.valid && registerAboutInfo(nextCallback)">
-                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez remplir les informations suivants.</h1>
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez remplir les informations
+                            suivants.</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-2">
                                 <div class="formgrid grid">
                                     <div class="field col">
                                         <label for="aname">Nom</label>
-                                        <input [(ngModel)]="name" name="aname" placeholder="votre nom" id="aname" type="text"
+                                        <input [(ngModel)]="name" name="aname" placeholder="votre nom" id="aname"
+                                            type="text"
                                             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                                     </div>
                                     <div class="field col">
                                         <label for="familyName">Prénom</label>
-                                        <input [(ngModel)]="familyName" name="familyName" placeholder="votre prénom" id="familyName"
-                                            type="text"
+                                        <input [(ngModel)]="familyName" name="familyName" placeholder="votre prénom"
+                                            id="familyName" type="text"
                                             class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                                     </div>
                                 </div>
 
                                 <div class="flex-auto">
                                     <label for="birthDate" class=""> Date de naissance</label>
-                                    <p-calendar placeholder="votre date de naissance" dateFormat="dd/mm/yy" [(ngModel)]="birthDate"
-                                        name="birthDate" [iconDisplay]="'input'" [showIcon]="true" inputId="birthDate"></p-calendar>
+                                    <p-calendar placeholder="votre date de naissance" dateFormat="dd/mm/yy"
+                                        [(ngModel)]="birthDate" name="birthDate" [iconDisplay]="'input'"
+                                        [showIcon]="true" inputId="birthDate" [touchUI]="true"></p-calendar>
                                 </div>
                                 <div class="flex flex-column mt-2">
                                     <label for="sex" class=""> Choisissez votre sex:</label>
-                                    <p-dropdown placeholder="votre sexe" inputId="sex" [options]="sex" [(ngModel)]="selectedSex"
-                                        optionLabel="key" name="sexname" />
+                                    <p-dropdown placeholder="votre sexe" inputId="sex" [options]="sex"
+                                        [(ngModel)]="selectedSex" optionLabel="key" name="sexname" />
                                 </div>
 
                                 <div class="flex flex-column mt-2">
@@ -131,163 +150,178 @@
                                         </ng-template>
                                     </p-dropdown>
                                 </div>
-            
-                                <button type="submit" size="small" pButton pRipple label="Continuer"
-                                    class="mt-2 p-button-success w-full bg-green-500 text-white"></button>
+                                <div class="w-full p-3 absolute left-0 bottom-0 lg:hidden xl:hidden">
+                                    <button type="submit" pButton label="Continuer" size="large"
+                                        class="cursor-pointer bg-main-green w-full text-white border-0"></button>
+                                </div>
+                                <button type="submit" pButton label="Continuer" size="small"
+                                    class="hidden lg:block xl:block cursor-pointer s w-full bg-main-green text-white"></button>
                             </div>
                         </div>
                     </form>
                 </section>
             </ng-template>
         </p-stepperPanel>
-        <!-- <p-stepperPanel header="Language">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
+        
+        <p-stepperPanel header="ACADEMIC LEVEL">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
-                    <form class="w-full md:w-3 lg-w-3 xl:w-3"   #aboutForm="ngForm" name="aboutForm" (ngSubmit)="aboutForm.form.valid && registerLanguage(nextCallback)">
-                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Quelle est la langue à laquelle vous voulez faire votre éducation ?</h1>
-                        <div class="frm poppins-medium">
-                            <div class="w-full flex flex-column gap-4">
-                                <div
-                                    class="pt-4 pb-6 w-full">
-                                    <div class="flex flex-column gap-3">
-                                        <p-iconField iconPosition="left" >
-                                            <p-inputIcon styleClass="pi pi-search" />
-                                            <input type="text" class="border-2 border-green-300" pInputText placeholder="Search" #inp (input)="filterLanguage(inp)" />
-                                        </p-iconField>
-                                        <div class="w-full  h-20rem flex flex-column gap-3 ">
-                                            <button (click)="onClickLanguage(language)" type="button" class="py-3 flex inline-flex justify-content-between align-items-center  {{getSelectedLanguageBackground(language)}} border-none text-gray-600 text-left" *ngFor="let language of languages">
-                                                <span class="text-xl poppins-bold">
-                                                    {{language.name}} - <span class="uppercase text-xl poppins-medium">{{language.code}}</span>
-                                                </span>
-                                                <span class="text-sm poppins-regular mr-2">
-                                                    {{language.default}}
-                                                </span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button size="small" pButton pRipple label="Continuer"
-                                    class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
-                            </div>
-                        </div>
-                    </form>
-                </section>
-            </ng-template>
-        </p-stepperPanel> -->
-        <p-stepperPanel header="NiIVEAU SCOLAIRE">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
-                <section class="w-full h-full  flex justify-content-center mt-2">
-                    <form class="w-full md:w-3 lg-w-3 xl:w-3" #schoolLevelForm="ngForm" name="schoolLevelForm" (ngSubmit)="schoolLevelForm.form.valid && registerEducationLevel(nextCallback)">
-                        <h1 class="text-left text-xl text-cyan-900  poppins-bold"> Vous enseignez quel niveau scolaire ?</h1>
+                    <form class="w-full md:w-3 lg-w-3 xl:w-3" #schoolLevelForm="ngForm" name="schoolLevelForm"
+                        (ngSubmit)="schoolLevelForm.form.valid && registerAcademicLevel(nextCallback)">
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">A quel niveau scolaire enseignez-vous?
+                        </h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
                                 <div class="pt-4 pb-6 w-full">
                                     <div class="flex flex-column gap-3">
-                                        <p-iconField iconPosition="left">
-                                            <p-inputIcon styleClass="pi pi-search" />
-                                            <input type="text" class="border-2 border-green-300" pInputText
-                                                placeholder="Search" #inp (input)="filterEducationLevel(inp)" />
-                                        </p-iconField>
-                                        <div class="w-full   h-30rem md:h-10rem lg:h-20rem xl:h-20rem flex flex-column gap-3 overflow-y-scroll">
-                                            <button (click)="onClickEducationLevel(educationLevel)" type="button"
-                                                class="py-3 {{getEducationLevelBackground(educationLevel)}}  border-none text-gray-600 text-left"
-                                                *ngFor="let educationLevel of _educationLevels">
+                                        <div class="w-full relative">
+                                            <p-iconField iconPosition="left">
+                                                <p-inputIcon styleClass="pi pi-search" />
+                                                <input type="text" class="border-2 border-green-300" pInputText
+                                                    placeholder="Search" [(ngModel)]="searchedAcademicLevelItem"
+                                                    name="searchTerm" (input)="filterAcademicLevel()" />
+                                            </p-iconField>
+                                        </div>
+                                        <div
+                                            class="w-full  h-30rem md:h-10rem lg:h-20rem xl:h-20rem flex flex-column gap-3 overflow-y-scroll">
+                                            <button (click)="onSelectAcademicLevel(educationLevel)" type="button"
+                                                class="py-3 {{getSelectedAcademicBackground(educationLevel)}}  border-none text-gray-600 text-left"
+                                                *ngFor="let educationLevel of academicLevelItems">
                                                 <span class="text-xl poppins-bold">
                                                     {{educationLevel.Name}}
                                                 </span>
                                             </button>
                                         </div>
+                                        <div class="w-full flex justify-content-end">
+                                            <button (click)="loadMoreAcademicLevel()"
+                                                *ngIf="hasMoreAcademicLevelItems()" pButton type="button"
+                                                class="border-0 bg-gray-100 border-noround poppins-medium text-gray-800">
+                                                Voire d'autre?</button>
+                                        </div>
                                     </div>
                                 </div>
-                                <button type="submit" size="small" pButton pRipple label="Continuer"
-                                    class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+
+                                <div class="w-full p-3 absolute left-0 bottom-0 lg:hidden xl:hidden">
+                                    <button type="submit" pButton label="Continuer" size="large"
+                                        class="cursor-pointer bg-main-green w-full text-white border-0"></button>
+                                </div>
+                                <button type="submit" pButton label="Continuer" size="small"
+                                    class="hidden lg:block xl:block cursor-pointer s w-full bg-main-green text-white"></button>
+
                             </div>
                         </div>
                     </form>
                 </section>
             </ng-template>
         </p-stepperPanel>
-        <p-stepperPanel header="SUBJECT">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
+        <p-stepperPanel header="SUBJECTS">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-full md:w-3 lg-w-3 xl:w-3" #subjectForm="ngForm" name="subjectForm"
                         (ngSubmit)="subjectForm.form.valid && registerSubject(nextCallback)">
-                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Dans quelle matière votre jeûne a-t-il besoin d'aide ?</h1>
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Quelles sont les matières que vous enseignez?</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
                                 <div class="pt-4 pb-6 w-full">
                                     <div class="flex flex-column gap-3">
-                                        <p-iconField iconPosition="left">
-                                            <p-inputIcon styleClass="pi pi-search" />
-                                            <input type="text" class="border-2 border-green-300" pInputText
-                                                placeholder="Search" #inp (input)="filterAcademicCourse(inp)" />
-                                        </p-iconField>
-                                        <div class="w-full   h-30rem md:h-10rem lg:h-20rem xl:h-20rem flex flex-column gap-3 overflow-y-scroll">
-                                            <button #AcademicCoursesBtn
-                                                (click)="onClickAcademicCourse(subject, AcademicCoursesBtn)"
-                                                type="button"
-                                                class="py-3 {{getAcademicCourseSelectedBackground(subject)}}  border-none text-gray-600 text-left"
-                                                *ngFor="let subject of _subjects">
+                                        <div class="w-full relative">
+                                            <p-iconField iconPosition="left">
+                                                <p-inputIcon styleClass="pi pi-search" />
+                                                <input type="text" class="border-2 border-green-300" pInputText
+                                                    placeholder="Search" [(ngModel)]="searchedSubjectListItemItem"
+                                                    name="searchTerm" (input)="filterSubjectList()" />
+                                            </p-iconField>
+                                        </div>
+                                        <div
+                                            class="w-full  h-30rem md:h-10rem lg:h-20rem xl:h-20rem flex flex-column gap-3 overflow-y-scroll">
+                                            <button (click)="onClickSubjectListItems(subject)" type="button"
+                                                class="py-3 {{getSelectedSubjectBackground(subject)}}  border-none text-gray-600 text-left"
+                                                *ngFor="let subject of subjectListItems">
                                                 <span class="text-xl poppins-bold">
                                                     {{subject.Name}}
                                                 </span>
                                             </button>
                                         </div>
+                                        <div class="w-full flex justify-content-end">
+                                            <button (click)="loadMoreSubjectList()" *ngIf="hasMoreSubjectListItems()"
+                                                pButton type="button"
+                                                class="border-0 bg-gray-100 border-noround poppins-medium text-gray-800">
+                                                Voire d'autre?</button>
+                                        </div>
                                     </div>
                                 </div>
-                                <button type="submit" size="small" pButton pRipple label="Continuer"
-                                    class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+
+                                <div class="w-full p-3 absolute left-0 bottom-0 lg:hidden xl:hidden">
+                                    <button type="submit" pButton label="Continuer" size="large"
+                                        class="cursor-pointer bg-main-green w-full text-white border-0"></button>
+                                </div>
+                                <button type="submit" pButton label="Continuer" size="small"
+                                    class="hidden lg:block xl:block cursor-pointer s w-full bg-main-green text-white"></button>
+
                             </div>
                         </div>
                     </form>
                 </section>
             </ng-template>
         </p-stepperPanel>
-        <p-stepperPanel header="PHOTO DE PROFILE">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
-                <section  class="w-full h-screen  flex justify-content-center mt-2">
-                    <div class="w-full md:w-3 lg-w-3 xl:w-3" >
+        <p-stepperPanel header="PROFILE">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                let-index="index">
+                <section class="w-full h-full  flex justify-content-center mt-2">
+                    <form class="w-full md:w-3 lg-w-3 xl:w-3" #subjectForm="ngForm" name="subjectForm"
+                        (ngSubmit)="subjectForm.form.valid && registerSubject(nextCallback)">
                         <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez télécharger une photo professionelle:</h1>
-
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
-                                <div class="w-full h-full flex justify-content-center align-content-center">
-                                    <div class=" p-2 relative bg-cover bg-no-repeat bg-green-100" style="width:200px; height: 200px; background-image: url({{selectedImageSrc}});">
-                                        <input accept="image/*" name="photo" #file (change)="onPhotoSelected($event)"  type="file" class="w-0 h-0 absolute border-circle opacity-0" style="display: none !important;" />
-                                        <button (click)="file.click()"  type="button" class="w-full h-full opacity-0"></button>
-                                    </div>
-                                </div>
-                                <div class="mb-2 p-2 flex flex-col justify-content-center gap-3">
-                                    <i class="pi pi-info-circle text-green-500" style="font-size: 1rem" ></i>
-                                    <span class="text-xs text-thin text-gray-400">
-                                            Tuteur qui ont l'air amicaux et professionels recoivent plus d'etudiants
-                                        </span>
-                                  </div>
-                                <button type="button" (click)="registerPhoto(nextCallback)"  size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
                                 
+                                <div class="w-full flex flex-column gap-4">
+                                    <div class="w-full h-full flex justify-content-center align-content-center">
+                                        <div class=" p-2 relative bg-center bg-no-repeat bg-green-100" style="width:100%; height: 200px; background-image: url({{selectedImageSrc}}); background-size: 200px;">
+                                            <input accept="image/*" name="photo" #file (change)="onPhotoSelected($event)"  type="file" class="w-0 h-0 absolute border-circle opacity-0" style="display: none !important;" />
+                                            <button (click)="file.click()"  type="button" class="w-full h-full opacity-0"></button>
+                                        </div>
+                                    </div>
+                                    <div class="mb-2 p-2 flex flex-col justify-content-center gap-3">
+                                        <i class="pi pi-info-circle text-green-500" style="font-size: 1rem" ></i>
+                                        <span class="text-xs text-thin text-gray-400">
+                                                Tuteur qui ont l'air amicaux et professionels recoivent plus d'etudiants
+                                            </span>
+                                      </div>
+    
+                                </div>
+                                <div class="w-full p-3 absolute left-0 bottom-0 lg:hidden xl:hidden">
+                                    <button (click)="registerPhoto(nextCallback)" type="button" pButton label="Continuer" size="large"
+                                        class="cursor-pointer bg-main-green w-full text-white border-0"></button>
+                                </div>
+                                <button (click)="registerPhoto(nextCallback)" type="button" pButton label="Continuer" size="small"
+                                    class="hidden lg:block xl:block cursor-pointer s w-full bg-main-green text-white"></button>
+
                             </div>
-                            
                         </div>
-                    </div>
+                    </form>
                 </section>
             </ng-template>
         </p-stepperPanel>
+
         <p-stepperPanel header="CV">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
-                <section  class="w-full h-screen  flex justify-content-center mt-2">
-                    <div class="w-full md:w-3 lg-w-3 xl:w-3" >
-                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez télécharger le curriculum de chaque diplôme que tu as reçu</h1>
-                       
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                let-index="index">
+                <section class="w-full h-full  flex justify-content-center mt-2">
+                    <form class="w-full md:w-3 lg-w-3 xl:w-3" #subjectForm="ngForm" name="subjectForm"
+                        (ngSubmit)="subjectForm.form.valid && registerSubject(nextCallback)">
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez télécharger le curriculum de chaque diplôme que tu as reçu.</h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
+                                
                                 <div class="w-full h-full flex justify-content-center align-content-center">
-                                    <div class=" p-2 relative bg-cover bg-no-repeat bg-green-100" style="width:200px; height: 200px; background-image: url('/assets/image/file-upload.svg');">
+                                    <div class=" p-2 relative bg-center bg-no-repeat bg-green-100" style="width:100%; height: 300px; background-image: url('/assets/image/file-upload.svg'); background-size: 200px;">
                                         <input  name="photo" #cvfile (change)="onCvSelected($event)"  type="file" class="w-0 h-0 absolute border-circle opacity-0" style="display: none !important;" />
                                         <div class="w-full bg-transparent  text-gray-800 poppins-bold absolute bottom-0 top-0" *ngIf="cvName">
                                             {{cvName}}
                                         </div>
                                         <button (click)="cvfile.click()"  type="button" class="w-full h-full opacity-0"></button>
-                                        
                                     </div>
                                 </div>
                                 <div class="mb-2 p-2 flex flex-col justify-content-center gap-3">
@@ -296,27 +330,26 @@
                                         Reçois un badge de certificat vérifié en nous envoyant tes diplômes. 
                                         Nous pourrions les confirmer pour accroître ta crédibilité.
                                         </span>
+                                  </div>
+                                <div class="w-full p-3 absolute left-0 bottom-0 lg:hidden xl:hidden">
+                                    <button (click)="registerCv(nextCallback)" type="button" pButton label="Continuer" size="large"
+                                        class="cursor-pointer bg-main-green w-full text-white border-0"></button>
                                 </div>
-                                <button type="button" (click)="registerCv(nextCallback)"  size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
-                                
+                                <button (click)="registerCv(nextCallback)" type="button" pButton label="Continuer" size="small"
+                                    class="hidden lg:block xl:block cursor-pointer s w-full bg-main-green text-white"></button>
+
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </section>
             </ng-template>
         </p-stepperPanel>
         <p-stepperPanel header="DESCRIPTION">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
-                <section  class="w-full h-screen  flex justify-content-center mt-2">
+                <section  class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-full md:w-3 lg-w-3 xl:w-3"  #descriptionForm="ngForm" name="descriptionForm"
                     (ngSubmit)="descriptionForm.form.valid && registerDescription(nextCallback)">
                         <h1 class="text-left text-xl text-cyan-900  poppins-bold">Description du profil.</h1>
-                        <div class="mb-2 p-2 flex flex-col justify-content-center gap-3">
-                            <i class="pi pi-info-circle text-green-500" style="font-size: 1rem" ></i>
-                            <span class="text-xs text-thin text-gray-400">
-                                En nous envoyons vos diplômes nous pourions les confirmers pour accroître votre crédibilité.
-                                </span>
-                          </div>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
                                 <div class="flex flex-column gap-2 w-full">
@@ -337,7 +370,17 @@
                                         <textarea [(ngModel)]="descriptionMotivation" name="descriptionMotivation" class="bg-gray-50" id="description-1" rows="5" cols="30" pInputTextarea ></textarea>
                                     </div> 
                                 </div>
-                                <button  size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                                <div class="w-full p-3 absolute left-0 bottom-0 lg:hidden xl:hidden">
+                                    <button type="submit" pButton label="Continuer" size="large"
+                                        class="cursor-pointer bg-main-green w-full text-white border-0"></button>
+                                </div>
+                                    <div class="w-full p-3 absolute left-0 bottom-0 lg:hidden xl:hidden">
+                                        <button type="submit" pButton label="Continuer" size="large"
+                                            class="cursor-pointer bg-main-green w-full text-white border-0"></button>
+                                    </div>
+                                    <button type="submit" pButton label="Continuer" size="small"
+                                        class="hidden lg:block xl:block cursor-pointer s w-full bg-main-green text-white"></button>
+
                             </div>
                         </div>
                     </form>
@@ -346,19 +389,13 @@
         </p-stepperPanel>
         <p-stepperPanel header="VIDEO PRESENTATION">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
-                <section   class="w-full h-screen  flex justify-content-center mt-2">
+                <section   class="w-full h-full  flex justify-content-center mt-2">
                     <div class="w-full md:w-3 lg-w-3 xl:w-3" >
                         <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez mettre une vidéos de présentation:</h1>
-                        <div class="mb-2 p-2 flex flex-col justify-content-center gap-3">
-                            <i class="pi pi-info-circle text-green-500" style="font-size: 1rem" ></i>
-                            <span class="text-xs text-thin text-gray-400">
-                                Bonne énergie! Saluer ! Donner le goût de faire affaire avec toi, les invisé à prendre un essai et parler de pourquoi vous puvez les aider.
-                                </span>
-                          </div>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
                                 <div class="w-full h-full flex justify-content-center align-content-center">
-                                    <div class=" p-2 relative bg-cover bg-no-repeat bg-green-100" style="width:200px; height: 200px; background-image: url({{selectedVideoSrc}});">
+                                    <div class=" p-2 relative bg-center bg-no-repeat bg-green-100" style="width:100%; height: 200px; background-image: url({{selectedVideoSrc}}); background-size: 200px;">
                                         
                                         <input accept="video/*"  name="video" #file (change)="onVideoSelected($event)"  type="file" class="w-0 h-0 absolute border-circle opacity-0" style="display: none !important;" />
                                         <video *ngIf="!selectedVideoSrc.endsWith('svg')" muted  controls="false"  autoplay="false" class="w-full h-full absolute left-0 top-0 "   >
@@ -367,43 +404,29 @@
                                         <button (click)="file.click()"  type="button" class="w-full h-full opacity-0"></button>
                                     </div>
                                 </div>
-                                <button type="button" (click)="registerVideo(nextCallback)"  size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                                <div class="mb-2 p-2 flex flex-col justify-content-center gap-3">
+                                    <i class="pi pi-info-circle text-green-500" style="font-size: 1rem" ></i>
+                                    <span class="text-xs text-thin text-gray-400">
+                                        Bonne énergie! Saluer ! Donner le goût de faire affaire avec toi, les invisé à prendre un essai et parler de pourquoi vous puvez les aider.
+                                        </span>
+                                  </div>
+                                <div class="w-full p-3 absolute left-0 bottom-0 lg:hidden xl:hidden">
+                                    <button (click)="registerVideo(nextCallback)" type="button" pButton label="Continuer" size="large"
+                                        class="cursor-pointer bg-main-green w-full text-white border-0"></button>
+                                </div>
+                                <button (click)="registerVideo(nextCallback)" type="button" pButton label="Continuer" size="small"
+                                    class="hidden lg:block xl:block cursor-pointer s w-full bg-main-green text-white"></button>
                             </div>
                         </div>
                     </div>
                 </section>
             </ng-template>
         </p-stepperPanel>
-
-        
-        
-        <p-stepperPanel header="DISPONIBILITE">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
-                
-            <section  class="w-full h-screen  flex justify-content-center mt-2">
-                <form class="w-full md:w-3 lg-w-3 xl:w-3" #availabilityForm="ngForm" name="availabilityForm"
-                (ngSubmit)="availabilityForm.form.valid && registerAvailability(nextCallback)">
-                    <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez définir votre disponibilité.</h1>
-                    <div class="poppins-medium">
-                        <div class="flex flex-column gap-2">
-                            <div class=" ">
-                                <p-calendar  [(ngModel)]="availability" class="overflow-x-hidden" name="availability"  [inline]="true" [showWeek]="true" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay">
-                                </p-calendar>
-                            </div>
-                            <button type="submit" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
-                            
-                        </div>
-                    </div>
-                </form>
-            </section>
-
-            </ng-template>
-        </p-stepperPanel>
         <p-stepperPanel header="TYPE DE COURS">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-full md:w-3 lg-w-3 xl:w-3" #courseTypeForm="ngForm" name="courseTypeForm" (ngSubmit)="courseTypeForm.form.valid && registerCourseType(nextCallback)">
-                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Vous désiriez une aide en ligne ou en présentiel ?
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">En ligne ou en présentiel ?
                         </h1>
                         <div class="frm poppins-medium">
                             <div class="w-full flex flex-column gap-4">
@@ -411,7 +434,7 @@
                                     <div class="flex flex-column gap-3">
                                         <div class="w-full  h-auto flex flex-column gap-3">
                                             <button (click)="onClickCourseType(courseType)" type="button"
-                                                class="py-3 {{getCourseTypeSelectedBackground(courseType)}}  border-none text-gray-600 text-left"
+                                                class="py-3 {{getCourseTypeSelectedBackground(courseType)}}  border-none text-gray-600 text-left pl-3"
                                                 *ngFor="let courseType of courseTypes">
                                                 <div class="">
                                                     <div class="text-xl poppins-bold">
@@ -425,31 +448,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" size="small" pButton pRipple label="Continuer"
-                                    class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                                <div class="w-full p-3 absolute left-0 bottom-0 lg:hidden xl:hidden">
+                                    <button type="submit" pButton label="Continuer" size="large"
+                                        class="cursor-pointer bg-main-green w-full text-white border-0"></button>
+                                </div>
+                                <button type="submit" pButton label="Continuer" size="small"
+                                    class="hidden lg:block xl:block cursor-pointer s w-full bg-main-green text-white"></button>
                             </div>
                         </div>
                     </form>
                 </section>
             </ng-template>
         </p-stepperPanel>
-        <!-- <p-stepperPanel header="VERIFICATON">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
-                <section  class="w-full h-screen  flex justify-content-center mt-2">
-                <form class="w-full md:w-3 lg-w-3 xl:w-3" #verificationForm="ngForm" name="verificationForm"
-                (ngSubmit)="verificationForm.form.valid && registerVerification(nextCallback)">
-                    <h1 class="text-left text-xl text-cyan-900  poppins-bold">Vérification dossier criminel</h1>
-                    <div class="poppins-medium">
-                        <div class="flex flex-column gap-2">
-                            
-                            <button type="submit" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
-                        </div>
-                    </div>
-                </form>
-            </section>
-
-            </ng-template>
-        </p-stepperPanel> -->
         <p-stepperPanel header="RENUMERATION">
             <ng-template pTemplate="content" let-prevCallback="prevCallback"  let-nextCallback="nextCallback" let-index="index">
                 <section  class="w-full  flex justify-content-center mt-2">
@@ -461,10 +471,20 @@
                                 <div class=" flex flex-column gap-1">
                                     <div class="flex flex-row justify-content-between w-full gap-1" *ngFor="let renumeration of renumerations">
                                         <div class="w-full p-2 border-2 border-gray-400">{{renumeration.name}}</div>
-                                        <div  class="w-full p-2 border-2 border-gray-400">{{renumeration.renumeration}}</div>
+                                        <div  class="w-full p-2 border-2 border-gray-400 text-center" >
+                                            <span *ngIf="!renumeration.editable">{{renumeration.renumeration}} %</span>
+                                            <div *ngIf="renumeration.editable"  class="w-full h-full inline-flex gap-2 align-items-center">
+                                                <input #renumerationInput (input)="onRenumerationBlur(renumerationInput)" type="text" class="p-inputtext-sm text-center border-0 bg-green-50" pInputText value="{{renumeration.renumeration}}$" />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <button type="submit" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                                <div class="w-full p-3 absolute left-0 bottom-0 lg:hidden xl:hidden">
+                                    <button type="submit" pButton label="Continuer" size="large"
+                                        class="cursor-pointer bg-main-green w-full text-white border-0"></button>
+                                </div>
+                                <button type="submit" pButton label="Continuer" size="small"
+                                    class="hidden lg:block xl:block cursor-pointer s w-full bg-main-green text-white"></button>
                             </div>
                         </div>
                     </form>
@@ -483,7 +503,12 @@
                                         Nous allons vérifier que tout est bon, notre équipe vous enverra un e-mail de confirmation !
                                     </div>
                                 </div>
-                                <button type="submit" size="small" pButton pRipple label="Continuer" class="cursor-pointer p-button-success w-full bg-green-500 text-white"></button>
+                                <div class="w-full p-3 absolute left-0 bottom-0 lg:hidden xl:hidden">
+                                    <button type="submit" pButton label="Continuer" size="large"
+                                        class="cursor-pointer bg-main-green w-full text-white border-0"></button>
+                                </div>
+                                <button type="submit" pButton label="Continuer" size="small"
+                                    class="hidden lg:block xl:block cursor-pointer s w-full bg-main-green text-white"></button>
                             </div>
                         </div>
                     </form>

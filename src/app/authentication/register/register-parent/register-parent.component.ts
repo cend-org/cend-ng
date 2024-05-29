@@ -57,26 +57,15 @@ export class RegisterParentComponent implements OnInit {
   loading: boolean = false;
 
 
-  // email: string = '';
-  // password: string = '';
-  // passwordConfirm: string = '';
-  // name: string = "";
-  // familyName: string = "";
-  // birthDate: any = "";
-  // nickName: string = "";
-  // childName: string = "";
-  // childFamilyName: string = "";
-
-
-  email: string =`parent${Math.random().toString(36).substr(2, 9)}@email.com`;
-  password: string = "password";
-  passwordConfirm: string = "password";
-  name: string = Math.random().toString(36).substr(2, 9);
-  familyName: string = Math.random().toString(36).substr(2, 9);
-  birthDate: any = new Date();
-  nickName: string = `parent_${Math.random().toString(36).substr(2, 9)}`;
-  childName: string = `enfant${Math.random().toString(36).substr(2, 9)}`;
-  childFamilyName: string = `enfant${Math.random().toString(36).substr(2, 9)}`;
+  email: string = '';
+  password: string = '';
+  passwordConfirm: string = '';
+  name: string = "";
+  familyName: string = "";
+  birthDate: any = "";
+  nickName: string = "";
+  childName: string = "";
+  childFamilyName: string = "";
 
 
 
