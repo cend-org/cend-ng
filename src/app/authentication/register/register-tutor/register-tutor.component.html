@@ -127,9 +127,13 @@
 
                                 <div class="flex-auto">
                                     <label for="birthDate" class=""> Date de naissance</label>
-                                    <p-calendar placeholder="votre date de naissance" dateFormat="dd/mm/yy"
+                                   <p-calendar placeholder="Votre date de naissance" dateFormat="dd/mm/yy"
                                         [(ngModel)]="birthDate" name="birthDate" [iconDisplay]="'input'"
-                                        [showIcon]="true" inputId="birthDate" [touchUI]="true"></p-calendar>
+                                        [showIcon]="true" inputId="birthDate" [touchUI]="true" class="hidden lg:block xl:block desktop-calendar"></p-calendar>
+                                        
+                                        <p-calendar placeholder="Votre date de naissance" dateFormat="dd/mm/yy"
+                                        [(ngModel)]="birthDate" name="birthDate" [iconDisplay]="'input'"
+                                        [showIcon]="true" inputId="birthDate" [touchUI]="true" class="lg:hidden xl:hidden mobile-calendar"></p-calendar>
                                 </div>
                                 <div class="flex flex-column mt-2">
                                     <label for="sex" class=""> Choisissez votre sex:</label>
@@ -183,9 +187,9 @@
                                                     name="searchTerm" (input)="filterAcademicLevel()" />
                                             </p-iconField>
                                         </div>
-                                        <div class="w-full  h-30rem md:h-10rem lg:h-15rem xl:h-15rem flex flex-column gap-3 overflow-y-scroll" style="scrollbar-width:none !important ;">
+                                        <div class="w-full  h-30rem md:h-10rem lg:h-15rem xl:h-15rem flex flex-column gap-3 lg:gap-1 xl:gap-1 overflow-y-scroll" style="scrollbar-width:none !important ;">
                                             <button (click)="onSelectAcademicLevel(educationLevel)" type="button"
-                                                class="py-3 {{getSelectedAcademicBackground(educationLevel)}}  border-none text-gray-600 text-left"
+                                                class="py-3 lg:py-2 xl:py-2 {{getSelectedAcademicBackground(educationLevel)}}  border-none text-gray-600 text-left"
                                                 *ngFor="let educationLevel of academicLevelItems">
                                                 <span class="text-xl poppins-bold">
                                                     {{educationLevel.Name}}
@@ -233,9 +237,9 @@
                                                     name="searchTerm" (input)="filterSubjectList()" />
                                             </p-iconField>
                                         </div>
-                                        <div class="w-full  h-30rem md:h-10rem lg:h-15rem xl:h-15rem flex flex-column gap-3 overflow-y-scroll" style="scrollbar-width:none !important ;">
+                                        <div class="w-full  h-30rem md:h-10rem lg:h-15rem xl:h-15rem flex flex-column gap-3 lg:gap-1 xl:gap-1 overflow-y-scroll" style="scrollbar-width:none !important ;">
                                             <button (click)="onClickSubjectListItems(subject)" type="button"
-                                                class="py-3 {{getSelectedSubjectBackground(subject)}}  border-none text-gray-600 text-left"
+                                                class="py-3 lg:py-2 xl:py-2 {{getSelectedSubjectBackground(subject)}}  border-none text-gray-600 text-left"
                                                 *ngFor="let subject of subjectListItems">
                                                 <span class="text-xl poppins-bold">
                                                     {{subject.Name}}

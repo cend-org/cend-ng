@@ -143,7 +143,6 @@ export class RegisterParentComponent implements OnInit {
         let resp: any = response.data;
         if (resp) {
           this.locaStorageService.save(`${environment.cend_default_lang_id}_tkn`, resp["NewParent"]['T']);
-          console.log(resp["NewParent"]['T']);
           nextCallback.emit();
         };
         this.loadingService.emitChange(false);

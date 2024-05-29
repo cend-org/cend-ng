@@ -1,6 +1,79 @@
 <p-toast position="bottom-center" preventOpenDuplicates="true" />
 <div class="card">
     <p-stepper [linear]="false">
+
+
+        <p-stepperPanel header="About">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                let-index="index">
+                <section class="w-full h-full  flex justify-content-center mt-2">
+                    <form class="w-full md:w-3 lg-w-3 xl:w-3" #aboutForm="ngForm" name="aboutForm"
+                        (ngSubmit)="aboutForm.form.valid && registerAboutInfo(nextCallback)">
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez remplir les informations
+                            suivants.</h1>
+                        <div class="frm poppins-medium">
+                            <div class="w-full flex flex-column gap-2">
+                                <div class="formgrid grid">
+                                    <div class="field col">
+                                        <label for="aname">Nom</label>
+                                        <input [(ngModel)]="name" name="aname" placeholder="Votre nom" id="aname"
+                                            type="text"
+                                            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                                    </div>
+                                    <div class="field col">
+                                        <label for="familyName">Prénom</label>
+                                        <input [(ngModel)]="familyName" name="familyName" placeholder="Votre prénom"
+                                            id="familyName" type="text"
+                                            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                                    </div>
+                                </div>
+
+                                <div class="flex-auto">
+                                    <label for="birthDate" class=""> Date de naissance</label>
+                                    <p-calendar placeholder="Votre date de naissance" dateFormat="dd/mm/yy"
+                                        [(ngModel)]="birthDate" name="birthDate" [iconDisplay]="'input'"
+                                        [showIcon]="true" inputId="birthDate" [touchUI]="true" class="hidden lg:block xl:block desktop-calendar"></p-calendar>
+                                        
+                                        <p-calendar placeholder="Votre date de naissance" dateFormat="dd/mm/yy"
+                                        [(ngModel)]="birthDate" name="birthDate" [iconDisplay]="'input'"
+                                        [showIcon]="true" inputId="birthDate" [touchUI]="true" class="lg:hidden xl:hidden mobile-calendar"></p-calendar>
+                                </div>
+
+
+                                <div class="flex flex-column mt-2">
+                                    <label for="sex" class=""> Choisissez votre sex:</label>
+                                    <p-dropdown placeholder="Votre sexe" inputId="sex" [options]="sex"
+                                        [(ngModel)]="selectedSex" optionLabel="key" name="sexname" />
+                                </div>
+
+                                <div class="flex flex-column mt-2">
+                                    <label for="lang" class=""> Choisissez votre langue:</label>
+                                    <p-dropdown placeholder="Votre langue" inputId="lang" [options]="languages"
+                                        [(ngModel)]="selectedParentLanguage" optionLabel="name" name="langname">
+
+                                        <ng-template let-language pTemplate="item">
+                                            <div class="flex justify-content-between align-items-center gap-2 px-2">
+                                                <span class="poppins-medium">{{language.name}}</span>
+                                                <span class="uppercase">{{ language.code }}</span>
+                                            </div>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </div>
+                                <div class="w-full p-3 absolute left-0 bottom-0 lg:hidden xl:hidden">
+                                    <button type="submit" pButton label="Continuer" size="large"
+                                        class="cursor-pointer bg-main-green w-full text-white border-0"></button>
+                                </div>
+                                <button type="submit" pButton label="Continuer" size="small"
+                                    class="hidden lg:block xl:block cursor-pointer s w-full bg-main-green text-white"></button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </ng-template>
+        </p-stepperPanel>
+
+
+
         <p-stepperPanel header="EMAIL">
             <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
@@ -124,9 +197,13 @@
 
                                 <div class="flex-auto">
                                     <label for="birthDate" class=""> Date de naissance</label>
-                                    <p-calendar placeholder="Votre date de naissance" dateFormat="dd/mm/yy"
+                                   <p-calendar placeholder="Votre date de naissance" dateFormat="dd/mm/yy"
                                         [(ngModel)]="birthDate" name="birthDate" [iconDisplay]="'input'"
-                                        [showIcon]="true" inputId="birthDate" [touchUI]="true"></p-calendar>
+                                        [showIcon]="true" inputId="birthDate" [touchUI]="true" class="hidden lg:block xl:block desktop-calendar"></p-calendar>
+                                        
+                                        <p-calendar placeholder="Votre date de naissance" dateFormat="dd/mm/yy"
+                                        [(ngModel)]="birthDate" name="birthDate" [iconDisplay]="'input'"
+                                        [showIcon]="true" inputId="birthDate" [touchUI]="true" class="lg:hidden xl:hidden mobile-calendar"></p-calendar>
                                 </div>
 
 
@@ -261,11 +338,11 @@
                                                     name="searchTerm" (input)="filterAcademicLevel()" />
                                             </p-iconField>
                                         </div>
-                                       <div class="w-full  h-30rem md:h-10rem lg:h-15rem xl:h-15rem flex flex-column gap-3 overflow-y-scroll" style="scrollbar-width:none !important ;">
+                                       <div class="w-full  h-30rem md:h-10rem lg:h-15rem xl:h-15rem flex flex-column gap-3 lg:gap-1 xl:gap-1 overflow-y-scroll" style="scrollbar-width:none !important ;">
                                             <button (click)="onClickAcademicLevelItems(educationLevel)" type="button"
-                                                class="py-3 {{getSelectedAcademicBackground(educationLevel)}}  border-none text-gray-600 text-left"
+                                                class="py-3 lg:py-2 xl:py-2 {{getSelectedAcademicBackground(educationLevel)}}  border-none text-gray-600 text-left"
                                                 *ngFor="let educationLevel of academicLevelItems">
-                                                <span class="text-xl poppins-bold">
+                                                <span class="text-xl lg:text-sm xl:text-sm poppins-bold">
                                                     {{educationLevel.Name}}
                                                 </span>
                                             </button>

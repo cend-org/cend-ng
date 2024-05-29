@@ -24,6 +24,11 @@ $main-border-color: #3A9B23;
 }
 
 ::ng-deep {
+    .desktop-calendar{
+        .p-datepicker-touch-ui{
+            min-width: 30vw !important;
+        }
+    }
     .p-stepper .p-stepper-panels{
         padding: 0px !important;
         padding-top: 1.2rem !important;

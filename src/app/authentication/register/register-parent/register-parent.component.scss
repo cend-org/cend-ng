@@ -6,6 +6,11 @@ $main-text-color: #3A9B23;
 }
 
 ::ng-deep{
+    .desktop-calendar{
+        .p-datepicker-touch-ui{
+            min-width: 30vw !important;
+        }
+    }
     .diponnibility{
         p-calendar{
             span{
