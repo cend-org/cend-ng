@@ -4,5 +4,8 @@
     "parent": "Parent",
     "tutor": "Tutor",
     "teacher": "Teacher", 
-    "is_loading": "is loading!"
+    "is_loading": "is loading!",
+    "landing_connect": "Connect to",
+    "landing_connect_to_get": "your account",
+    "landing_connect_to_your_account": "to get access"
 }
