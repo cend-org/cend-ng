@@ -3,78 +3,9 @@
     <p-stepper [linear]="false">
 
 
-        <p-stepperPanel header="About">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
-                let-index="index">
-                <section class="w-full h-full  flex justify-content-center mt-2">
-                    <form class="w-full md:w-3 lg-w-3 xl:w-3" #aboutForm="ngForm" name="aboutForm"
-                        (ngSubmit)="aboutForm.form.valid && registerAboutInfo(nextCallback)">
-                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Veuillez remplir les informations
-                            suivants.</h1>
-                        <div class="frm poppins-medium">
-                            <div class="w-full flex flex-column gap-2">
-                                <div class="formgrid grid">
-                                    <div class="field col">
-                                        <label for="aname">Nom</label>
-                                        <input [(ngModel)]="name" name="aname" placeholder="Votre nom" id="aname"
-                                            type="text"
-                                            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                                    </div>
-                                    <div class="field col">
-                                        <label for="familyName">Prénom</label>
-                                        <input [(ngModel)]="familyName" name="familyName" placeholder="Votre prénom"
-                                            id="familyName" type="text"
-                                            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                                    </div>
-                                </div>
 
-                                <div class="flex-auto">
-                                    <label for="birthDate" class=""> Date de naissance</label>
-                                    <p-calendar placeholder="Votre date de naissance" dateFormat="dd/mm/yy"
-                                        [(ngModel)]="birthDate" name="birthDate" [iconDisplay]="'input'"
-                                        [showIcon]="true" inputId="birthDate" [touchUI]="true" class="hidden lg:block xl:block desktop-calendar"></p-calendar>
-                                        
-                                        <p-calendar placeholder="Votre date de naissance" dateFormat="dd/mm/yy"
-                                        [(ngModel)]="birthDate" name="birthDate" [iconDisplay]="'input'"
-                                        [showIcon]="true" inputId="birthDate" [touchUI]="true" class="lg:hidden xl:hidden mobile-calendar"></p-calendar>
-                                </div>
-
-
-                                <div class="flex flex-column mt-2">
-                                    <label for="sex" class=""> Choisissez votre sex:</label>
-                                    <p-dropdown placeholder="Votre sexe" inputId="sex" [options]="sex"
-                                        [(ngModel)]="selectedSex" optionLabel="key" name="sexname" />
-                                </div>
-
-                                <div class="flex flex-column mt-2">
-                                    <label for="lang" class=""> Choisissez votre langue:</label>
-                                    <p-dropdown placeholder="Votre langue" inputId="lang" [options]="languages"
-                                        [(ngModel)]="selectedParentLanguage" optionLabel="name" name="langname">
-
-                                        <ng-template let-language pTemplate="item">
-                                            <div class="flex justify-content-between align-items-center gap-2 px-2">
-                                                <span class="poppins-medium">{{language.name}}</span>
-                                                <span class="uppercase">{{ language.code }}</span>
-                                            </div>
-                                        </ng-template>
-                                    </p-dropdown>
-                                </div>
-                                <div class="w-full p-3 absolute left-0 bottom-0 lg:hidden xl:hidden">
-                                    <button type="submit" pButton label="Continuer" size="large"
-                                        class="cursor-pointer bg-main-green w-full text-white border-0"></button>
-                                </div>
-                                <button type="submit" pButton label="Continuer" size="small"
-                                    class="hidden lg:block xl:block cursor-pointer s w-full bg-main-green text-white"></button>
-                            </div>
-                        </div>
-                    </form>
-                </section>
-            </ng-template>
-        </p-stepperPanel>
-
-
-
-        <p-stepperPanel header="EMAIL">
+        
+<p-stepperPanel header="EMAIL">
             <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-full md:w-3 lg-w-3 xl:w-3" #emailForm="ngForm" name="f"
@@ -100,24 +31,24 @@
                                         class="focus:bg-green-100 hover:border-2 hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-green-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
                                         <p-image class="absolute ml-4" src="assets/image/google.svg" alt="Image"
                                             width="20"></p-image>
-                                        <div class="w-full text-gray-600 text-center">Continuer avec google</div>
+                                       <div class="w-full text-gray-500 text-center poppins-regular">Continuer avec google</div>
                                     </button>
                                     <button type="button"
                                         class="focus:bg-green-100 hover:border-2  hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-green-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
                                         <p-image class="absolute ml-4" src="assets/image/apple.svg" alt="Image"
                                             width="20"></p-image>
-                                        <div class="w-full text-gray-600 text-center">Continuer avec apple</div>
+                                       <div class="w-full text-gray-500 text-center poppins-regular">Continuer avec apple</div>
                                     </button>
                                     <button type="button"
                                         class="focus:bg-green-100 hover:border-2  hover:border-green-300  cursor-pointer flex justify-content-between border-2 border-green-200 border-round-md align-items-center w-full h-3rem bg-white text-white">
                                         <p-image class="absolute ml-4" src="assets/image/fb.svg" alt="Image"
                                             width="20"></p-image>
-                                        <div class="w-full text-gray-600 text-center">Continuer avec facebook</div>
+                                       <div class="w-full text-gray-500 text-center poppins-regular">Continuer avec facebook</div>
                                     </button>
                                     <button type="button"
                                         class="focus:bg-green-100 text-green-600 hover:text-green-500  cursor-pointer bg-green-50 flex justify-content-between border-none border-round-md align-items-center w-full h-3rem">
                                         <i class="pi pi-qrcode ml-4"></i>
-                                        <div class="w-full text-center">
+                                        <div class="w-full text-center text-gray-500 poppins-regular ">
                                             Connectez-vous avec une qr-code
                                         </div>
                                     </button>
@@ -197,7 +128,7 @@
 
                                 <div class="flex-auto">
                                     <label for="birthDate" class=""> Date de naissance</label>
-                                   <p-calendar placeholder="Votre date de naissance" dateFormat="dd/mm/yy"
+                                    <p-calendar placeholder="Votre date de naissance" dateFormat="dd/mm/yy"
                                         [(ngModel)]="birthDate" name="birthDate" [iconDisplay]="'input'"
                                         [showIcon]="true" inputId="birthDate" [touchUI]="true" class="hidden lg:block xl:block desktop-calendar"></p-calendar>
                                         
@@ -238,6 +169,7 @@
                 </section>
             </ng-template>
         </p-stepperPanel>
+
         <p-stepperPanel header="ChildName">
             <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
                 let-index="index">
@@ -351,7 +283,7 @@
                                             <button (click)="loadMoreAcademicLevel()"
                                                 *ngIf="hasMoreAcademicLevelItems()" pButton type="button"
                                                 class="border-0 bg-gray-100 border-noround poppins-medium text-gray-800">
-                                                Voire d'autre?</button>
+                                               voir d'autres?</button>
                                         </div>
                                     </div>
                                 </div>
@@ -391,11 +323,11 @@
                                                     name="searchTerm" (input)="filterSubjectList()" />
                                             </p-iconField>
                                         </div>
-                                       <div class="w-full  h-30rem md:h-10rem lg:h-15rem xl:h-15rem flex flex-column gap-3 overflow-y-scroll" style="scrollbar-width:none !important ;">
+                                       <div class="w-full  h-30rem md:h-10rem lg:h-15rem xl:h-15rem flex flex-column gap-3 lg:gap-1 xl:gap-1 overflow-y-scroll" style="scrollbar-width:none !important ;">
                                             <button (click)="onClickSubjectListItems(subject)" type="button"
-                                                class="py-3 {{getSelectedSubjectBackground(subject)}}  border-none text-gray-600 text-left"
+                                                class="py-3 lg:py-2 xl:py-2 {{getSelectedSubjectBackground(subject)}}  border-none text-gray-600 text-left"
                                                 *ngFor="let subject of subjectListItems">
-                                                <span class="text-xl poppins-bold">
+                                                <span class="text-xl lg:text-sm xl:text-sm poppins-bold">
                                                     {{subject.Name}}
                                                 </span>
                                             </button>
@@ -404,7 +336,7 @@
                                             <button (click)="loadMoreSubjectList()" *ngIf="hasMoreSubjectListItems()"
                                                 pButton type="button"
                                                 class="border-0 bg-gray-100 border-noround poppins-medium text-gray-800">
-                                                Voire d'autre?</button>
+                                               voir d'autres?</button>
                                         </div>
                                     </div>
                                 </div>
@@ -470,7 +402,7 @@
                 <section class="w-full h-full  flex justify-content-center mt-2">
                     <form class="w-full md:w-3 lg-w-3 xl:w-3" #availabilityForm="ngForm" name="availabilityForm"
                         (ngSubmit)="availabilityForm.form.valid && registerAvailability(nextCallback)">
-                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Quelles sont vos disponnibilités pour
+                        <h1 class="text-left text-xl text-cyan-900  poppins-bold">Quelles sont vos disponibilités pour
                             la premiere
                             rencontre avec le tuteur?</h1>
 
@@ -478,35 +410,65 @@
                             <div class="flex flex-column gap-4">
                                 <div class="inline-flex gap-2 diponnibility">
                                     <div class=""> Vous préférez demain à</div>
-                                    <p-calendar [(ngModel)]="availabilityTommorrowAt" name="from" [showTime]="true"
+                                     <p-calendar [(ngModel)]="availabilityTommorrowAt" name="from" [showTime]="true"
                                         [timeOnly]="true" [iconDisplay]="'input'" [showIcon]="false"
-                                        inputId="icondisplay" [hourFormat]="'24'" [touchUI]="true">
+                                        inputId="icondisplay" [hourFormat]="'24'" [touchUI]="true" class="desktop-calendar hidden lg:block xl:block">
                                         <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
                                             <i class="pi pi-clock pointer-events-none"
                                                 (click)="clickCallBack($event)"></i>
                                         </ng-template>
+                                    </p-calendar>
+                                    <p-calendar [(ngModel)]="availabilityTommorrowAt" name="from" [showTime]="true"
+                                        [timeOnly]="true" [iconDisplay]="'input'" [showIcon]="false"
+                                        inputId="icondisplay" [hourFormat]="'24'" [touchUI]="true" class="mobile-calendar lg:hidden xl:hidden">
+                                        <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+                                            <i class="pi pi-clock pointer-events-none"
+                                                (click)="clickCallBack($event)"></i>
+                                        </ng-template>
+
                                     </p-calendar>
                                     <div>h</div>
                                 </div>
-                                <div class="inline-flex gap-2 justify-content-end diponnibilitya">
+                                <div class="inline-flex gap-2 justify-content-end">
                                     <div class=""> ou</div>
-                                    <p-calendar [(ngModel)]="avalabilityTommorrowDate" name="from" [timeOnly]="false"
+                                    <div class="diponnibilitya">
+                                        <p-calendar [(ngModel)]="avalabilityTommorrowDate" name="fromDate" [timeOnly]="false"
                                         [iconDisplay]="'input'" [showIcon]="false" inputId="icondisplay"
-                                        [touchUI]="true">
+                                        [touchUI]="true" class="desktop-calendar hidden lg:block xl:block">
                                         <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
                                             <i class="pi pi-clock pointer-events-none"
                                                 (click)="clickCallBack($event)"></i>
                                         </ng-template>
                                     </p-calendar>
-                                    <div>a</div>
-                                    <p-calendar [(ngModel)]="availabilityTommorrowHour" name="from" [showTime]="true"
+                                    <p-calendar [(ngModel)]="avalabilityTommorrowDate" name="fromDate" [timeOnly]="false"
+                                        [iconDisplay]="'input'" [showIcon]="false" inputId="icondisplay"
+                                        [touchUI]="true" class="mobile-calendar lg:hidden xl:hidden">
+                                        <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+                                            <i class="pi pi-clock pointer-events-none"
+                                                (click)="clickCallBack($event)"></i>
+                                        </ng-template>
+                                    </p-calendar>
+                                    </div>
+                                    <div>à</div>
+                                    <div class="diponnibility">
+                                        <p-calendar [(ngModel)]="availabilityTommorrowHour" name="fromHour" [showTime]="true"
                                         [timeOnly]="true" [iconDisplay]="'input'" [showIcon]="false"
-                                        inputId="icondisplay" [hourFormat]="'24'" [touchUI]="true">
+                                        inputId="icondisplay" [hourFormat]="'24'" [touchUI]="true" class="desktop-calendar hidden lg:block xl:block">
                                         <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
                                             <i class="pi pi-clock pointer-events-none"
                                                 (click)="clickCallBack($event)"></i>
                                         </ng-template>
                                     </p-calendar>
+                                    <p-calendar [(ngModel)]="availabilityTommorrowHour" name="fromHour" [showTime]="true"
+                                        [timeOnly]="true" [iconDisplay]="'input'" [showIcon]="false"
+                                        inputId="icondisplay" [hourFormat]="'24'" [touchUI]="true" class="mobile-calendar lg:hidden xl:hidden">
+                                        <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+                                            <i class="pi pi-clock pointer-events-none"
+                                                (click)="clickCallBack($event)"></i>
+                                        </ng-template>
+                                    </p-calendar>
+                                    </div>
+                                   
                                     <div>h?</div>
                                 </div>
                                 <div class="w-full p-3 absolute left-0 bottom-0 lg:hidden xl:hidden">
@@ -529,7 +491,7 @@
                         (ngSubmit)="suggestionsForm.form.valid && acceptSuggestion(nextCallback)">
                         <h1 class="text-center text-xl text-cyan-900 poppins-bold">Voici le meilleur tuteur pour
                             convenir à vos besoins:</h1>
-                        <div class="block md:hidden lg:hidden xl:hidden">
+                        <div class="block">
                             <div class="p-2 pl-0">
                                 <div class="w-full h-8rem relative">
                                     <video controls #presentationVideo autoplay class="w-full h-full bg-green-100">
@@ -616,7 +578,7 @@
                                 ce qui nous étonnerais.
                             </div>
                             <div class="font-normal text-lg text-gray-600">
-                                Passer au payement par car de crédit ou de débit pour la première rencontre ce {{avalabilityTommorrowDate | date}} à {{availabilityTommorrowHour}} heure avec {{suggestedTutor.Name}} {{suggestedTutor.FamilyName}}.
+                                Passer au payement par car de crédit ou de débit pour la première rencontre ce {{avalabilityTommorrowDate?.toLocaleDateString()}} à {{availabilityTommorrowHour?.getHours()}} heures {{availabilityTommorrowHour?.getMinutes()}} minutes avec {{suggestedTutor.Name}} {{suggestedTutor.FamilyName}}.
                             </div>
 
                             <div class="w-full p-3 absolute left-0 bottom-0 lg:hidden xl:hidden">

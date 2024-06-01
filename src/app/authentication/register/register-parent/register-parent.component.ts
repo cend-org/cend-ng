@@ -90,7 +90,7 @@ export class RegisterParentComponent implements OnInit {
   selectedSubjects: any[] = [];
 
   get SelectedSubjectsNames(): string {
-    return this.selectedSubjects.map(item => item.Name).join(', ');
+    return this.filteredSubjectListItem.map(item => item.Name).join(', ');
   }
   normalizeString(str: string): string {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -730,8 +730,8 @@ getAnotherTutor(){
 
   }).subscribe({
     next: (response: any) => {
-      this.suggestedTutor = response["data"]["SuggestTutor"];
-      let suggestedTutorId = response["data"]["SuggestTutor"]['Id'];
+      this.suggestedTutor = response["data"]["SuggestOtherTutor"];
+      let suggestedTutorId = response["data"]["SuggestOtherTutor"]['Id'];
       if (suggestedTutorId) {
         this.apolloService.query({
           query: gql`query ($userId : Int!) {

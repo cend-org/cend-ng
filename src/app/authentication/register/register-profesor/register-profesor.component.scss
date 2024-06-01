@@ -99,7 +99,8 @@ $main-border-color: #3A9B23;
   ::ng-deep{
     .desktop-calendar{
         .p-datepicker-touch-ui{
-            min-width: 30vw !important;
+            min-width: 20vw !important;
+            max-width: 28vw !important;
         }
     }
     .p-stepper .p-stepper-panels{

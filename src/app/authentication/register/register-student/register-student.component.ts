@@ -82,7 +82,7 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
   });
     this.groupedCities = GroupedCitiesData;
    // this.loadingService.emitChange(false);
-   this.getSuggestedTutor("");
+   //this.getSuggestedTutor("");
   }
   filterLanguage(input: any) {
     const searchedLang = this.normalizeString(input.value);
@@ -113,7 +113,7 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
   selectedSubjects: any[] = [];
 
   get SelectedSubjectsNames(): string {
-    return this.selectedSubjects.map(item => item.Name).join(', ');
+    return this.filteredSubjectListItem.map(item => item.Name).join(', ');
   }
   getAcademicCourseSelectedBackground(subject: any): String {
     if (this.selectedSubjects.find(x => x.Name.toLowerCase() == subject.Name.toLowerCase())) {
@@ -709,7 +709,7 @@ export class RegisterStudentComponent implements OnInit, AfterViewInit {
   }
   getSelectedAcademicBackground(item: any): String {
 
-    if (this.academicLevelItem && this.academicLevelItem.Name.toLowerCase() == item.Name.toLowerCase()) {
+    if (this.academicLevelItem && this.academicLevelItem.Id == item.Id) {
       return "bg-green-200";
     }
     return "";
@@ -826,16 +826,17 @@ getAnotherTutor(){
 
   }).subscribe({
     next: (response: any) => {
-      this.suggestedTutor = response["data"]["SuggestTutor"];
-      let suggestedTutorId = response["data"]["SuggestTutor"]['Id'];
+      this.suggestedTutor = response["data"]["SuggestOtherTutorToUser"];
+      let suggestedTutorId = response["data"]["SuggestOtherTutorToUser"]['Id'];
       if (suggestedTutorId) {
         this.apolloService.query({
-          query: gql`query ($userId : Int!) {
-            UserVideoPresentation(userId: $userId)
+          query: gql`
+          query ($tutorId : Int!) {
+            UserVideoPresentation(userId: $tutorId)
         }
         `,
           variables: {
-            "userId": suggestedTutorId
+            "tutorId": suggestedTutorId
           }, context: {
             headers: this.headerService.Get()
           }
@@ -921,18 +922,19 @@ getSuggestedTutor(nextCallback: any) {
 
   }).subscribe({
     next: (response: any) => {
-      this.suggestedTutor = response["data"]["SuggestTutor"];
-      let suggestedTutorId = response["data"]["SuggestTutor"]['Id'];
-      this.tutorId = response["data"]["SuggestTutor"]['Id'];
+      this.suggestedTutor = response["data"]["SuggestTutorToUser"];
+      let suggestedTutorId = response["data"]["SuggestTutorToUser"]['Id'];
+      this.tutorId = response["data"]["SuggestTutorToUser"]['Id'];
       this.isSuggestedTutor = true;
       if (suggestedTutorId) {
         this.apolloService.query({
-          query: gql`query ($userId : Int!) {
-            UserVideoPresentation(userId: $userId)
+          query: gql`
+          query ($tutorId : Int!) {
+            UserVideoPresentation(userId: $tutorId)
         }
         `,
           variables: {
-            "userId": suggestedTutorId
+            "tutorId": suggestedTutorId
           }, context: {
             headers: this.headerService.Get()
           }
