@@ -1,11 +1,16 @@
 import {
+  Ripple,
+  RippleModule
+} from "./chunk-736BP3RN.js";
+import {
   Tooltip,
   TooltipModule
 } from "./chunk-T5RLB6K5.js";
 import {
-  Ripple,
-  RippleModule
-} from "./chunk-736BP3RN.js";
+  RouterLink,
+  RouterLinkActive,
+  RouterModule
+} from "./chunk-VIRGAZX6.js";
 import {
   ConnectedOverlayScrollHandler,
   DomHandler
@@ -23,11 +28,6 @@ import {
   transition,
   trigger
 } from "./chunk-6PHIBCUQ.js";
-import {
-  RouterLink,
-  RouterLinkActive,
-  RouterModule
-} from "./chunk-VIRGAZX6.js";
 import {
   DomSanitizer
 } from "./chunk-EDBDKJQG.js";

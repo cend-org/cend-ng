@@ -2,11 +2,11 @@ import {
   AutoFocus,
   AutoFocusModule
 } from "./chunk-IHHDIKUX.js";
-import "./chunk-LZMSIMQG.js";
 import {
   NG_VALUE_ACCESSOR,
   NgControl
 } from "./chunk-5NY3OXPO.js";
+import "./chunk-LZMSIMQG.js";
 import {
   CommonModule,
   NgClass,
