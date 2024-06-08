@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { ImageModule } from 'primeng/image';
 import { InputTextModule } from 'primeng/inputtext';
@@ -24,6 +23,22 @@ import { ThemesModule } from '../../@themes/themes.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApolloInterceptor } from '../../@core/interceptors/graph.interceptor';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { AvatarModule } from 'primeng/avatar';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { StepperModule } from 'primeng/stepper';
+import { StepsModule } from 'primeng/steps';
+import { FieldsetModule } from 'primeng/fieldset';
+import { TabViewModule } from 'primeng/tabview';
+import { BadgeModule } from 'primeng/badge';
+import { TableModule } from 'primeng/table';
+import { CheckboxModule } from 'primeng/checkbox';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+
+import { ButtonModule } from 'primeng/button';
+
+
+
 @NgModule({
   declarations: [
     RegisterStudentComponent,
@@ -35,7 +50,6 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     CommonModule,
     RegisterRoutingModule,
    InputTextModule,
-   ButtonModule,
    DividerModule,
    ImageModule,
    InputOtpModule,
@@ -50,6 +64,18 @@ import { SelectButtonModule } from 'primeng/selectbutton';
    InputTextareaModule,
    ThemesModule,
    SelectButtonModule,
+   AvatarModule,
+   ProgressSpinnerModule,
+   StepperModule,
+   StepsModule,
+   FieldsetModule,
+   TabViewModule,
+   BadgeModule,
+   TableModule,
+   CheckboxModule,
+   InputIconModule,
+   IconFieldModule,
+   ButtonModule
   ],
   providers:[
     { provide: HTTP_INTERCEPTORS, useClass: ApolloInterceptor, multi: true },

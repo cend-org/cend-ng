@@ -5,18 +5,95 @@ $main-text-color: #3A9B23;
    color: white;
 }
 
-::ng-deep .p-password{
-    width:  100%;
-}
+::ng-deep{
+    .desktop-calendar{
+        .p-datepicker-touch-ui{
+            min-width: 20vw !important;
+            max-width: 28vw !important;
+        }
+    }
+    .diponnibility{
+        p-calendar{
+            span{
+                .p-inputtext{
+                    text-align: center;
+                    width: 75px !important;
+                    height: 10px !important;
+                    background: rgb(241, 241, 241);
+                }
+            }
+        }
+    }
+    .diponnibilitya{
+        p-calendar{
+            span{
+                .p-inputtext{
+                    width: 120px !important;
+                    height: 10px !important;
+                    background: rgb(241, 241, 241);
+                }
+            }
+        }
+    }
+    .p-stepper .p-stepper-panels{
+        padding: 0px !important;
+        padding-top: 1.2rem !important;
+    }
+    
+    .p-inputtext {
+        width: 100%;
+    }
+   .p-password{
+       width:  100%;
+  }
+   .p-password-input{
+       width:  100%;
+   }
+   .p-dropdown{
+       width: 100%;
+   }
+   .p-stepper-number{
+       display: none;
+   }
+   .p-stepper-title{
+       display: none;
+   }
+   .p-stepper-nav{
+       display: none;
+   }
+   p-button{
+       .p-button{
+           width: 100%;
+           border: none;
+           background-color: transparent;
+       }
+   }
 
-::ng-deep .p-password-input{
-   width:  100%;
-}
-
-::ng-deep .p-calendar{
-   width:  100%;
-}
-
-::ng-deep .p-dropdown{
-   width: 100%;
+   .p-calendar{
+       width:  100%;
+   }
+   $availability-calendar-width: 40%;
+   .availability{
+       p-calendar{
+           width:  $availability-calendar-width;
+           .p-calendar{
+               width:  100%;
+               .p-inputtext{
+                   width:  100%;
+               }
+           }
+       }
+   }
+   $tarification-calendar-width: 150px;
+   .tarification{
+       p-calendar{
+           width:  $tarification-calendar-width;
+           .p-calendar{
+               width:  100%;
+               .p-inputtext{
+                   width:  100%;
+               }
+           }
+       }
+   }
 }

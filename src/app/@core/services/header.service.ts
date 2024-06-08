@@ -12,5 +12,9 @@ export class HeaderService{
             'Authorization': `Bearer ${this.locaStorageService.get(`${environment.cend_default_lang_id}_tkn`) || ''}`.replace(/"/g, '')
           })
     }
+
+    GetAuth(): any {
+        return `Bearer ${this.locaStorageService.get(`${environment.cend_default_lang_id}_tkn`) || ''}`.replace(/"/g, '')
+    }
 }
 

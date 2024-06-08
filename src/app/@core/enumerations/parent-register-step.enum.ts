@@ -3,6 +3,10 @@ export enum ParentRegisterStepEnum{
     OTP,
     PASSWORD,
     ABOUT,
+    STUDENT_NAME,
+    STUDENT_SCHOOL_LEVEL,
+    STUDENT_SUBJECT,
+    COURSE_TYPE,
+    AVAILABILITY, 
     SUGGESTED_TUTOR
-
 }

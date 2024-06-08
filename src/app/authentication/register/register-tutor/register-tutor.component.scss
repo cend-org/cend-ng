@@ -24,6 +24,19 @@ $main-border-color: #3A9B23;
 }
 
 ::ng-deep {
+    .desktop-calendar{
+        .p-datepicker-touch-ui{
+            min-width: 20vw !important;
+            max-width: 28vw !important;
+        }
+    }
+    .p-stepper .p-stepper-panels{
+        padding: 0px !important;
+        padding-top: 1.2rem !important;
+    }
+    .p-inputtext {
+        width: 100%;
+    }
     .p-fileupload-buttonbar{
         display: flex;
         flex-direction: column;
@@ -67,3 +80,87 @@ $main-border-color: #3A9B23;
         }
     }
 }
+
+  
+  /* Could Use thise as well for Individual Controls */
+  video::-webkit-media-controls-play-button {
+    display: none;
+  }
+  
+  video::-webkit-media-controls-volume-slider {
+    display: none;
+  }
+  
+  video::-webkit-media-controls-mute-button {
+    display: none;
+  }
+  
+  video::-webkit-media-controls-timeline {
+    display: none;
+  }
+  
+  video::-webkit-media-controls-current-time-display {
+    display: none;
+  }  
+  video::-webkit-media-controls-fullscreen-button {
+    display: none !important;
+  }
+
+
+
+
+  ::ng-deep{
+    .p-password{
+        width:  100%;
+   }
+    .p-password-input{
+        width:  100%;
+    }
+    .p-dropdown{
+        width: 100%;
+    }
+    .p-stepper-number{
+        display: none;
+    }
+    .p-stepper-title{
+        display: none;
+    }
+    .p-stepper-nav{
+        display: none;
+    }
+    p-button{
+        .p-button{
+            width: 100%;
+            border: none;
+            background-color: transparent;
+        }
+    }
+ 
+    .p-calendar{
+        width:  100%;
+    }
+    $availability-calendar-width: 40%;
+    .availability{
+        p-calendar{
+            width:  $availability-calendar-width;
+            .p-calendar{
+                width:  100%;
+                .p-inputtext{
+                    width:  100%;
+                }
+            }
+        }
+    }
+    $tarification-calendar-width: 150px;
+    .tarification{
+        p-calendar{
+            width:  $tarification-calendar-width;
+            .p-calendar{
+                width:  100%;
+                .p-inputtext{
+                    width:  100%;
+                }
+            }
+        }
+    }
+ }

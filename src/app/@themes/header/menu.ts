@@ -5,6 +5,7 @@ export class Menu{
     "command"?: any;
     "url"?: string;
     "routerLink"?: string;
+    "fragment"?: string;
 }
 
 export const menus : Array<Menu> = [
@@ -34,31 +35,35 @@ export const menus : Array<Menu> = [
 
 export const aboutItems : Array<Menu> = [
     {
-        label : "A propos de nous",
+        label : "Qui sommes-nous ?",
         icon : "pi pi-info-circle",
-        routerLink: "/pages/about/about-us"
+        routerLink: "/pages/about",
+        fragment: "about-us"
         
     }, 
     {
         label : "Notre mission",
         icon : "pi pi-server",
-        routerLink: "/pages/about/our-mission"
+        routerLink: "/pages/about",
+        fragment:'our-mission'
     },
     {
         label : "Les points forts de CEND",
         icon : "pi pi-thumbs-up",
-        routerLink: "/pages/about/strong-points"
+        routerLink: "/pages/about",
+        fragment:'cend-best-point'
     },
     {
         label : "Comment ça marche?",
         icon : "pi pi-question-circle ",
-        routerLink: "/pages/about/how-it-works"
+        routerLink: "/pages/about",
+        fragment: "how-it-works"
     }
 ]
 export const loginItems : Array<Menu> =[
 
     {
-        label : "Etudiant",
+        label : "Étudiant",
         icon : "pi pi-graduation-cap",
         routerLink: "/authentication/login/student"
         
@@ -76,13 +81,12 @@ export const loginItems : Array<Menu> =[
     {
         label : "Professeur",
         icon : "pi pi-user-plus",
-        routerLink: "/authentication/login/professor"
+        routerLink: "/authentication/login/teacher"
     }
 ]
 export const registerItems : Array<Menu> =[
-
     {
-        label : "Etudiant",
+        label : " Étudiant",
         icon : "pi pi-graduation-cap",
         routerLink: "/authentication/register/student"
         
@@ -103,3 +107,17 @@ export const registerItems : Array<Menu> =[
         routerLink: "/authentication/register/professor"
     }
 ]
+
+export const navMenuButtons = {
+    "connection": {
+        name: "Se connecter", 
+        link: "/authentication/login", 
+        visibleForPages: [
+            "landing",
+            "about"
+        ], 
+        visibleForAuths: [
+            "unAuthenticated"
+        ]
+    }
+}

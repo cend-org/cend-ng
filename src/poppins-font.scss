@@ -3,6 +3,7 @@
 @font-face {
     font-family: 'poppins-regular';
     src: url('./assets/fonts/poppins/Poppins-Regular.ttf');
+    font-display: block;
 }
 .poppins-regular{
     font-family: 'poppins-regular';
@@ -12,6 +13,7 @@
 @font-face {
     font-family: 'poppins-bold';
     src: url('./assets/fonts/poppins/Poppins-Bold.ttf');
+    font-display: block;
 }
 .poppins-bold{
     font-family: 'poppins-bold';
@@ -21,6 +23,7 @@
 @font-face {
     font-family: 'poppins-light';
     src: url('./assets/fonts/poppins/Poppins-Light.ttf');
+    font-display: block;
 }
 .poppins-light{
     font-family: 'poppins-light';
@@ -31,6 +34,7 @@
 @font-face {
     font-family: 'poppins-medium';
     src: url('./assets/fonts/poppins/Poppins-Medium.ttf');
+    font-display: block;
 }
 .poppins-medium{
     font-family: 'poppins-medium';

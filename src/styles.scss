@@ -1,28 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./poppins-font.scss";
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
-@import "./poppins-font.scss";
-@import 'ngx-toastr/toastr';
+
 
 $main-bg-color: #3A9B23;
 $main-text-color: #3A9B23;
 
 body{
     margin: 0px !important;
+    font-family: 'poppins-medium';
 }
-body{
-    overflow-y: scroll;
+*:focus {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
 }
-
-// body::-webkit-scrollbar {
-//     display: none;
-//     scrollbar-width: 0;
-// }
-// body{
-//    overflow-x: hidden !important;
-// }
-// // body{
-// //     -ms-overflow-style: none;  /* IE and Edge */
-// //     scrollbar-width: none;  /* Firefox */
-// // }
+.text-main-green{
+    color: #1da750;
+}
+.bg-main-green{
+    background-color: #3A9B23 !important;
+}
+.bg-light-green{
+    background: #c6fabb !important;
+}

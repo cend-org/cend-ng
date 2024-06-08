@@ -1,12 +1,13 @@
 <div class="w-full flex justify-content-center mt-8" *ngIf="!loading">
-    <div class="w-8 md:w-6 lg:w-6 xl:6-6 flex flex-column gap-4">
+    <div class="w-10 md:w-6 lg:w-6 xl:6-6 flex flex-column gap-4">
         <div class="gap-1 w-full flex flex-column-reverse md:flex-row lg:flex-row xl:flex-row justify-content-between " style="word-wrap: break-word !important; overflow-wrap: break-word !important;">
-            <div class="w-full flex justify-content-start align-content-center text-center md:text-left lg:text-left xl:text-left" >
-                <!-- <span  class="poppins-bold  font-bold lg:text-6xl md:text-4xl text-2xl text-gray-500">Connectez-vous <br class="hidden md:block"> pour accéder <br class="hidden md:hidden lg:block "> à votre compte</span> -->
-                <span class="poppins-bold  font-bold lg:text-6xl md:text-4xl text-2xl text-gray-500"> {{ "landing_log_in_to_access_account" | translate }}</span>
+            <div class="py-3 md:py-0 lg:py-0 xl:py-0    w-full flex justify-content-start align-content-center text-center md:text-left lg:text-left xl:text-left" >
+                <span  class="poppins-bold  font-bold lg:text-6xl md:text-4xl text-2xl text-gray-900">{{ "landing_connect" | translate }}<br class="hidden md:block"> {{ "landing_connect_to_get" | translate }} <br class="hidden md:hidden lg:block "> {{ "landing_connect_to_your_account" | translate }}</span>
+                <!-- <span class="poppins-bold  font-bold lg:text-6xl md:text-4xl text-2xl text-gray-500"> {{ "landing_log_in_to_access_account" | translate }}</span> -->
             </div>
             <div class="w-ful flex md:justify-content-end lg:justify-content-end xl:justify-content-end justify-content-center align-items-center">
-                <p-image src="assets/image/cend_logo.png" alt="Image" width="200"></p-image>
+                 <!-- <p-image  src="assets/image/cend_logo.png" alt="Image"></p-image> -->
+                 <div style="background-image: url('assets/image/cend_logo.png');" class="bg-contain bg-no-repeat w-7rem h-7rem  md:w-12rem md:h-12rem lg:w-12rem lg:h-12rem xl:w-12rem xl:h-12rem  font-bold flex align-items-center justify-content-center p-4 border-round mr-3 back"></div>
             </div>
         </div>
         <div class="w-full h-15rem flex flex-column gap-6 md:gap-2 lg:gap-2 xl:gap-2">
@@ -14,13 +15,13 @@
                 <section class="w-full md:w-6 lg:w-6 xl:w-6  h-full border-bottom-1 border-gray-500 flex align-items-center">
                     <a routerLink="/authentication/login/student" class="no-underline w-full h-full flex flex-row justify-content-between align-items-center" href="">
                         <div class="px-4 w-6 font-bold text-color text-3xl text-left" >{{"student" | translate}}</div>
-                        <div class="w-6 text-right"><i class="pi pi-arrow-right"></i></div>
+                        <div class=""><i class="pi pi-arrow-right  w-10 h-10 font-bold text-gray-900 text-right"></i></div>
                       </a>
                 </section>
                 <section  class="w-full md:w-6 lg:w-6 xl:w-6  h-full border-bottom-1 border-gray-500 flex align-items-center">
                     <a routerLink="/authentication/login/parent" class="no-underline w-full h-full flex flex-row justify-content-between align-items-center" href="">
                         <div class="px-4 w-6 font-bold text-color text-3xl text-left" >{{"parent" | translate}}</div>
-                        <div class="w-6 text-right"><i class="pi pi-arrow-right"></i></div>
+                        <div class=""><i class="pi pi-arrow-right w-10 h-10 font-bold text-gray-900 text-right"></i></div>
                       </a>
                 </section>
             </div>
@@ -28,13 +29,13 @@
                 <section class="w-full md:w-6 lg:w-6 xl:w-6  h-full border-bottom-1 border-gray-500 flex align-items-center">
                     <a routerLink="/authentication/login/tutor" class="no-underline w-full h-full flex flex-row justify-content-between align-items-center" href="">
                         <div class="px-4 w-6 font-bold text-color text-3xl text-left" >{{"tutor" | translate}}</div>
-                        <div class="w-6 text-right"><i class="pi pi-arrow-right"></i></div>
+                        <div class=""><i class="pi pi-arrow-right w-10 h-10 font-bold text-gray-900 text-right"></i></div>
                       </a>
                 </section>
                 <section class="w-full md:w-6 lg:w-6 xl:w-6  h-full border-bottom-1 border-gray-500 flex align-items-center">
-                    <a routerLink="/authentication/login/teacher" class="no-underline w-full h-full flex flex-row justify-content-between align-items-center" href="">
-                        <div class="px-4 w-6 font-bold text-color text-3xl text-left" >{{"teacher" | translate}}</div>
-                        <div class="w-6 text-right"><i class="pi pi-arrow-right"></i></div>
+                    <a routerLink="/authentication/login/teacher" class=" no-underline w-full h-full flex flex-row justify-content-between align-items-center" href="">
+                        <div class="px-4 w-6 font-bold text-color text-3xl text-left " >{{"teacher" | translate}}</div>
+                        <div class=""><i class="pi pi-arrow-right w-10 h-10 font-bold text-gray-900 text-right"></i></div>
                       </a>
                 </section>
             </div>

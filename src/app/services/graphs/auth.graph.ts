@@ -2,27 +2,22 @@ import { gql } from "apollo-angular";
 
 export class LOGIN{
     static EMAIL: any = gql`
-        mutation 
-            Login(
-                $email: String!, 
-                $password: String!
-            ) 
-            {
-                logIn(
-                    email: $email, 
-                    password: $password
-                )
-            }
+    mutation ($email: String! , $password:  String!) {
+        Login(email: $email, password: $password) {
+            T
+        }
+    }
+    
     `;
 }
 export class PASSWORD {
     static NEW_PASSWORD: any = gql`
         mutation 
-            newPassword(
-                $password: String!
+            NewPassword(
+                $password: PasswordInput!
             ) 
             {
-                newPassword(
+                NewPassword(
                     password: $password
                 )
             }
@@ -40,39 +35,68 @@ export class PASSWORD {
 export class REGISTRATION{
     static WITH_EMAIL: any = gql`
         mutation 
-            registerWithEmail(
-                $input: String!,
-                $as: Int!
+        NewParent(
+                $email: String!,
             ) 
             {
-                registerWithEmail (
-                    input: $input , 
-                    as: $as
-                )
+                NewParent (
+                    email: $email ,
+                ){
+                    T
+                }
             }
     `;
 
     static WITH_INFO: any = gql`
         mutation 
-            updMyProfile(
+            mutation ($profile: UserInput!) {
+                UpdateMyProfile(profile: $profile) {
+                    Id
+                    CreatedAt
+                    UpdatedAt
+                    DeletedAt
+                    Name
+                    FamilyName
+                    NickName
+                    Email
+                    Matricule
+                    Age
+                    BirthDate
+                    Sex
+                    Lang
+                    Status
+                    ProfileImageXid
+                    Description
+                    CoverText
+                    Profile
+                    ExperienceDetail
+                    AdditionalDescription
+                    AddOnTitle
+                }
+            }
+            
+            
+            
+            
+            `;
+
+    static CHILD_NAME: any = gql`
+        mutation 
+         addStudentToLink(
                 $Name: String!, 
                 $FamilyName: String!,
-                $NickName: String!,
-                $BirthDate: DateTime!,
-                $Sex:Int!,
-                $Lang:Int!,
             ) 
             {
-                updMyProfile(
+                addStudentToLink(
                     input: {
                         Name: $Name, 
                         FamilyName: $FamilyName,
-                        NickName: $NickName,
-                        BirthDate: $BirthDate,
-                        Sex:$Sex,
-                        Lang:$Lang,
                     }
-                )
+                ){
+                    
+                    FamilyName
+                    Email
+                }
             }
     `;
 }

@@ -3,8 +3,8 @@
     "/authentication",
     "/authentication/login",
     "/authentication/login/parent",
-    "/authentication/login/professor",
     "/authentication/login/student",
+    "/authentication/login/teacher",
     "/authentication/login/tutor",
     "/authentication/parent",
     "/authentication/professor",
@@ -14,17 +14,13 @@
     "/authentication/register/student",
     "/authentication/register/tutor",
     "/authentication/student",
+    "/authentication/teacher",
     "/authentication/tutor",
     "/pages",
     "/pages/about",
-    "/pages/about-us",
-    "/pages/about/about-us",
-    "/pages/about/how-it-works",
-    "/pages/about/our-mission",
-    "/pages/about/strong-points",
-    "/pages/how-it-works",
-    "/pages/landing",
-    "/pages/our-mission",
-    "/pages/strong-points"
+    "/pages/dashboard",
+    "/pages/dashboard/home",
+    "/pages/home",
+    "/pages/landing"
   ]
 }
